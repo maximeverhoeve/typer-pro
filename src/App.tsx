@@ -1,11 +1,24 @@
-import React from "react";
-import "./App.css";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import React from 'react';
+import './App.css';
+import Home from './pages/Home';
 
 const App: React.FC = () => {
+  const customTheme = extendTheme({
+    semanticTokens: {
+      colors: {
+        error: 'red.500',
+        text: {
+          default: 'gray.900',
+          _dark: 'gray.50',
+        },
+      },
+    },
+  });
   return (
-    <div className="App">
-      <p>Dit wordt de typing app</p>
-    </div>
+    <ChakraProvider theme={customTheme}>
+      <Home />
+    </ChakraProvider>
   );
 };
 
