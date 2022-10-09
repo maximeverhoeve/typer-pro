@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { RepeatIcon } from '@chakra-ui/icons';
 import React, { ChangeEvent, useState } from 'react';
+import ShowedText from '../components/ShowedText';
 const text =
   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minima enim repellat delectus perspiciatis, dolores odit quo architecto consequuntur voluptate, recusandae ipsa? Voluptates delectus minima animi voluptate. Cumque, aliquid neque.';
 
@@ -30,10 +31,12 @@ const Home: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.currentTarget.value;
-    const newVal = value.replaceAll(' ', '');
-    // If value includes a space, send word to array
-    if (value.includes(' ') && newVal === wordArray[wordToType]) {
-      setTypedWords((prev) => [...prev, newVal]);
+    const valueWithoutSpaces = value.replaceAll(' ', '');
+    const isWordValid = valueWithoutSpaces === wordArray[wordToType];
+    const hasInputASpace = value.includes(' ');
+
+    if (isWordValid && hasInputASpace) {
+      setTypedWords((prev) => [...prev, valueWithoutSpaces]);
       setWordToType((prev) => (prev += 1));
       setInputValue('');
     } else {
@@ -59,12 +62,14 @@ const Home: React.FC = () => {
           maxW="90%"
           align="stretch"
         >
+          {/* <ShowedText  /> */}
           <Text
             fontSize="xl"
             dangerouslySetInnerHTML={{ __html: convertedText() }}
             sx={{
               span: {
-                color: 'blue',
+                color: 'green',
+                fontWeight: 500,
               },
             }}
           />
@@ -76,7 +81,7 @@ const Home: React.FC = () => {
               colorScheme="yellow"
               minW="32"
             >
-              Redo
+              Restart
             </Button>
           </HStack>
         </VStack>

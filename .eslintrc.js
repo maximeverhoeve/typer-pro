@@ -66,6 +66,7 @@ module.exports = {
     'no-empty-function': 'warn',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-floating-promises': 'warn',
+    "@typescript-eslint/member-delimiter-style": "off",
     '@typescript-eslint/no-empty-interface': [
       'warn',
       {
