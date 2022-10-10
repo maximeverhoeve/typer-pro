@@ -6,6 +6,7 @@ interface ReturnProps {
   inputValue: string;
   textToType: string;
   isFinished: boolean;
+  onReset: () => void;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -29,12 +30,20 @@ const useTyper = (text: string): ReturnProps => {
       setInputValue(value);
     }
   };
+
+  const onReset = (): void => {
+    setInputValue('');
+    setValidWords([]);
+    setWordToTypeIndex(0);
+  };
+
   return {
     validText: validWords.join(' '),
     wordToType: textArray[wordToTypeIndex],
     inputValue,
     textToType: textArray.slice(wordToTypeIndex + 1).join(' '),
     isFinished: textArray.length < wordToTypeIndex + 1,
+    onReset,
     handleChange,
   };
 };

@@ -23,6 +23,7 @@ const Home: React.FC = () => {
     inputValue,
     handleChange,
     isFinished,
+    onReset,
   } = useTyper(text);
 
   return (
@@ -48,6 +49,7 @@ const Home: React.FC = () => {
                 variant="solid"
                 colorScheme="yellow"
                 minW="32"
+                onClick={onReset}
               >
                 Restart
               </Button>
@@ -66,6 +68,7 @@ const Home: React.FC = () => {
                   variant="solid"
                   colorScheme="yellow"
                   minW="32"
+                  onClick={onReset}
                 >
                   Restart
                 </Button>
@@ -75,8 +78,8 @@ const Home: React.FC = () => {
         </VStack>
       </Center>
       <Box p="4">
-        <Text color="white" fontSize="2xl">
-          v0.0.1
+        <Text align="right" color="white" fontSize="2xl">
+          v0.1.0
         </Text>
       </Box>
     </Flex>
