@@ -71,7 +71,12 @@ const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
             text={textToType}
           />
           <HStack>
-            <Input bg="white" onChange={handleChange} value={inputValue} />
+            <Input
+              autoFocus={true}
+              bg="white"
+              onChange={handleChange}
+              value={inputValue}
+            />
             <Button
               leftIcon={<RepeatIcon />}
               variant="solid"
