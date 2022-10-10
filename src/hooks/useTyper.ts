@@ -37,7 +37,7 @@ const useTyper = (text: string): ReturnProps => {
 
     if (isWordValid && hasInputASpace) {
       if (textArray.length < wordToTypeIndex + 2) {
-        // finsihed = stop timer
+        // finsihed => stop timer
         setTimer((prev) => ({ ...prev, end: Date.now() }));
       }
       setValidWords((prev) => [...prev, valueWithoutSpaces]);
