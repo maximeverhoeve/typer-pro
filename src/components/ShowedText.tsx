@@ -10,19 +10,11 @@ interface Props {
 const ShowedText: React.FC<Props> = ({ validText, currentWord, text }) => {
   return (
     <div>
-      <Text
-        fontSize="xl"
-        sx={{
-          span: {
-            color: 'green',
-            fontWeight: 500,
-          },
-        }}
-      >
+      <Text fontSize="xl">
         <Text as="span" color="green">
           {validText}{' '}
         </Text>
-        <Text as="span" color="yellow">
+        <Text as="span" fontWeight="bold" color="yellow.800">
           {currentWord}{' '}
         </Text>
         <Text as="span">{text}</Text>

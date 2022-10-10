@@ -18,26 +18,18 @@ const text =
 const Home: React.FC = () => {
   const wordArray = text.split(' ');
   const [typedWords, setTypedWords] = useState<string[]>([]);
-  const [wordToType, setWordToType] = useState<number>(0);
+  const [wordToTypeIndex, setWordToTypeIndex] = useState<number>(0);
   const [inputValue, setInputValue] = useState<string>('');
-
-  const convertedText = (): string => {
-    const tmpWordArray = [...wordArray];
-    const index = typedWords.length;
-    tmpWordArray[index] = tmpWordArray[index] + '</span>';
-
-    return '<span>' + tmpWordArray.join(' ');
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.currentTarget.value;
     const valueWithoutSpaces = value.replaceAll(' ', '');
-    const isWordValid = valueWithoutSpaces === wordArray[wordToType];
+    const isWordValid = valueWithoutSpaces === wordArray[wordToTypeIndex];
     const hasInputASpace = value.includes(' ');
 
     if (isWordValid && hasInputASpace) {
       setTypedWords((prev) => [...prev, valueWithoutSpaces]);
-      setWordToType((prev) => (prev += 1));
+      setWordToTypeIndex((prev) => (prev += 1));
       setInputValue('');
     } else {
       setInputValue(value);
@@ -48,9 +40,6 @@ const Home: React.FC = () => {
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
       <Box p="4">
         <Heading color="white">DevMax TyperPro</Heading>
-        <Text color="white" fontSize="2xl">
-          v0.0.1
-        </Text>
       </Box>
       <Center flexGrow={1}>
         <VStack
@@ -62,16 +51,10 @@ const Home: React.FC = () => {
           maxW="90%"
           align="stretch"
         >
-          {/* <ShowedText  /> */}
-          <Text
-            fontSize="xl"
-            dangerouslySetInnerHTML={{ __html: convertedText() }}
-            sx={{
-              span: {
-                color: 'green',
-                fontWeight: 500,
-              },
-            }}
+          <ShowedText
+            validText={typedWords.join(' ')}
+            currentWord={wordArray[wordToTypeIndex]}
+            text={wordArray.slice(wordToTypeIndex + 1).join(' ')}
           />
           <HStack>
             <Input bg="white" onChange={handleChange} value={inputValue} />
@@ -86,6 +69,11 @@ const Home: React.FC = () => {
           </HStack>
         </VStack>
       </Center>
+      <Box p="4">
+        <Text color="white" fontSize="2xl">
+          v0.0.1
+        </Text>
+      </Box>
     </Flex>
   );
 };
