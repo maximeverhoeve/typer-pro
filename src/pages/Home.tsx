@@ -10,31 +10,15 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { RepeatIcon } from '@chakra-ui/icons';
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import ShowedText from '../components/ShowedText';
+import useTyper from '../hooks/useTyper';
 const text =
   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minima enim repellat delectus perspiciatis, dolores odit quo architecto consequuntur voluptate, recusandae ipsa? Voluptates delectus minima animi voluptate. Cumque, aliquid neque.';
 
 const Home: React.FC = () => {
-  const wordArray = text.split(' ');
-  const [typedWords, setTypedWords] = useState<string[]>([]);
-  const [wordToTypeIndex, setWordToTypeIndex] = useState<number>(0);
-  const [inputValue, setInputValue] = useState<string>('');
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const value = e.currentTarget.value;
-    const valueWithoutSpaces = value.replaceAll(' ', '');
-    const isWordValid = valueWithoutSpaces === wordArray[wordToTypeIndex];
-    const hasInputASpace = value.includes(' ');
-
-    if (isWordValid && hasInputASpace) {
-      setTypedWords((prev) => [...prev, valueWithoutSpaces]);
-      setWordToTypeIndex((prev) => (prev += 1));
-      setInputValue('');
-    } else {
-      setInputValue(value);
-    }
-  };
+  const { textToType, validText, wordToType, inputValue, handleChange } =
+    useTyper(text);
 
   return (
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
@@ -52,9 +36,9 @@ const Home: React.FC = () => {
           align="stretch"
         >
           <ShowedText
-            validText={typedWords.join(' ')}
-            currentWord={wordArray[wordToTypeIndex]}
-            text={wordArray.slice(wordToTypeIndex + 1).join(' ')}
+            validText={validText}
+            currentWord={wordToType}
+            text={textToType}
           />
           <HStack>
             <Input bg="white" onChange={handleChange} value={inputValue} />
