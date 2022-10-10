@@ -11,6 +11,11 @@ interface Props {
   onRestart?: () => void;
 }
 
+export interface Stats {
+  cpm: number;
+  wpm: number;
+}
+
 const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
   // for now, only pick the first joke
   const text = jokes[0]?.joke || '';
@@ -31,15 +36,19 @@ const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
     onReset();
   };
 
-  const getWPM = (): number => {
+  const getStats = (): Stats => {
     const { start, end } = timer;
 
     const totalTime = end - start;
     const oneMinInMs = 60000;
-    const textLength = text.split(' ').length;
+    const textWordLength = text.split(' ').length;
 
-    const wpm = textLength * (oneMinInMs / totalTime);
-    return Math.round(wpm);
+    const cpm = text.length * (oneMinInMs / totalTime);
+    const wpm = textWordLength * (oneMinInMs / totalTime);
+    return {
+      wpm: Math.round(wpm),
+      cpm: Math.round(cpm),
+    };
   };
 
   return (
@@ -53,7 +62,7 @@ const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
       align="stretch"
     >
       {isFinished ? (
-        <StatsView wpm={getWPM()} onRestart={handleRestartClick} />
+        <StatsView stats={getStats()} onRestart={handleRestartClick} />
       ) : (
         <>
           <ShowedText

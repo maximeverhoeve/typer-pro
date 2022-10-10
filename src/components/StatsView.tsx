@@ -1,28 +1,44 @@
 import { RepeatIcon } from '@chakra-ui/icons';
-import { Button, Text, VStack } from '@chakra-ui/react';
+import { Button, ScaleFade, SlideFade, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
+import { Stats } from './TypingContainer';
 
 interface Props {
-  wpm?: number;
+  stats: Stats;
   onRestart: () => void;
 }
 
-const StatsView: React.FC<Props> = ({ wpm = 0, onRestart }) => {
+const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
+  const { wpm, cpm } = stats;
   return (
     <VStack>
-      <Text fontWeight="bold" fontSize="8xl" color="gray.600" align="center">
-        {wpm} WPM
-      </Text>
-      <Button
-        leftIcon={<RepeatIcon />}
-        variant="solid"
-        colorScheme="yellow"
-        minW="32"
-        onClick={onRestart}
-        mx="auto"
-      >
-        Restart
-      </Button>
+      <ScaleFade in={!!wpm}>
+        <Text fontWeight="bold" fontSize="8xl" color="gray.600" align="center">
+          {wpm}{' '}
+          <Text as="span" opacity="0.6">
+            WPM
+          </Text>
+        </Text>
+        <Text fontWeight="bold" fontSize="4xl" color="gray.600" align="center">
+          ({cpm}{' '}
+          <Text as="span" opacity="0.6">
+            CPM
+          </Text>
+          )
+        </Text>
+      </ScaleFade>
+      <SlideFade in={!!wpm}>
+        <Button
+          leftIcon={<RepeatIcon />}
+          variant="solid"
+          colorScheme="yellow"
+          minW="32"
+          onClick={onRestart}
+          mx="auto"
+        >
+          Restart
+        </Button>
+      </SlideFade>
     </VStack>
   );
 };

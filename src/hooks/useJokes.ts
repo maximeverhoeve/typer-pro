@@ -14,6 +14,13 @@ interface ReturnProps {
 const useJokes = (): ReturnProps => {
   const [jokes, setJokes] = useState<Joke[]>([]);
   const [isLoading, setIsLoading] = useBoolean();
+
+  const formatJoke = (j: Joke): string => {
+    const withoutWeirdChars = j.joke.replace(/\s+/g, ' ').trim();
+
+    return withoutWeirdChars.replaceAll('"', '');
+  };
+
   const getData = async (): Promise<void> => {
     setIsLoading.on();
     const data = await fetch(
@@ -24,7 +31,7 @@ const useJokes = (): ReturnProps => {
       const res: { jokes: Joke[] } = await data.json();
       const _jokes = res.jokes.map((j) => ({
         ...j,
-        joke: j.joke.replace(/\s+/g, ' ').trim(),
+        joke: formatJoke(j),
       }));
       setJokes(_jokes);
     } else {
