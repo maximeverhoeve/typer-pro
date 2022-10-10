@@ -4,6 +4,7 @@ import { Joke } from '../hooks/useJokes';
 import useTyper from '../hooks/useTyper';
 import { RepeatIcon } from '@chakra-ui/icons';
 import ShowedText from './ShowedText';
+import StatsView from './StatsView';
 
 interface Props {
   jokes: Joke[];
@@ -52,18 +53,7 @@ const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
       align="stretch"
     >
       {isFinished ? (
-        <>
-          <p>WPM: {getWPM()}</p>
-          <Button
-            leftIcon={<RepeatIcon />}
-            variant="solid"
-            colorScheme="yellow"
-            minW="32"
-            onClick={handleRestartClick}
-          >
-            Restart
-          </Button>
-        </>
+        <StatsView wpm={getWPM()} onRestart={handleRestartClick} />
       ) : (
         <>
           <ShowedText
