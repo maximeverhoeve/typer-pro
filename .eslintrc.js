@@ -64,6 +64,7 @@ module.exports = {
     'no-alert': 'warn',
     'arrow-spacing': 'warn',
     'no-empty-function': 'warn',
+    'multiline-ternary': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-floating-promises': 'warn',
     "@typescript-eslint/member-delimiter-style": "off",

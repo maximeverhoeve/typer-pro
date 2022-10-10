@@ -13,12 +13,17 @@ import { RepeatIcon } from '@chakra-ui/icons';
 import React from 'react';
 import ShowedText from '../components/ShowedText';
 import useTyper from '../hooks/useTyper';
-const text =
-  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minima enim repellat delectus perspiciatis, dolores odit quo architecto consequuntur voluptate, recusandae ipsa? Voluptates delectus minima animi voluptate. Cumque, aliquid neque.';
+const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
 
 const Home: React.FC = () => {
-  const { textToType, validText, wordToType, inputValue, handleChange } =
-    useTyper(text);
+  const {
+    textToType,
+    validText,
+    wordToType,
+    inputValue,
+    handleChange,
+    isFinished,
+  } = useTyper(text);
 
   return (
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
@@ -35,22 +40,38 @@ const Home: React.FC = () => {
           maxW="90%"
           align="stretch"
         >
-          <ShowedText
-            validText={validText}
-            currentWord={wordToType}
-            text={textToType}
-          />
-          <HStack>
-            <Input bg="white" onChange={handleChange} value={inputValue} />
-            <Button
-              leftIcon={<RepeatIcon />}
-              variant="solid"
-              colorScheme="yellow"
-              minW="32"
-            >
-              Restart
-            </Button>
-          </HStack>
+          {isFinished ? (
+            <>
+              <p>Is finished</p>
+              <Button
+                leftIcon={<RepeatIcon />}
+                variant="solid"
+                colorScheme="yellow"
+                minW="32"
+              >
+                Restart
+              </Button>
+            </>
+          ) : (
+            <>
+              <ShowedText
+                validText={validText}
+                currentWord={wordToType}
+                text={textToType}
+              />
+              <HStack>
+                <Input bg="white" onChange={handleChange} value={inputValue} />
+                <Button
+                  leftIcon={<RepeatIcon />}
+                  variant="solid"
+                  colorScheme="yellow"
+                  minW="32"
+                >
+                  Restart
+                </Button>
+              </HStack>
+            </>
+          )}
         </VStack>
       </Center>
       <Box p="4">
