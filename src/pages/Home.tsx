@@ -13,7 +13,7 @@ import { RepeatIcon } from '@chakra-ui/icons';
 import React from 'react';
 import ShowedText from '../components/ShowedText';
 import useTyper from '../hooks/useTyper';
-const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
+const text = 'Lorem ipsum dolor sit amet consectetur test elit.';
 
 const Home: React.FC = () => {
   const {
@@ -23,8 +23,20 @@ const Home: React.FC = () => {
     inputValue,
     handleChange,
     isFinished,
+    timer,
     onReset,
   } = useTyper(text);
+
+  const getWPM = (): number => {
+    const { start, end } = timer;
+
+    const totalTime = end - start;
+    const oneMinInMs = 60000;
+    const textLength = text.split(' ').length;
+
+    const wpm = textLength * (oneMinInMs / totalTime);
+    return Math.round(wpm);
+  };
 
   return (
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
@@ -43,7 +55,7 @@ const Home: React.FC = () => {
         >
           {isFinished ? (
             <>
-              <p>Is finished</p>
+              <p>WPM: {getWPM()}</p>
               <Button
                 leftIcon={<RepeatIcon />}
                 variant="solid"
