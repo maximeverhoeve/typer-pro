@@ -26,6 +26,7 @@ const useTyper = (text: string): ReturnProps => {
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const isFinished = textArray.length < wordToTypeIndex + 1;
+  const isLastWord = textArray.length < wordToTypeIndex + 2;
   const wordToType = textArray[wordToTypeIndex];
   const isInputValid =
     wordToType?.substring(0, inputValue.length) === inputValue;
@@ -35,16 +36,16 @@ const useTyper = (text: string): ReturnProps => {
       setTimer((prev) => ({ ...prev, start: Date.now() }));
     }
     const value = e.currentTarget.value;
-    const valueWithoutSpaces = value.replaceAll(' ', '');
-    const isWordValid = valueWithoutSpaces === textArray[wordToTypeIndex];
-    const hasInputASpace = value.includes(' ');
+    const endsWithSpace = value.slice(-1) === ' ';
+    const valueWithoutLastSpace = endsWithSpace ? value.slice(0, -1) : value;
+    const isWordValid = valueWithoutLastSpace === textArray[wordToTypeIndex];
+    const stop = isWordValid && isLastWord;
 
-    if (isWordValid && hasInputASpace) {
-      if (textArray.length < wordToTypeIndex + 2) {
-        // finsihed => stop timer
+    if (stop || (isWordValid && endsWithSpace)) {
+      if (stop) {
         setTimer((prev) => ({ ...prev, end: Date.now() }));
       }
-      setValidWords((prev) => [...prev, valueWithoutSpaces]);
+      setValidWords((prev) => [...prev, value.replaceAll(' ', '')]);
       setWordToTypeIndex((prev) => (prev += 1));
       setInputValue('');
     } else {
