@@ -72,6 +72,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
           <HStack>
             <Input
               autoFocus={true}
+              autoCapitalize="off"
               bg="white"
               onChange={handleChange}
               value={inputValue}
