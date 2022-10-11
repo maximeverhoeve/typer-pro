@@ -1,13 +1,10 @@
 import { RepeatIcon } from '@chakra-ui/icons';
 import {
-  Box,
   Button,
-  Divider,
   Heading,
   HStack,
   ScaleFade,
   SlideFade,
-  StackDivider,
   Text,
   VStack,
 } from '@chakra-ui/react';
