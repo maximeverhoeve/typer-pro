@@ -18,13 +18,30 @@ interface Props {
 
 const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
   const { wpm, cpm } = stats;
+
+  const renderText = (): string => {
+    if (wpm > 100) {
+      return 'Like Sonic... But faster!';
+    }
+    if (wpm > 80) {
+      return 'Oeh, pretty fast!';
+    }
+    if (wpm > 70) {
+      return 'Nicee!';
+    }
+    if (wpm > 70) {
+      return 'Ok ok.. You can do better!';
+    }
+    return 'Great Job!';
+  };
+
   return (
-    <VStack spacing="20">
+    <VStack spacing="10" align="center">
       <ScaleFade in={!!wpm}>
-        <Heading mb="3" textAlign="center" color="gray.100">
-          Great Job!
+        <Heading mb="4" textAlign="center" color="gray.100">
+          {renderText()}
         </Heading>
-        <HStack spacing="10">
+        <HStack justify="center" spacing="10">
           <HStack>
             <Text
               fontWeight="bold"
