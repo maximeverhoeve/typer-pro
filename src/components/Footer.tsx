@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
       </Text>
       <Spacer />
       <Text align="right" color="white" fontSize="xl">
-        v0.2.0
+        v0.3.0
       </Text>
     </HStack>
   );
