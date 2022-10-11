@@ -14,6 +14,10 @@ const App: React.FC = () => {
         },
       },
     },
+    fonts: {
+      heading: 'Roboto Mono',
+      body: 'Roboto Mono',
+    },
   });
   return (
     <ChakraProvider theme={customTheme}>

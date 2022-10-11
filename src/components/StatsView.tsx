@@ -1,5 +1,16 @@
 import { RepeatIcon } from '@chakra-ui/icons';
-import { Button, ScaleFade, SlideFade, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  HStack,
+  ScaleFade,
+  SlideFade,
+  StackDivider,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 import { Stats } from './TypingContainer';
 
@@ -11,21 +22,41 @@ interface Props {
 const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
   const { wpm, cpm } = stats;
   return (
-    <VStack>
+    <VStack spacing="20">
       <ScaleFade in={!!wpm}>
-        <Text fontWeight="bold" fontSize="8xl" color="gray.600" align="center">
-          {wpm}{' '}
-          <Text as="span" opacity="0.6">
-            WPM
-          </Text>
-        </Text>
-        <Text fontWeight="bold" fontSize="4xl" color="gray.600" align="center">
-          ({cpm}{' '}
-          <Text as="span" opacity="0.6">
-            CPM
-          </Text>
-          )
-        </Text>
+        <Heading mb="3" textAlign="center" color="gray.100">
+          Great Job!
+        </Heading>
+        <HStack spacing="10">
+          <HStack>
+            <Text
+              fontWeight="bold"
+              lineHeight="100%"
+              fontSize="3xl"
+              color="yellow.400"
+              align="center"
+            >
+              {wpm}
+            </Text>
+            <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
+              WPM
+            </Text>
+          </HStack>
+          <HStack>
+            <Text
+              fontWeight="bold"
+              lineHeight="100%"
+              fontSize="3xl"
+              color="yellow.400"
+              align="center"
+            >
+              {cpm}
+            </Text>
+            <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
+              CPM
+            </Text>
+          </HStack>
+        </HStack>
       </ScaleFade>
       <SlideFade in={!!wpm}>
         <Button
