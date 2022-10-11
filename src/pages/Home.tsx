@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       </Center>
       <Box p="4">
         <Text align="right" color="white" fontSize="2xl">
-          v0.1.0
+          v0.1.2
         </Text>
       </Box>
     </Flex>
