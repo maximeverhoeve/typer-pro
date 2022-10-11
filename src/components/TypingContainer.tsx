@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, HStack, Input, VStack } from '@chakra-ui/react';
-import { Joke } from '../hooks/useJokes';
+import { Joke } from '../hooks/useJoke';
 import useTyper from '../hooks/useTyper';
 import { RepeatIcon } from '@chakra-ui/icons';
 import ShowedText from './ShowedText';
 import StatsView from './StatsView';
 
 interface Props {
-  jokes: Joke[];
+  joke?: Joke;
   onRestart?: () => void;
 }
 
@@ -16,9 +16,8 @@ export interface Stats {
   wpm: number;
 }
 
-const TypingContainer: React.FC<Props> = ({ jokes, onRestart }) => {
-  // for now, only pick the first joke
-  const text = jokes[0]?.joke || '';
+const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
+  const text = joke?.joke || '';
 
   const {
     textToType,

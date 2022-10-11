@@ -2,38 +2,39 @@ import { useBoolean } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 export interface Joke {
+  id: string;
+  error: boolean;
+  category: string;
+  safe: boolean;
+  lang: string;
   joke: string;
 }
 
 interface ReturnProps {
-  jokes: Joke[];
+  joke?: Joke;
   isLoading: boolean;
   onRestart: () => void;
 }
 
-const useJokes = (): ReturnProps => {
-  const [jokes, setJokes] = useState<Joke[]>([]);
+const useJoke = (): ReturnProps => {
+  const [joke, setJoke] = useState<Joke>();
   const [isLoading, setIsLoading] = useBoolean();
 
-  const formatJoke = (j: Joke): string => {
+  const formatJoke = (j: Joke): Joke => {
     const withoutWeirdChars = j.joke.replace(/\s+/g, ' ').trim();
 
-    return withoutWeirdChars.replaceAll('"', '');
+    return { ...j, joke: withoutWeirdChars.replaceAll('"', '') };
   };
 
   const getData = async (): Promise<void> => {
     setIsLoading.on();
     const data = await fetch(
-      'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist&type=single&amount=2',
+      'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist&type=single&amount=1',
     );
     if (data.ok) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const res: { jokes: Joke[] } = await data.json();
-      const _jokes = res.jokes.map((j) => ({
-        ...j,
-        joke: formatJoke(j),
-      }));
-      setJokes(_jokes);
+      const res: Joke = await data.json();
+      setJoke(formatJoke(res));
     } else {
       console.error('Error fetching jokes api', data);
     }
@@ -51,10 +52,10 @@ const useJokes = (): ReturnProps => {
   };
 
   return {
-    jokes,
+    joke,
     isLoading,
     onRestart,
   };
 };
 
-export default useJokes;
+export default useJoke;

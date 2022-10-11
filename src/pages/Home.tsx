@@ -1,10 +1,10 @@
 import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import React from 'react';
-import useJokes from '../hooks/useJokes';
+import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 
 const Home: React.FC = () => {
-  const { jokes, isLoading, onRestart } = useJokes();
+  const { joke, isLoading, onRestart } = useJoke();
 
   return (
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
             <Spinner size="xl" color="yellow" />
           </Box>
         )}
-        {!isLoading && <TypingContainer jokes={jokes} onRestart={onRestart} />}
+        {!isLoading && <TypingContainer joke={joke} onRestart={onRestart} />}
       </Center>
       <Box p="4">
         <Text align="right" color="white" fontSize="2xl">
