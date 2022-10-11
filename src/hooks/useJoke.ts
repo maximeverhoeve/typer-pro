@@ -22,8 +22,9 @@ const useJoke = (): ReturnProps => {
 
   const formatJoke = (j: Joke): Joke => {
     const withoutWeirdChars = j.joke.replace(/\s+/g, ' ').trim();
+    const removedWeirdLine = withoutWeirdChars.replace('–', '-');
 
-    return { ...j, joke: withoutWeirdChars.replaceAll('"', '') };
+    return { ...j, joke: removedWeirdLine.replaceAll('"', '') };
   };
 
   const getData = async (): Promise<void> => {
