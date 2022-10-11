@@ -7,10 +7,16 @@ const Home: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
 
   return (
-    <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
+    <Flex direction="column" bg="gray.800" h="100vh" overflow="hidden">
       <Box p="4">
-        <Heading textAlign="left" color="white">
-          DevMax TyperPro
+        <Heading
+          as="h1"
+          size="xl"
+          textAlign={{ base: 'center', md: 'left' }}
+          color="white"
+        >
+          <Text as="span">DevMax </Text>
+          TyperPro
         </Heading>
       </Box>
       <Center flexGrow={1}>

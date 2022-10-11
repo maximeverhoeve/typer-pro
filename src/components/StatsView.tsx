@@ -28,7 +28,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
       return 'Oeh, pretty fast!';
     }
     if (wpm > 70) {
-      return 'Nicee!';
+      return 'Nice!';
     }
     if (wpm < 70) {
       return 'Ok ok.. You can do better!';
