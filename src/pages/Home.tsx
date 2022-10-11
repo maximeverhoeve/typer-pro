@@ -1,17 +1,9 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  HStack,
-  Spacer,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
-import { IoMdReturnLeft } from 'react-icons/io';
+
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
@@ -35,12 +27,14 @@ const Home: React.FC = () => {
       <Box p="4">
         <Heading
           as="h1"
-          size="xl"
+          size="lg"
           textAlign={{ base: 'center', md: 'left' }}
           color="white"
         >
-          <Text as="span">DevMax </Text>
-          TyperPro
+          <Text as="span" color="yellow.400">
+            DevMax{' '}
+          </Text>
+          - TyperPro
         </Heading>
       </Box>
       <Center flexGrow={1}>
@@ -51,29 +45,7 @@ const Home: React.FC = () => {
         )}
         {!isLoading && <TypingContainer joke={joke} onRestart={onRestart} />}
       </Center>
-      <HStack p="4">
-        <HStack
-          py="2"
-          px="4"
-          color="gray.700"
-          justify="center"
-          bg="white"
-          borderRadius="md"
-          opacity="0.5"
-        >
-          <IoMdReturnLeft size="13px" />{' '}
-          <Text fontWeight="bold" fontSize="12px">
-            Enter
-          </Text>
-        </HStack>
-        <Text color="white" opacity="0.5">
-          = Restart
-        </Text>
-        <Spacer />
-        <Text align="right" color="white" fontSize="2xl">
-          v0.2.0
-        </Text>
-      </HStack>
+      <Footer />
     </Flex>
   );
 };
