@@ -27,7 +27,8 @@ const useTyper = (text: string): ReturnProps => {
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const isFinished = textArray.length < wordToTypeIndex + 1;
   const wordToType = textArray[wordToTypeIndex];
-  const hasError = !wordToType?.includes(inputValue);
+  const isInputValid =
+    wordToType?.substring(0, inputValue.length) === inputValue;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!timer.start) {
@@ -64,7 +65,7 @@ const useTyper = (text: string): ReturnProps => {
     inputValue,
     textToType: textArray.slice(wordToTypeIndex + 1).join(' '),
     isFinished,
-    hasError,
+    hasError: !isInputValid,
     timer,
     onReset,
     handleChange,
