@@ -11,6 +11,7 @@ interface ReturnProps {
   inputValue: string;
   textToType: string;
   isFinished: boolean;
+  hasError: boolean;
   timer: Timer;
   onReset: () => void;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +26,8 @@ const useTyper = (text: string): ReturnProps => {
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const isFinished = textArray.length < wordToTypeIndex + 1;
+  const wordToType = textArray[wordToTypeIndex];
+  const hasError = !wordToType?.includes(inputValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!timer.start) {
@@ -57,10 +60,11 @@ const useTyper = (text: string): ReturnProps => {
 
   return {
     validText: validWords.join(' '),
-    wordToType: textArray[wordToTypeIndex],
+    wordToType,
     inputValue,
     textToType: textArray.slice(wordToTypeIndex + 1).join(' '),
     isFinished,
+    hasError,
     timer,
     onReset,
     handleChange,

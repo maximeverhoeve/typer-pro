@@ -27,6 +27,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
     handleChange,
     isFinished,
     timer,
+    hasError,
     onReset,
   } = useTyper(text);
 
@@ -73,9 +74,11 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
             <Input
               autoFocus={true}
               autoCapitalize="off"
-              bg="white"
+              bg={hasError ? 'red.300' : 'white'}
               onChange={handleChange}
+              fontWeight="bold"
               value={inputValue}
+              _focus={{ boxShadow: 'unset', borderColor: 'black' }}
             />
             <Button
               leftIcon={<RepeatIcon />}
