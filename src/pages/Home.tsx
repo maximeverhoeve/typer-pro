@@ -9,7 +9,9 @@ const Home: React.FC = () => {
   return (
     <Flex direction="column" bg="gray.700" h="100vh" overflow="hidden">
       <Box p="4">
-        <Heading color="white">DevMax TyperPro</Heading>
+        <Heading textAlign="left" color="white">
+          DevMax TyperPro
+        </Heading>
       </Box>
       <Center flexGrow={1}>
         {isLoading && (
