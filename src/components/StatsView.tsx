@@ -1,4 +1,3 @@
-import { RepeatIcon } from '@chakra-ui/icons';
 import {
   Button,
   Heading,
@@ -11,6 +10,7 @@ import {
 import React from 'react';
 import { Stats } from './TypingContainer';
 import CountUp from 'react-countup';
+import { VscDebugRestart } from 'react-icons/vsc';
 
 interface Props {
   stats: Stats;
@@ -75,7 +75,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
       </ScaleFade>
       <SlideFade in={!!wpm}>
         <Button
-          leftIcon={<RepeatIcon />}
+          leftIcon={<VscDebugRestart size="20px" />}
           variant="solid"
           colorScheme="yellow"
           minW="32"

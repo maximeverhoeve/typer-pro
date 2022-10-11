@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, HStack, Input, VStack } from '@chakra-ui/react';
 import { Joke } from '../hooks/useJoke';
 import useTyper from '../hooks/useTyper';
-import { RepeatIcon } from '@chakra-ui/icons';
 import ShowedText from './ShowedText';
 import StatsView from './StatsView';
+import { VscDebugRestart } from 'react-icons/vsc';
 
 interface Props {
   joke?: Joke;
@@ -73,7 +73,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
               _focus={{ boxShadow: 'unset', borderColor: 'black' }}
             />
             <Button
-              leftIcon={<RepeatIcon />}
+              leftIcon={<VscDebugRestart size="20px" />}
               variant="solid"
               colorScheme="yellow"
               minW="32"
