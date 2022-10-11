@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { Stats } from './TypingContainer';
+import CountUp from 'react-countup';
 
 interface Props {
   stats: Stats;
@@ -50,7 +51,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
               color="yellow.400"
               align="center"
             >
-              {wpm}
+              <CountUp end={wpm} duration={0.6} />
             </Text>
             <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
               WPM
@@ -64,7 +65,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
               color="yellow.400"
               align="center"
             >
-              {cpm}
+              <CountUp end={cpm} duration={0.6} />
             </Text>
             <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
               CPM
