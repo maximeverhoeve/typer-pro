@@ -22,7 +22,10 @@ const useJoke = (): ReturnProps => {
 
   const formatJoke = (j: Joke): Joke => {
     const withoutWeirdChars = j.joke.replace(/\s+/g, ' ').trim();
-    const removedWeirdLine = withoutWeirdChars.replace('–', '-');
+    const removedWeirdLine = withoutWeirdChars
+      .replaceAll('–', '-')
+      // eslint-disable-next-line @typescript-eslint/quotes
+      .replaceAll(`’`, `'`);
 
     return { ...j, joke: removedWeirdLine.replaceAll('"', '') };
   };
