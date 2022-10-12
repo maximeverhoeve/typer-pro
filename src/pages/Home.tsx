@@ -1,9 +1,10 @@
-import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Spinner } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const Home: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
@@ -24,19 +25,7 @@ const Home: React.FC = () => {
 
   return (
     <Flex direction="column" bg="gray.800" h="100vh" overflow="hidden">
-      <Box p="4">
-        <Heading
-          as="h1"
-          size="lg"
-          textAlign={{ base: 'center', md: 'left' }}
-          color="white"
-        >
-          <Text as="span" color="yellow.400">
-            DevMax{' '}
-          </Text>
-          - TyperPro
-        </Heading>
-      </Box>
+      <Header />
       <Center flexGrow={1}>
         {isLoading && (
           <Box display="inline">
