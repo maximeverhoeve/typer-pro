@@ -1,7 +1,17 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import React from 'react';
+import React, { createContext } from 'react';
 import './App.css';
 import Home from './pages/Home';
+import { io, Socket } from 'socket.io-client';
+import {
+  ClientToServerEvents,
+  ServerToClientEvents,
+} from './types/socketTypes';
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+  'http://localhost:3001',
+);
+
+export const SocketContext = createContext(socket);
 
 const App: React.FC = () => {
   const customTheme = extendTheme({
@@ -20,9 +30,11 @@ const App: React.FC = () => {
     },
   });
   return (
-    <ChakraProvider theme={customTheme}>
-      <Home />
-    </ChakraProvider>
+    <SocketContext.Provider value={socket}>
+      <ChakraProvider theme={customTheme}>
+        <Home />
+      </ChakraProvider>
+    </SocketContext.Provider>
   );
 };
 

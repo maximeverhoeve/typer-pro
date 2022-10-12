@@ -1,5 +1,5 @@
-import { Box, Center, Flex, Spinner } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
+import { Box, Center, Flex, Spinner } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 
