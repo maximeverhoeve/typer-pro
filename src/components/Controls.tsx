@@ -33,9 +33,6 @@ const Controls: React.FC = () => {
         borderRadius="md"
       >
         <IoMdReturnLeft size="18px" />{' '}
-        {/* <Text fontWeight="bold" fontSize="12px">
-          Enter
-        </Text> */}
       </HStack>
       <Text color="white">= Restart</Text>
     </HStack>
