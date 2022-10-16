@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Center, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Center, Grid, Spinner } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 
@@ -24,9 +24,14 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Flex direction="column" bg="gray.800" h="100vh" overflow="hidden">
+    <Grid
+      templateRows="repeat(3, 33%)"
+      bg="gray.800"
+      h="100vh"
+      overflow="hidden"
+    >
       <Header />
-      <Center flexGrow={1}>
+      <Center flexShrink={0}>
         {isLoading && (
           <Box display="inline">
             <Spinner size="xl" color="yellow" />
@@ -35,7 +40,7 @@ const Home: React.FC = () => {
         {!isLoading && <TypingContainer joke={joke} onRestart={onRestart} />}
       </Center>
       <Footer />
-    </Flex>
+    </Grid>
   );
 };
 

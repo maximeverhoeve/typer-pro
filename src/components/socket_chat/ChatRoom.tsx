@@ -1,7 +1,15 @@
-import { Button, HStack, Input, Text, VStack } from '@chakra-ui/react';
+import {
+  HStack,
+  IconButton,
+  Input,
+  SlideFade,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import useSocket from '../../hooks/useSocket';
 import { Message } from '../../types/socketTypes';
+import { IoMdSend } from 'react-icons/io';
 
 interface Props {
   nickname: string;
@@ -34,12 +42,14 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   }, []);
 
   return (
-    <div>
+    <VStack overflow="hidden" h="100%" align="stretch" justify="flex-end">
       <VStack align="stretch">
-        {messages.map(({ message, nickname }, key) => (
-          <Text color="gray.300" key={`message_${key}`}>
-            {nickname}: {message}
-          </Text>
+        {messages.map(({ message, nickname: sender }, key) => (
+          <SlideFade in={!!message} key={`message_${key}`} unmountOnExit>
+            <Text color={sender === nickname ? 'gray.300' : 'blue.100'}>
+              {sender}: {message}
+            </Text>
+          </SlideFade>
         ))}
       </VStack>
       <HStack>
@@ -49,11 +59,14 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
           value={chatMessage}
           onChange={handleChangeInput}
         />
-        <Button isDisabled={!chatMessage} onClick={handleSendButton}>
-          Send
-        </Button>
+        <IconButton
+          aria-label="Send"
+          icon={<IoMdSend />}
+          isDisabled={!chatMessage}
+          onClick={handleSendButton}
+        />
       </HStack>
-    </div>
+    </VStack>
   );
 };
 

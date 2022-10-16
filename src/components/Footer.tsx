@@ -5,7 +5,7 @@ import SocketChat from './SocketChat';
 
 const Footer: React.FC = () => {
   return (
-    <HStack justify="space-between" p="4">
+    <HStack align="stretch" justify="space-between" p="4">
       <Controls />
       <SocketChat />
     </HStack>

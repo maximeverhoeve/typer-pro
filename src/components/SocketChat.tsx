@@ -21,7 +21,7 @@ const SocketChat: React.FC = () => {
   }, []);
 
   return (
-    <HStack>
+    <HStack w="100%" maxW={{ md: '80' }} align="flex-end">
       {room && nickname ? (
         <ChatRoom nickname={nickname} room={room} />
       ) : (

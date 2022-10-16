@@ -4,7 +4,7 @@ import { IoMdReturnLeft } from 'react-icons/io';
 
 const Controls: React.FC = () => {
   return (
-    <HStack>
+    <HStack display={{ base: 'none', md: 'flex' }} alignSelf="flex-end">
       <HStack
         py="2"
         px="4"

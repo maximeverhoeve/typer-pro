@@ -52,7 +52,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
   };
 
   return (
-    <VStack spacing="5" w="600px" maxW="90%" align="stretch">
+    <VStack spacing="5" px="6" w="100%" maxW="600px" align="stretch">
       {isFinished ? (
         <StatsView stats={getStats()} onRestart={handleRestartClick} />
       ) : (

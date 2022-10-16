@@ -3,7 +3,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <HStack p="4" align="flex-end" spacing="4">
+    <HStack p="4" align="flex-start" spacing="4">
       <Heading
         as="h1"
         size="lg"
