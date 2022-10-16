@@ -7,7 +7,7 @@ import {
   ClientToServerEvents,
   ServerToClientEvents,
 } from './types/socketTypes';
-const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = process.env.BACKEND_ENDPOINT || 'http://localhost:3001';
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   ENDPOINT,
   { transports: ['websocket', 'polling', 'flashsocket'] },
