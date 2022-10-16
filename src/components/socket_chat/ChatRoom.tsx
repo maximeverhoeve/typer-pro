@@ -36,7 +36,8 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
       w="100%"
       h={isInputFocused ? '100%' : '50%'}
       align="stretch"
-      transition="0.2s"
+      transition="0.3s"
+      transitionTimingFunction="ease-out"
       justify="flex-end"
     >
       <ChatMessages messages={messages} nickname={nickname} />
