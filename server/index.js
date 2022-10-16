@@ -34,8 +34,8 @@ io.on('connection', (socket) => {
     socket.room = room;
     socket.join(room);
     socket.emit('room_joined', {room, nickname});
-    socket.emit('receive_message', {message: '---- joined room', nickname});
-    socket.to(room).emit('receive_message', {message: '---- joined room', nickname});
+    socket.emit('receive_message', {message: `---- joined ${room}`, nickname});
+    socket.to(room).emit('receive_message', {message: `---- joined ${room}`, nickname});
   })
 })
 
