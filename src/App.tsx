@@ -7,9 +7,8 @@ import {
   ClientToServerEvents,
   ServerToClientEvents,
 } from './types/socketTypes';
-const ENDPOINT = process.env.BACKEND_ENDPOINT || 'http://localhost:3001';
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  ENDPOINT,
+  'https://typer-pro-backend.onrender.com/',
   { transports: ['websocket', 'polling', 'flashsocket'] },
 );
 
