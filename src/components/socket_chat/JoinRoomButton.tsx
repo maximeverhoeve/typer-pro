@@ -8,7 +8,9 @@ const JoinRoomButton: React.FC = () => {
   return (
     <>
       <JoinRoomModal isOpen={isOpen} onClose={onClose} />
-      <Button onClick={onOpen}>Join chatroom</Button>
+      <Button ml="auto" onClick={onOpen}>
+        Join chatroom
+      </Button>
     </>
   );
 };

@@ -11,7 +11,7 @@ const Home: React.FC = () => {
 
   const keyDownHandler = (e: KeyboardEvent): void => {
     // Restart when Enter key is pressed
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && e.ctrlKey) {
       onRestart();
     }
   };

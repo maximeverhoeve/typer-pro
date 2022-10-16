@@ -4,7 +4,11 @@ import { IoMdReturnLeft } from 'react-icons/io';
 
 const Controls: React.FC = () => {
   return (
-    <HStack display={{ base: 'none', md: 'flex' }} alignSelf="flex-end">
+    <HStack
+      opacity="0.5"
+      display={{ base: 'none', md: 'flex' }}
+      alignSelf="flex-end"
+    >
       <HStack
         py="2"
         px="4"
@@ -12,16 +16,28 @@ const Controls: React.FC = () => {
         justify="center"
         bg="white"
         borderRadius="md"
-        opacity="0.5"
       >
-        <IoMdReturnLeft size="13px" />{' '}
         <Text fontWeight="bold" fontSize="12px">
-          Enter
+          Ctrl
         </Text>
       </HStack>
-      <Text color="white" opacity="0.5">
-        = Restart
+      <Text color="white" px="1">
+        +
       </Text>
+      <HStack
+        py="2"
+        px="4"
+        color="gray.700"
+        justify="center"
+        bg="white"
+        borderRadius="md"
+      >
+        <IoMdReturnLeft size="18px" />{' '}
+        {/* <Text fontWeight="bold" fontSize="12px">
+          Enter
+        </Text> */}
+      </HStack>
+      <Text color="white">= Restart</Text>
     </HStack>
   );
 };

@@ -1,15 +1,9 @@
-import {
-  HStack,
-  IconButton,
-  Input,
-  SlideFade,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import { useBoolean, VStack } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import useSocket from '../../hooks/useSocket';
 import { Message } from '../../types/socketTypes';
-import { IoMdSend } from 'react-icons/io';
+import ChatMessages from './ChatMessages';
+import ChatInput from './ChatInput';
 
 interface Props {
   nickname: string;
@@ -18,17 +12,12 @@ interface Props {
 
 const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   const socket = useSocket();
-  const [chatMessage, setChatMessage] = useState<string>('');
+  const [isInputFocused, setIsInputFocused] = useBoolean();
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const handleSendButton = (): void => {
-    if (chatMessage) {
-      socket.emit('send_message', { message: chatMessage });
-    }
-  };
-
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
-    setChatMessage(e.currentTarget.value);
+  const handleInputFocusChange = (isFocused: boolean): void => {
+    if (isFocused) setIsInputFocused.on();
+    else setIsInputFocused.off();
   };
 
   useEffect(() => {
@@ -42,30 +31,16 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   }, []);
 
   return (
-    <VStack overflow="hidden" h="100%" align="stretch" justify="flex-end">
-      <VStack align="stretch">
-        {messages.map(({ message, nickname: sender }, key) => (
-          <SlideFade in={!!message} key={`message_${key}`} unmountOnExit>
-            <Text color={sender === nickname ? 'gray.300' : 'blue.100'}>
-              {sender}: {message}
-            </Text>
-          </SlideFade>
-        ))}
-      </VStack>
-      <HStack>
-        <Input
-          color="gray.200"
-          placeholder="Chat message"
-          value={chatMessage}
-          onChange={handleChangeInput}
-        />
-        <IconButton
-          aria-label="Send"
-          icon={<IoMdSend />}
-          isDisabled={!chatMessage}
-          onClick={handleSendButton}
-        />
-      </HStack>
+    <VStack
+      overflow="hidden"
+      w="100%"
+      h={isInputFocused ? '100%' : '50%'}
+      align="stretch"
+      transition="0.2s"
+      justify="flex-end"
+    >
+      <ChatMessages messages={messages} nickname={nickname} />
+      <ChatInput onFocusChange={handleInputFocusChange} />
     </VStack>
   );
 };
