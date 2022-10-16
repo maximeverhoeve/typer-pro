@@ -12,7 +12,7 @@ import {
   VStack,
   Input,
 } from '@chakra-ui/react';
-import useSocket from '../../hooks/useSocket';
+import useSocketContext from '../../hooks/useSocketContext';
 
 interface Props {
   isOpen: boolean;
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const socket = useSocket();
+  const { socket } = useSocketContext();
   const [nickname, setNickname] = useState<string>('');
   const [room, setRoom] = useState<string>('');
 

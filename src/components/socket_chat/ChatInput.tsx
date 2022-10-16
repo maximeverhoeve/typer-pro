@@ -1,7 +1,7 @@
 import { HStack, IconButton, Input } from '@chakra-ui/react';
 import React, { useRef, useState, ChangeEvent } from 'react';
 import { IoMdSend } from 'react-icons/io';
-import useSocket from '../../hooks/useSocket';
+import useSocketContext from '../../hooks/useSocketContext';
 
 let timeOutId: NodeJS.Timeout;
 
@@ -10,15 +10,15 @@ interface Props {
 }
 
 const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
-  const socket = useSocket();
+  const { socket, nickname, room } = useSocketContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [chatMessage, setChatMessage] = useState<string>('');
 
   const handleSendButton = (e: React.SyntheticEvent): void => {
     inputRef.current?.focus();
     e.preventDefault();
-    if (chatMessage) {
-      socket.emit('send_message', { message: chatMessage });
+    if (chatMessage && nickname && room) {
+      socket.emit('send_message', { message: chatMessage, nickname, room });
     }
     setChatMessage('');
   };

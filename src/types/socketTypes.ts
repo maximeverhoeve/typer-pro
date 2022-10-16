@@ -9,6 +9,10 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
-  send_message: (p: { message: string }) => void;
+  send_message: (p: {
+    message: string;
+    nickname: string;
+    room: string;
+  }) => void;
   join_room: (p: { room: string; nickname: string }) => void;
 }
