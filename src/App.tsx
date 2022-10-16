@@ -7,8 +7,10 @@ import {
   ClientToServerEvents,
   ServerToClientEvents,
 } from './types/socketTypes';
+const ENDPOINT = 'http://localhost:3001';
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  'http://localhost:3001',
+  ENDPOINT,
+  { transports: ['websocket', 'polling', 'flashsocket'] },
 );
 
 export const SocketContext = createContext(socket);
