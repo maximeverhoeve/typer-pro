@@ -10,13 +10,17 @@ interface Props {
 }
 
 const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
-  const { socket, nickname, room } = useSocketContext();
+  const { socket, nickname, room, isConnected } = useSocketContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [chatMessage, setChatMessage] = useState<string>('');
 
   const handleSendButton = (e: React.SyntheticEvent): void => {
-    inputRef.current?.focus();
     e.preventDefault();
+    inputRef.current?.focus();
+
+    // if user disconnected for some reason -> connect again
+    if (!isConnected) socket.connect();
+
     if (chatMessage && nickname && room) {
       socket.emit('send_message', { message: chatMessage, nickname, room });
     }
