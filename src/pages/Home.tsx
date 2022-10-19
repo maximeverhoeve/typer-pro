@@ -5,9 +5,12 @@ import TypingContainer from '../components/TypingContainer';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import useSocketEvents from '../hooks/useSocketEvents';
 
 const Home: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
+  // listen to socket events
+  useSocketEvents();
 
   const keyDownHandler = (e: KeyboardEvent): void => {
     // Restart when Enter key is pressed

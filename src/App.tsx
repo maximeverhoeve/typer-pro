@@ -1,32 +1,8 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import React, { createContext, useState } from 'react';
+import React from 'react';
 import './App.css';
 import Home from './pages/Home';
-import { io, Socket } from 'socket.io-client';
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-} from './types/socketTypes';
-
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  // 'http://localhost:3001',
-  'https://typer-pro-backend.onrender.com/',
-  { transports: ['websocket', 'polling', 'flashsocket'] },
-);
-
-export interface SocketContextType {
-  socket: Socket<ServerToClientEvents, ClientToServerEvents>;
-  nickname?: string;
-  room?: string;
-  setRoom: (room: string) => void;
-  setNickname: (nickname: string) => void;
-}
-
-export const SocketContext = createContext<SocketContextType>({
-  socket,
-  setRoom: () => null,
-  setNickname: () => null,
-});
+import useSocketInit, { SocketContext } from './hooks/useSocketInit';
 
 const customTheme = extendTheme({
   semanticTokens: {
@@ -45,13 +21,10 @@ const customTheme = extendTheme({
 });
 
 const App: React.FC = () => {
-  const [nickname, setNickname] = useState<string>();
-  const [room, setRoom] = useState<string>();
+  const contextValues = useSocketInit();
 
   return (
-    <SocketContext.Provider
-      value={{ socket, room, setRoom, nickname, setNickname }}
-    >
+    <SocketContext.Provider value={contextValues}>
       <ChakraProvider theme={customTheme}>
         <Home />
       </ChakraProvider>

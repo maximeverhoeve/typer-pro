@@ -6,6 +6,7 @@ export interface Message {
 export interface ServerToClientEvents {
   receive_message: (p: { message: string; nickname: string }) => void;
   room_joined: (p: { room: string; nickname: string }) => void;
+  user_disconnected: () => void;
 }
 
 export interface ClientToServerEvents {
@@ -15,4 +16,5 @@ export interface ClientToServerEvents {
     room: string;
   }) => void;
   join_room: (p: { room: string; nickname: string }) => void;
+  disconnect_user: () => void;
 }

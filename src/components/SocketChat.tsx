@@ -1,34 +1,29 @@
-import { HStack } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Button, VStack } from '@chakra-ui/react';
 import useSocketContext from '../hooks/useSocketContext';
 import ChatRoom from './socket_chat/ChatRoom';
 import JoinRoomButton from './socket_chat/JoinRoomButton';
 
 const SocketChat: React.FC = () => {
-  const { socket, room, setRoom, nickname, setNickname } = useSocketContext();
+  const { socket, room, nickname } = useSocketContext();
 
-  useEffect(() => {
-    socket.on('room_joined', (socketProps) => {
-      setRoom(socketProps.room);
-      setNickname(socketProps.nickname);
-    });
-    socket.on('disconnect', () => {
-      console.log('disconnected', socket);
-    });
-
-    return () => {
-      socket.off('room_joined');
-    };
-  }, []);
+  const handleDisconnect = (): void => {
+    socket.disconnect();
+  };
+  const handleConnect = (): void => {
+    socket.connect();
+  };
 
   return (
-    <HStack w="100%" maxW={{ md: '80' }} align="flex-end">
+    <VStack w="100%" maxW={{ md: '80' }} align="stretch" justify="flex-end">
       {room && nickname ? (
         <ChatRoom nickname={nickname} room={room} />
       ) : (
         <JoinRoomButton />
       )}
-    </HStack>
+      <Button onClick={handleDisconnect}>Disconnect</Button>
+      <Button onClick={handleConnect}>Connect</Button>
+    </VStack>
   );
 };
 
