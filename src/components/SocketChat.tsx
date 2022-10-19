@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import useSocketContext from '../hooks/useSocketContext';
 import ChatRoom from './socket_chat/ChatRoom';
 import JoinRoomButton from './socket_chat/JoinRoomButton';
