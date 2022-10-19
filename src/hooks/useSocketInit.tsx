@@ -32,13 +32,19 @@ const useSocketInit = (): SocketContextType => {
 
   // INITIAL EVENTS
   useEffect(() => {
+    // Joined room
     socket.on('room_joined', (socketProps) => {
       setRoom(socketProps.room);
       setNickname(socketProps.nickname);
     });
+    // Left room
+    socket.on('room_left', () => {
+      setRoom(undefined);
+    });
 
     return () => {
       socket.off('room_joined');
+      socket.off('room_left');
     };
   }, []);
 

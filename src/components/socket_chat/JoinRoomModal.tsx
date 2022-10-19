@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -20,18 +20,19 @@ interface Props {
 }
 
 const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { socket } = useSocketContext();
-  const [nickname, setNickname] = useState<string>('');
+  const { socket, nickname: contextNickname } = useSocketContext();
+  const [nickname, setNickname] = useState<string>(contextNickname || '');
   const [room, setRoom] = useState<string>('');
 
-  const onSubmit = (): void => {
+  const handleSubmit = (e: SyntheticEvent): void => {
+    e.preventDefault();
     socket.emit('join_room', { nickname, room });
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent as="form" onSubmit={handleSubmit}>
         <ModalHeader>Join a chatroom</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -42,6 +43,7 @@ const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
             <Input
               placeholder="Nickname"
               name="nickname"
+              autoFocus
               value={nickname}
               onChange={(e) => setNickname(e.currentTarget.value)}
             />
@@ -59,9 +61,9 @@ const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
           </Button>
           <Button
             isDisabled={!nickname || !room}
-            colorScheme="purple"
+            colorScheme="yellow"
             variant="solid"
-            onClick={onSubmit}
+            type="submit"
           >
             Join Room
           </Button>

@@ -5,14 +5,7 @@ import ChatRoom from './socket_chat/ChatRoom';
 import JoinRoomButton from './socket_chat/JoinRoomButton';
 
 const SocketChat: React.FC = () => {
-  const { socket, room, nickname } = useSocketContext();
-
-  const handleDisconnect = (): void => {
-    socket.disconnect();
-  };
-  const handleConnect = (): void => {
-    socket.connect();
-  };
+  const { room, nickname } = useSocketContext();
 
   return (
     <VStack w="100%" maxW={{ md: '80' }} align="stretch" justify="flex-end">
@@ -21,8 +14,6 @@ const SocketChat: React.FC = () => {
       ) : (
         <JoinRoomButton />
       )}
-      <Button onClick={handleDisconnect}>Disconnect</Button>
-      <Button onClick={handleConnect}>Connect</Button>
     </VStack>
   );
 };

@@ -1,9 +1,10 @@
-import { useBoolean, VStack } from '@chakra-ui/react';
+import { HStack, useBoolean, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useSocketContext from '../../hooks/useSocketContext';
 import { Message } from '../../types/socketTypes';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
+import LeaveButton from './LeaveButton';
 
 interface Props {
   nickname: string;
@@ -41,7 +42,10 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
       justify="flex-end"
     >
       <ChatMessages messages={messages} nickname={nickname} />
-      <ChatInput onFocusChange={handleInputFocusChange} />
+      <HStack>
+        <ChatInput onFocusChange={handleInputFocusChange} />
+        <LeaveButton />
+      </HStack>
     </VStack>
   );
 };
