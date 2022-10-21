@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
-import { Box, Center, Grid, Spinner } from '@chakra-ui/react';
-import useJoke from '../hooks/useJoke';
-import TypingContainer from '../components/TypingContainer';
+import React from 'react';
+import { Center, Grid } from '@chakra-ui/react';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import useSocketContext from '../hooks/useSocketContext';
+import SinglePlayerView from './SinglePlayerView';
+import MultiplayerView from './MultiplayerView';
 
 const Home: React.FC = () => {
-  const { joke, isLoading, onRestart } = useJoke();
-
-  const keyDownHandler = (e: KeyboardEvent): void => {
-    // Restart when Enter key is pressed
-    if (e.key === 'Enter' && e.ctrlKey) {
-      onRestart();
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('keydown', keyDownHandler);
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
-  }, []);
+  const { room } = useSocketContext();
 
   return (
     <Grid
@@ -32,12 +19,7 @@ const Home: React.FC = () => {
     >
       <Header />
       <Center flexShrink={0}>
-        {isLoading && (
-          <Box display="inline">
-            <Spinner size="xl" color="yellow" />
-          </Box>
-        )}
-        {!isLoading && <TypingContainer joke={joke} onRestart={onRestart} />}
+        {room ? <MultiplayerView /> : <SinglePlayerView />}
       </Center>
       <Footer />
     </Grid>

@@ -7,8 +7,8 @@ import {
 import { useBoolean } from '@chakra-ui/react';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  // 'http://localhost:3001',
-  'https://typer-pro-backend.onrender.com/',
+  'http://localhost:3001',
+  // 'https://typer-pro-backend.onrender.com/',
   { transports: ['websocket', 'polling', 'flashsocket'] },
 );
 

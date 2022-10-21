@@ -45,13 +45,13 @@ const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
               name="nickname"
               autoFocus
               value={nickname}
-              onChange={(e) => setNickname(e.currentTarget.value)}
+              onChange={(e) => setNickname(e.currentTarget.value.trim())}
             />
             <Input
               placeholder="Room"
               name="room"
               value={room}
-              onChange={(e) => setRoom(e.currentTarget.value)}
+              onChange={(e) => setRoom(e.currentTarget.value.trim())}
             />
           </VStack>
         </ModalBody>
