@@ -5,7 +5,7 @@ import useSocketContext from '../hooks/useSocketContext';
 import { FaCheck } from 'react-icons/fa';
 
 const MultiplayerView: React.FC = () => {
-  const { room, nickname } = useSocketContext();
+  const { room, nickname, players } = useSocketContext();
   return (
     <VStack
       color="white"
@@ -37,8 +37,14 @@ const MultiplayerView: React.FC = () => {
           <Text>Ready?</Text>
         </HStack>
         {/* player */}
-        <PlayerRow isMe name={nickname!} color="red.600" />
-        <PlayerRow name="Martijn" color="green.600" />
+        {players.map((playerName) => (
+          <PlayerRow
+            key={`player-row-${playerName}`}
+            isMe={playerName === nickname}
+            name={playerName}
+            color="red.600"
+          />
+        ))}
       </Box>
       <Button leftIcon={<FaCheck />} colorScheme="green">
         Ready up

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, keyframes, Flex } from '@chakra-ui/react';
+import { Box, Text, keyframes, Flex } from '@chakra-ui/react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import React from 'react';
 

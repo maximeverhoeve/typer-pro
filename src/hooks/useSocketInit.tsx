@@ -17,17 +17,20 @@ export interface SocketContextType {
   nickname?: string;
   room?: string;
   isConnected: boolean;
+  players: string[];
 }
 
 export const SocketContext = createContext<SocketContextType>({
   // default values
   socket,
   isConnected: false,
+  players: [],
 });
 
 const useSocketInit = (): SocketContextType => {
   const [nickname, setNickname] = useState<string>();
   const [room, setRoom] = useState<string>();
+  const [players, setPlayers] = useState<string[]>([]);
   const [isConnected, setIsConnected] = useBoolean();
 
   // INITIAL EVENTS
@@ -37,6 +40,11 @@ const useSocketInit = (): SocketContextType => {
       setRoom(socketProps.room);
       setNickname(socketProps.nickname);
     });
+
+    // Updated room
+    socket.on('room_updated', (serverPlayers: string[]) => {
+      setPlayers(serverPlayers);
+    });
     // Left room
     socket.on('room_left', () => {
       setRoom(undefined);
@@ -45,6 +53,7 @@ const useSocketInit = (): SocketContextType => {
     return () => {
       socket.off('room_joined');
       socket.off('room_left');
+      socket.off('room_updated');
     };
   }, []);
 
@@ -66,7 +75,7 @@ const useSocketInit = (): SocketContextType => {
     };
   }, [room]);
 
-  return { socket, room, nickname, isConnected };
+  return { socket, room, nickname, isConnected, players };
 };
 
 export default useSocketInit;

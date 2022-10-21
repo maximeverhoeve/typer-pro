@@ -7,6 +7,7 @@ export interface ServerToClientEvents {
   receive_message: (p: { message: string; nickname: string }) => void;
   room_joined: (p: { room: string; nickname: string }) => void;
   room_left: () => void;
+  room_updated: (players: string[]) => void;
 }
 
 export interface ClientToServerEvents {
