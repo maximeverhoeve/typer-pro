@@ -22,9 +22,7 @@ const customTheme = extendTheme({
 
 const App: React.FC = () => {
   const contextValues = useSocketInit();
-  console.log('server url zonder prefix', process.env.SERVER_URL);
-  console.log('env', process.env.REACT_APP_VERCEL_ENV);
-  console.log('server url', process.env.REACT_APP_SERVER_URL);
+
   return (
     <SocketContext.Provider value={contextValues}>
       <ChakraProvider theme={customTheme}>
