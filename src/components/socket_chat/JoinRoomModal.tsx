@@ -26,7 +26,7 @@ const JoinRoomModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    socket.emit('join_room', { nickname, room });
+    socket.emit('room:join', { nickname, room });
   };
 
   return (

@@ -1,10 +1,14 @@
 import { HStack, useBoolean, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useSocketContext from '../../hooks/useSocketContext';
-import { Message } from '../../types/socketTypes';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 import LeaveButton from './LeaveButton';
+
+export interface ChatMessage {
+  message: string;
+  nickname: string;
+}
 
 interface Props {
   nickname: string;
@@ -14,7 +18,7 @@ interface Props {
 const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   const { socket } = useSocketContext();
   const [isInputFocused, setIsInputFocused] = useBoolean();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const handleInputFocusChange = (isFocused: boolean): void => {
     if (isFocused) setIsInputFocused.on();
@@ -22,12 +26,12 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   };
 
   useEffect(() => {
-    socket.on('receive_message', (message) => {
+    socket.on('chat:receive', (message) => {
       setMessages((prev) => [...prev, message]);
     });
 
     return () => {
-      socket.off('receive_message');
+      socket.off('chat:receive');
     };
   }, []);
 

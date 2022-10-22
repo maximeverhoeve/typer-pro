@@ -35,24 +35,24 @@ const useSocketInit = (): SocketContextType => {
   // INITIAL EVENTS
   useEffect(() => {
     // Joined room
-    socket.on('room_joined', (socketProps) => {
+    socket.on('room:joined', (socketProps) => {
       setRoom(socketProps.room);
       setNickname(socketProps.nickname);
     });
 
     // Updated room
-    socket.on('room_updated', (serverPlayers: string[]) => {
+    socket.on('room:update', (serverPlayers: string[]) => {
       setPlayers(serverPlayers);
     });
     // Left room
-    socket.on('room_left', () => {
+    socket.on('room:left', () => {
       setRoom(undefined);
     });
 
     return () => {
-      socket.off('room_joined');
-      socket.off('room_left');
-      socket.off('room_updated');
+      socket.off('room:joined');
+      socket.off('room:left');
+      socket.off('room:update');
     };
   }, []);
 
@@ -61,7 +61,7 @@ const useSocketInit = (): SocketContextType => {
     socket.on('connect', () => {
       setIsConnected.on();
       // reconnect to previous connected room
-      if (nickname && room) socket.emit('join_room', { nickname, room });
+      if (nickname && room) socket.emit('room:join', { nickname, room });
     });
 
     socket.on('disconnect', () => {

@@ -8,7 +8,7 @@ const LeaveButton: React.FC = () => {
 
   const handleClick = (): void => {
     // leave room evnt
-    socket.emit('leave_room');
+    socket.emit('room:leave');
   };
 
   return (

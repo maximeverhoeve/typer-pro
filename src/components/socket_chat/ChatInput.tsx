@@ -22,7 +22,7 @@ const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
     if (!isConnected) socket.connect();
 
     if (chatMessage && nickname && room) {
-      socket.emit('send_message', { message: chatMessage, nickname, room });
+      socket.emit('chat:send', { message: chatMessage, nickname, room });
     }
     setChatMessage('');
   };

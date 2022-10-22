@@ -1,9 +1,9 @@
 import { SlideFade, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
-import { Message } from '../../types/socketTypes';
+import { ChatMessage } from './ChatRoom';
 
 interface Props {
-  messages: Message[];
+  messages: ChatMessage[];
   nickname: string;
 }
 
@@ -16,7 +16,7 @@ const ChatMessages: React.FC<Props> = ({ messages, nickname }) => {
 
         return (
           <SlideFade key={`message_${i}`} in={true} unmountOnExit>
-            <ChatMessage message={message} isSenderMe={isSenderMe} />
+            <ChatMessageElement message={message} isSenderMe={isSenderMe} />
           </SlideFade>
         );
       })}
@@ -25,11 +25,14 @@ const ChatMessages: React.FC<Props> = ({ messages, nickname }) => {
 };
 
 interface ChatMessageProps {
-  message: Message;
+  message: ChatMessage;
   isSenderMe: boolean;
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, isSenderMe }) => {
+const ChatMessageElement: React.FC<ChatMessageProps> = ({
+  message,
+  isSenderMe,
+}) => {
   const { message: msg, nickname: sender } = message;
   return (
     <Text color="gray.500">
