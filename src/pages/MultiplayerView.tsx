@@ -40,7 +40,7 @@ const MultiplayerView: React.FC = () => {
         {players.map((playerName) => (
           <PlayerRow
             key={`player-row-${playerName}`}
-            isMe={playerName === nickname}
+            isMe={playerName === nickname && players.length > 1}
             name={playerName}
             color="red.600"
           />

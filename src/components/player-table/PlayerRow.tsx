@@ -28,6 +28,7 @@ const PlayerRow: React.FC<Props> = ({ name, color, isMe }) => {
       position="relative"
       gridGap="1"
     >
+      {/* ARROW */}
       {isMe && (
         <Box
           animation={spinAnimation}
