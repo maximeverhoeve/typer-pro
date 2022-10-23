@@ -3,6 +3,7 @@ import React from 'react';
 import PlayerRow from '../components/player-table/PlayerRow';
 import useSocketContext from '../hooks/useSocketContext';
 import { FaCheck } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 
 const MultiplayerView: React.FC = () => {
   const { socket, room, nickname, players, isReady } = useSocketContext();
@@ -54,11 +55,14 @@ const MultiplayerView: React.FC = () => {
       </Box>
       <Button
         isDisabled={players.length < 2}
-        leftIcon={<FaCheck />}
-        colorScheme="green"
+        leftIcon={isReady ? <IoClose size="20px" /> : <FaCheck />}
+        variant="outline"
+        _hover={{ bg: 'gray.900' }}
+        _active={{ bg: 'gray.700' }}
+        colorScheme={isReady ? 'red' : 'green'}
         onClick={handleClickReady}
       >
-        Ready up
+        {isReady ? 'Unready' : 'Ready up'}
       </Button>
     </VStack>
   );
