@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home';
 import useSocketInit, { SocketContext } from './hooks/useSocketInit';
+import useGame, { GameContext } from './hooks/useGame';
 
 const customTheme = extendTheme({
   semanticTokens: {
@@ -21,13 +22,16 @@ const customTheme = extendTheme({
 });
 
 const App: React.FC = () => {
-  const contextValues = useSocketInit();
+  const socketContextValues = useSocketInit();
+  const gameContextValues = useGame();
 
   return (
-    <SocketContext.Provider value={contextValues}>
-      <ChakraProvider theme={customTheme}>
-        <Home />
-      </ChakraProvider>
+    <SocketContext.Provider value={socketContextValues}>
+      <GameContext.Provider value={gameContextValues}>
+        <ChakraProvider theme={customTheme}>
+          <Home />
+        </ChakraProvider>
+      </GameContext.Provider>
     </SocketContext.Provider>
   );
 };

@@ -15,15 +15,12 @@ export interface ServerToClientEvents {
   'room:joined': (p: { room: string; nickname: string }) => void;
   'room:left': () => void;
   'room:update': (players: Player[]) => void;
+  'game:started': (text: string) => void;
 }
 export interface ClientToServerEvents {
   'chat:send': (p: { message: string; nickname: string; room: string }) => void;
   'room:join': (p: { room: string; nickname: string }) => void;
   'room:leave': () => void;
   'player:update-ready': (isReady: boolean) => void;
-}
-
-export interface SocketData {
-  nickname: string;
-  room: string;
+  'game:start': () => void;
 }
