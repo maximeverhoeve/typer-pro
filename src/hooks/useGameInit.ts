@@ -1,9 +1,10 @@
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import useSocketContext from './useSocketContext';
 
 export interface GameContextType {
   isStarted: boolean;
+  textToType?: string;
 }
 
 export const GameContext = createContext<GameContextType>({
@@ -11,11 +12,14 @@ export const GameContext = createContext<GameContextType>({
   isStarted: false,
 });
 
-const useGame = (): GameContextType => {
+const useGameInit = (): GameContextType => {
   const { socket } = useSocketContext();
   const [isStarted, setIsStarted] = useBoolean();
+  const [textToType, setTextToType] = useState<string>();
 
   const onGameStart = (text: string): void => {
+    // console.log(text);
+    setTextToType(text);
     setIsStarted.on();
   };
 
@@ -29,7 +33,8 @@ const useGame = (): GameContextType => {
 
   return {
     isStarted,
+    textToType,
   };
 };
 
-export default useGame;
+export default useGameInit;

@@ -8,7 +8,13 @@ const SocketChat: React.FC = () => {
   const { room, nickname } = useSocketContext();
 
   return (
-    <VStack w="100%" maxW={{ md: '80' }} align="stretch" justify="flex-end">
+    <VStack
+      alignSelf="flex-end"
+      w="100%"
+      maxW={{ md: '80' }}
+      align="stretch"
+      ml="auto"
+    >
       {room && nickname ? (
         <ChatRoom nickname={nickname} room={room} />
       ) : (

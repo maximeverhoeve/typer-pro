@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home';
 import useSocketInit, { SocketContext } from './hooks/useSocketInit';
-import useGame, { GameContext } from './hooks/useGame';
+import useGameInit, { GameContext } from './hooks/useGameInit';
 
 const customTheme = extendTheme({
   semanticTokens: {
@@ -23,7 +23,7 @@ const customTheme = extendTheme({
 
 const App: React.FC = () => {
   const socketContextValues = useSocketInit();
-  const gameContextValues = useGame();
+  const gameContextValues = useGameInit();
 
   return (
     <SocketContext.Provider value={socketContextValues}>

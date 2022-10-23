@@ -1,10 +1,10 @@
 import React from 'react';
-import useGame from '../hooks/useGame';
+import useGameContext from '../hooks/useGameContext';
 import Game from './Game';
 import PreGameLobby from './PreGameLobby';
 
 const MultiplayerView: React.FC = () => {
-  const { isStarted } = useGame();
+  const { isStarted } = useGameContext();
 
   if (isStarted) {
     return <Game />;

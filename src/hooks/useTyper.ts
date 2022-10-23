@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import useSocketContext from './useSocketContext';
 
 interface Timer {
   start: number;
@@ -25,6 +26,8 @@ const useTyper = (text: string): ReturnProps => {
   const [wordToTypeIndex, setWordToTypeIndex] = useState<number>(0);
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
+  const { onChangeProgress, room } = useSocketContext();
+
   const isFinished = textArray.length < wordToTypeIndex + 1;
   const isLastWord = textArray.length < wordToTypeIndex + 2;
   const wordToType = textArray[wordToTypeIndex];
@@ -35,6 +38,7 @@ const useTyper = (text: string): ReturnProps => {
     if (!timer.start) {
       setTimer((prev) => ({ ...prev, start: Date.now() }));
     }
+
     const value = e.currentTarget.value;
     const endsWithSpace = value.slice(-1) === ' ';
     const valueWithoutLastSpace = endsWithSpace ? value.slice(0, -1) : value;
@@ -46,7 +50,13 @@ const useTyper = (text: string): ReturnProps => {
         setTimer((prev) => ({ ...prev, end: Date.now() }));
       }
       setValidWords((prev) => [...prev, value.replaceAll(' ', '')]);
-      setWordToTypeIndex((prev) => (prev += 1));
+      setWordToTypeIndex((prev) => {
+        const newIndex = prev + 1;
+        const progress = newIndex / (textArray.length - 1);
+        if (room) onChangeProgress(progress);
+        return newIndex;
+      });
+
       setInputValue('');
     } else {
       setInputValue(value);

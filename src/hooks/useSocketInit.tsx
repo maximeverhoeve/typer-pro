@@ -19,6 +19,7 @@ export interface SocketContextType {
   isConnected: boolean;
   players: Player[];
   isReady: boolean;
+  onChangeProgress: (progress: number) => void;
 }
 
 export const SocketContext = createContext<SocketContextType>({
@@ -27,6 +28,7 @@ export const SocketContext = createContext<SocketContextType>({
   isConnected: false,
   players: [],
   isReady: false,
+  onChangeProgress: () => null,
 });
 
 const useSocketInit = (): SocketContextType => {
@@ -35,6 +37,10 @@ const useSocketInit = (): SocketContextType => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [isConnected, setIsConnected] = useBoolean();
   const [isReady, setIsReady] = useBoolean();
+
+  const onChangeProgress = (progress: number): void => {
+    socket.emit('player:progress', progress);
+  };
 
   const onRoomJoined = (socketProps: {
     room: string;
@@ -92,7 +98,15 @@ const useSocketInit = (): SocketContextType => {
     };
   }, [room]);
 
-  return { socket, room, nickname, isConnected, players, isReady };
+  return {
+    socket,
+    room,
+    nickname,
+    isConnected,
+    players,
+    isReady,
+    onChangeProgress,
+  };
 };
 
 export default useSocketInit;

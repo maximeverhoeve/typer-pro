@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import useSocketContext from '../hooks/useSocketContext';
 import SinglePlayerView from './SinglePlayerView';
 import MultiplayerView from './MultiplayerView';
+import Game from './Game';
 
 const Home: React.FC = () => {
   const { room } = useSocketContext();

@@ -22,5 +22,6 @@ export interface ClientToServerEvents {
   'room:join': (p: { room: string; nickname: string }) => void;
   'room:leave': () => void;
   'player:update-ready': (isReady: boolean) => void;
+  'player:progress': (progress: number) => void;
   'game:start': () => void;
 }
