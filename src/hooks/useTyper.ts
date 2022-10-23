@@ -52,7 +52,7 @@ const useTyper = (text: string): ReturnProps => {
       setValidWords((prev) => [...prev, value.replaceAll(' ', '')]);
       setWordToTypeIndex((prev) => {
         const newIndex = prev + 1;
-        const progress = newIndex / (textArray.length - 1);
+        const progress = newIndex / textArray.length;
         if (room) onChangeProgress(progress);
         return newIndex;
       });
