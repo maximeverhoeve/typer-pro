@@ -5,7 +5,13 @@ import useSocketContext from '../hooks/useSocketContext';
 import { FaCheck } from 'react-icons/fa';
 
 const MultiplayerView: React.FC = () => {
-  const { room, nickname, players } = useSocketContext();
+  const { socket, room, nickname, players, isReady } = useSocketContext();
+
+  const handleClickReady = (): void => {
+    // Toggle ready
+    socket.emit('player:update-ready', !isReady);
+  };
+
   return (
     <VStack
       color="white"
@@ -37,16 +43,21 @@ const MultiplayerView: React.FC = () => {
           <Text>Ready?</Text>
         </HStack>
         {/* player */}
-        {players.map((playerName) => (
+        {players.map((player) => (
           <PlayerRow
-            key={`player-row-${playerName}`}
-            isMe={playerName === nickname && players.length > 1}
-            name={playerName}
-            color="red.600"
+            key={`player-row-${player.nickname}`}
+            isMe={player.nickname === nickname && players.length > 1}
+            name={player.nickname}
+            color={player.isReady ? 'green.600' : 'red.600'}
           />
         ))}
       </Box>
-      <Button leftIcon={<FaCheck />} colorScheme="green">
+      <Button
+        isDisabled={players.length < 2}
+        leftIcon={<FaCheck />}
+        colorScheme="green"
+        onClick={handleClickReady}
+      >
         Ready up
       </Button>
     </VStack>

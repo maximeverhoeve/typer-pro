@@ -2,6 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import { createContext, useState, useEffect } from 'react';
 import {
   ClientToServerEvents,
+  Player,
   ServerToClientEvents,
 } from '../types/socketTypes';
 import { useBoolean } from '@chakra-ui/react';
@@ -16,7 +17,8 @@ export interface SocketContextType {
   nickname?: string;
   room?: string;
   isConnected: boolean;
-  players: string[];
+  players: Player[];
+  isReady: boolean;
 }
 
 export const SocketContext = createContext<SocketContextType>({
@@ -24,26 +26,37 @@ export const SocketContext = createContext<SocketContextType>({
   socket,
   isConnected: false,
   players: [],
+  isReady: false,
 });
 
 const useSocketInit = (): SocketContextType => {
   const [nickname, setNickname] = useState<string>();
   const [room, setRoom] = useState<string>();
-  const [players, setPlayers] = useState<string[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
   const [isConnected, setIsConnected] = useBoolean();
+  const [isReady, setIsReady] = useBoolean();
+
+  const onRoomJoined = (socketProps: {
+    room: string;
+    nickname: string;
+  }): void => {
+    setRoom(socketProps.room);
+    setNickname(socketProps.nickname);
+  };
+
+  const onRoomUpdated = (serverPlayers: Player[]): void => {
+    setPlayers(serverPlayers);
+    const thisPlayer = serverPlayers.find((p) => p.nickname === nickname);
+
+    if (thisPlayer?.isReady) setIsReady.on();
+    else setIsReady.off();
+  };
 
   // INITIAL EVENTS
   useEffect(() => {
     // Joined room
-    socket.on('room:joined', (socketProps) => {
-      setRoom(socketProps.room);
-      setNickname(socketProps.nickname);
-    });
+    socket.on('room:joined', onRoomJoined);
 
-    // Updated room
-    socket.on('room:update', (serverPlayers: string[]) => {
-      setPlayers(serverPlayers);
-    });
     // Left room
     socket.on('room:left', () => {
       setRoom(undefined);
@@ -52,7 +65,6 @@ const useSocketInit = (): SocketContextType => {
     return () => {
       socket.off('room:joined');
       socket.off('room:left');
-      socket.off('room:update');
     };
   }, []);
 
@@ -64,17 +76,23 @@ const useSocketInit = (): SocketContextType => {
       if (nickname && room) socket.emit('room:join', { nickname, room });
     });
 
+    // Updated room
+    socket.on('room:update', onRoomUpdated);
+
     socket.on('disconnect', () => {
+      socket.emit('room:leave');
+      setRoom(undefined);
       setIsConnected.off();
     });
 
     return () => {
       socket.off('connect');
       socket.off('disconnect');
+      socket.off('room:update');
     };
   }, [room]);
 
-  return { socket, room, nickname, isConnected, players };
+  return { socket, room, nickname, isConnected, players, isReady };
 };
 
 export default useSocketInit;

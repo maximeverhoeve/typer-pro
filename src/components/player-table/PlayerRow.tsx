@@ -46,6 +46,7 @@ const PlayerRow: React.FC<Props> = ({ name, color, isMe }) => {
         bg={color}
         w="20px"
         h="20px"
+        transition="0.2s"
         flexShrink={0}
       />
     </Flex>
