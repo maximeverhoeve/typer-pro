@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Spinner } from '@chakra-ui/react';
+import { Box, Center, Spinner } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 
@@ -26,7 +26,11 @@ const SinglePlayerView: React.FC = () => {
       </Box>
     );
   }
-  return <TypingContainer joke={joke} onRestart={onRestart} />;
+  return (
+    <Center flexGrow={1}>
+      <TypingContainer joke={joke} onRestart={onRestart} />
+    </Center>
+  );
 };
 
 export default SinglePlayerView;

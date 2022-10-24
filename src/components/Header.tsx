@@ -15,9 +15,6 @@ const Header: React.FC = () => {
         </Text>
         - TyperPro
       </Heading>
-      <Text align="right" color="gray.400" fontSize="sm">
-        v2022.6.0
-      </Text>
     </HStack>
   );
 };
