@@ -21,16 +21,14 @@
     "react-countup": "^6.3.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "react-scripts": "5.0.1",
     "socket.io": "^4.5.2",
     "socket.io-client": "^4.5.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +50,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
+    "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -59,6 +58,9 @@
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-react": "^7.31.8",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vite": "^3.2.0",
+    "vite-plugin-svgr": "^2.2.2",
+    "vite-tsconfig-paths": "^3.5.2"
   }
 }
