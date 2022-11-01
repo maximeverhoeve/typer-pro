@@ -17,7 +17,15 @@ const Home: React.FC = () => {
 
 const LinkBox: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Center bg="box" border="1px solid" borderColor="text" w="210px" p="8">
+    <Center
+      _hover={{ borderColor: 'primary' }}
+      transition="0.2s"
+      bg="box"
+      border="1px solid"
+      borderColor="text"
+      w="210px"
+      p="8"
+    >
       <Text>{children}</Text>
     </Center>
   );
