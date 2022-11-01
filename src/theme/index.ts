@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { merge } from 'lodash';
 
 const defaultTheme = {
   fonts: {
@@ -13,31 +14,32 @@ const defaultTheme = {
   },
 };
 
-const customThemeLight = extendTheme({
-  ...defaultTheme,
-  semanticTokens: {
-    colors: {
-      background: '#F6F6F6',
-      error: 'red.500',
-      text: {
-        default: 'gray.900',
-        _dark: 'gray.50',
+const customThemeLight = extendTheme(
+  merge(defaultTheme, {
+    semanticTokens: {
+      colors: {
+        background: '#F6F6F6',
+        text: '#202124',
+        box: '#fff',
       },
     },
-  },
-});
+  }),
+);
 
-const customThemeDark = extendTheme({
-  ...defaultTheme,
-  semanticTokens: {
-    colors: {
-      background: '#202124',
+const customThemeDark = extendTheme(
+  merge(defaultTheme, {
+    semanticTokens: {
+      colors: {
+        background: '#202124',
+        box: '#131415',
+        text: '#f6f6f6',
+      },
     },
-  },
-  fonts: {
-    heading: 'Roboto Mono',
-    body: 'Roboto Mono',
-  },
-});
+    fonts: {
+      heading: 'Roboto Mono',
+      body: 'Roboto Mono',
+    },
+  }),
+);
 
 export { customThemeLight, customThemeDark };
