@@ -53,6 +53,9 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
         p="8"
         py="16"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+        _active={{
+          transform: 'scale(0.95)',
+        }}
       >
         <VStack>
           <Box>{icon}</Box>
