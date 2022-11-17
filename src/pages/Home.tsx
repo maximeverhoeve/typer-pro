@@ -1,12 +1,12 @@
 import React, { PropsWithChildren, ReactElement } from 'react';
-import { Box, Center, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Grid, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import MultiplayerIcon from '../assets/icons/multiplayer';
 import SingleplayerIcon from '../assets/icons/singleplayer';
 
 const Home: React.FC = () => {
   return (
-    <HStack spacing="4">
+    <Grid templateColumns="repeat(2, 1fr)" gridGap="4">
       <Link to="/singleplayer">
         <LinkBox icon={<SingleplayerIcon />}>singleplayer</LinkBox>
       </Link>
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
           multiplayer
         </LinkBox>
       </Link>
-    </HStack>
+    </Grid>
   );
 };
 
