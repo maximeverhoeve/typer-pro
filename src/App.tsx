@@ -20,7 +20,7 @@ const App: React.FC = () => {
           theme={isDarkTheme ? customThemeDark : customThemeLight}
         >
           <Grid
-            templateRows="1fr auto 1fr"
+            templateRows="30vh auto 30vh"
             transition="0.2s"
             bg="background"
             h="100vh"
