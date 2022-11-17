@@ -1,15 +1,12 @@
 import { Center, ChakraProvider, Grid, useBoolean } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
-import Home from './pages/Home';
 import useSocketInit, { SocketContext } from './hooks/useSocketInit';
 import useGameInit, { GameContext } from './hooks/useGameInit';
-import { Route, Routes } from 'react-router-dom';
-import SinglePlayerView from './pages/SinglePlayerView';
-import MultiplayerView from './pages/MultiplayerView';
 import { customThemeDark, customThemeLight } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AnimatedRoutes from './components/AnimatedRoutes';
 
 const App: React.FC = () => {
   const socketContextValues = useSocketInit();
@@ -33,11 +30,7 @@ const App: React.FC = () => {
               onThemeChange={setIsDarkTheme.toggle}
             />
             <Center flexGrow="1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/singleplayer" element={<SinglePlayerView />} />
-                <Route path="/multiplayer" element={<MultiplayerView />} />
-              </Routes>
+              <AnimatedRoutes />
             </Center>
             <Footer />
           </Grid>
