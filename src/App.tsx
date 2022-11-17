@@ -1,4 +1,4 @@
-import { Center, ChakraProvider, useBoolean, VStack } from '@chakra-ui/react';
+import { Center, ChakraProvider, Grid, useBoolean } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
 import Home from './pages/Home';
@@ -21,25 +21,26 @@ const App: React.FC = () => {
         <ChakraProvider
           theme={isDarkTheme ? customThemeDark : customThemeLight}
         >
-          <VStack
-            align="stretch"
+          <Grid
+            templateRows="1fr auto 1fr"
             transition="0.2s"
             bg="background"
             h="100vh"
-            overflow="hidden"
             color="text"
-            justify="center"
           >
-            <Header />
-            <Center>
+            <Header
+              isDarkTheme={isDarkTheme}
+              onThemeChange={setIsDarkTheme.toggle}
+            />
+            <Center flexGrow="1">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/singleplayer" element={<SinglePlayerView />} />
                 <Route path="/multiplayer" element={<MultiplayerView />} />
               </Routes>
             </Center>
-            <Footer onThemeChange={setIsDarkTheme.toggle} />
-          </VStack>
+            <Footer />
+          </Grid>
         </ChakraProvider>
       </GameContext.Provider>
     </SocketContext.Provider>
