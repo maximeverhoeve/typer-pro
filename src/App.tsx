@@ -12,6 +12,7 @@ const App: React.FC = () => {
   const socketContextValues = useSocketInit();
   const gameContextValues = useGameInit();
   const [isDarkTheme, setIsDarkTheme] = useBoolean();
+  const [transitionEnded, setTransitionEnded] = useBoolean();
   return (
     <SocketContext.Provider value={socketContextValues}>
       <GameContext.Provider value={gameContextValues}>
@@ -28,9 +29,10 @@ const App: React.FC = () => {
             <Header
               isDarkTheme={isDarkTheme}
               onThemeChange={setIsDarkTheme.toggle}
+              onTransitionEnd={setTransitionEnded.on}
             />
             <Center flexGrow="1">
-              <AnimatedRoutes />
+              {transitionEnded && <AnimatedRoutes />}
             </Center>
             <Footer />
           </Grid>

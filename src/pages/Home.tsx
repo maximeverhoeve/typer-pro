@@ -34,8 +34,8 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: '30px' }}
-      animate={{ opacity: 1, translateY: 0 }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
       transition={{ delay, duration: 0.4 }}
     >
@@ -52,6 +52,7 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
         w="210px"
         p="8"
         py="16"
+        h="100%"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         _active={{
           transform: 'scale(0.95)',
