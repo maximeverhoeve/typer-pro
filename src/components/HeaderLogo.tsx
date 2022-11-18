@@ -6,7 +6,7 @@ const HeaderLogo: React.FC = () => {
   return (
     <AnimatePresence>
       <VStack p="4" spacing="4" justify="center">
-        <Heading>
+        <Heading as="div">
           <motion.div
             style={{
               display: 'flex',
@@ -19,7 +19,7 @@ const HeaderLogo: React.FC = () => {
             transition={{ duration: 0.3, delay: 0.3, type: 'spring' }}
           >
             <Text color="primary">[</Text>
-            <motion.p
+            <motion.div
               style={{
                 overflow: 'hidden',
               }}
@@ -30,18 +30,18 @@ const HeaderLogo: React.FC = () => {
               <Text whiteSpace="nowrap" px="4">
                 typer:pro
               </Text>
-            </motion.p>
+            </motion.div>
             <Text color="secondary">]</Text>
           </motion.div>
         </Heading>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, translateY: 10 }}
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ delay: 1.8 }}
         >
           <Text fontWeight="500">by devmax</Text>
-        </motion.p>
+        </motion.div>
       </VStack>
     </AnimatePresence>
   );
