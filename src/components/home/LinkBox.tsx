@@ -17,6 +17,7 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
 }) => {
   return (
     <motion.div
+      style={{ height: '100%' }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}

@@ -42,7 +42,6 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
         color: 'white',
       }}
       transition="0.2s"
-      bg="box"
       border="1px solid"
       borderColor="text"
       w="210px"
@@ -61,14 +60,12 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
       <Box zIndex={1}>{children}</Box>
       <Box
         position="absolute"
-        w="100%"
-        h="100%"
-        top={0}
+        w="110%"
+        h={isHovering ? '100%' : '0%'}
+        bottom={0}
         left={0}
         bg={hoverColor}
-        transformOrigin={`${mousePos.x}px ${mousePos.y}px`}
-        transform={isHovering ? 'scale(1)' : 'scale(0)'}
-        transition="transform 0.2s"
+        transition="0.2s"
       />
     </Center>
   );
