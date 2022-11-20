@@ -10,8 +10,8 @@ const Footer: React.FC = () => {
   const { isStarted } = useGameContext();
   return (
     <HStack align="stretch" justify="space-between" p="4">
-      {!room && <Controls />}
-      {!isStarted && <SocketChat />}
+      {/* {!room && <Controls />}
+      {!isStarted && <SocketChat />} */}
     </HStack>
   );
 };

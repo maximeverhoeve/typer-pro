@@ -38,7 +38,7 @@ const Header: React.FC<Props> = ({
       onAnimationComplete={onTransitionEnd}
     >
       <Grid h="100%" templateColumns="1fr auto 1fr">
-        <Box>
+        <Box p="4">
           <IconButton
             borderRadius="none"
             bg="none"
