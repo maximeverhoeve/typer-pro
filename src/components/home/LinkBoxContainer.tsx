@@ -1,11 +1,5 @@
 import { Box, Center, useBoolean } from '@chakra-ui/react';
-import { hover } from '@testing-library/user-event/dist/hover';
-import React, {
-  MouseEvent,
-  MouseEventHandler,
-  PropsWithChildren,
-  useState,
-} from 'react';
+import React, { MouseEvent, PropsWithChildren, useState } from 'react';
 
 interface Props {
   hoverColor: string;

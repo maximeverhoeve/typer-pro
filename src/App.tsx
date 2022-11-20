@@ -1,19 +1,36 @@
 import { Center, ChakraProvider, Grid, useBoolean } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
-import useSocketInit, { SocketContext } from './hooks/useSocketInit';
-import useGameInit, { GameContext } from './hooks/useGameInit';
+// import useSocketInit, { SocketContext } from './hooks/useSocketInit';
+// import useGameInit, { GameContext } from './hooks/useGameInit';
 import { customThemeDark, customThemeLight } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
 
+enum THEMES {
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
 const App: React.FC = () => {
   // TEMP DISABLING WHILE CODING STYLING
   // const socketContextValues =  useSocketInit();
   // const gameContextValues = useGameInit();
-  const [isDarkTheme, setIsDarkTheme] = useBoolean();
+
+  const getInitialTheme = (): boolean => {
+    const storageTheme = localStorage.getItem('theme');
+    return storageTheme === THEMES.DARK;
+  };
+  const [isDarkTheme, setIsDarkTheme] = useBoolean(getInitialTheme());
   const [transitionEnded, setTransitionEnded] = useBoolean();
+
+  const handleThemeChange = (): void => {
+    if (isDarkTheme) localStorage.setItem('theme', THEMES.LIGHT);
+    else localStorage.setItem('theme', THEMES.DARK);
+    setIsDarkTheme.toggle();
+  };
+
   return (
     // <SocketContext.Provider value={socketContextValues}>
     // <GameContext.Provider value={gameContextValues}>
@@ -27,7 +44,7 @@ const App: React.FC = () => {
       >
         <Header
           isDarkTheme={isDarkTheme}
-          onThemeChange={setIsDarkTheme.toggle}
+          onThemeChange={handleThemeChange}
           onTransitionEnd={setTransitionEnded.on}
         />
         <Center flexGrow="1">{transitionEnded && <AnimatedRoutes />}</Center>
