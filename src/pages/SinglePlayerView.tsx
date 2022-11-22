@@ -34,16 +34,17 @@ const SinglePlayerView: React.FC = () => {
     );
   }
   return (
-    <Center flexGrow={1}>
-      <motion.div
-        initial={{ transform: 'scale(0.1)' }}
-        animate={{ transform: 'scale(1)' }}
-        exit={{ transform: 'scale(0.1)', opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      >
+    <motion.div
+      style={{ flexGrow: 1 }}
+      initial={{ transform: 'scale(0.1)' }}
+      animate={{ transform: 'scale(1)' }}
+      exit={{ transform: 'scale(0.1)', opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Center flexGrow={1}>
         <TypingContainer joke={joke} onRestart={onRestart} />
-      </motion.div>
-    </Center>
+      </Center>
+    </motion.div>
   );
 };
 

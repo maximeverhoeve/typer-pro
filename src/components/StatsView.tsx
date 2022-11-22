@@ -39,7 +39,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
   return (
     <VStack spacing="10" align="center">
       <ScaleFade in={!!wpm}>
-        <Heading mb="4" textAlign="center" color="gray.100">
+        <Heading mb="4" textAlign="center" color="text">
           {renderText()}
         </Heading>
         <HStack justify="center" spacing="10">
@@ -48,12 +48,12 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
               fontWeight="bold"
               lineHeight="100%"
               fontSize="3xl"
-              color="yellow.400"
+              color="primary"
               align="center"
             >
               <CountUp end={wpm} duration={0.6} />
             </Text>
-            <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
+            <Text align="center" fontSize="3xl" color="text" opacity="0.6">
               WPM
             </Text>
           </HStack>
@@ -62,12 +62,12 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
               fontWeight="bold"
               lineHeight="100%"
               fontSize="3xl"
-              color="yellow.400"
+              color="primary"
               align="center"
             >
               <CountUp end={cpm} duration={0.6} />
             </Text>
-            <Text align="center" fontSize="3xl" color="gray.300" opacity="0.6">
+            <Text align="center" fontSize="3xl" color="text" opacity="0.6">
               CPM
             </Text>
           </HStack>
@@ -77,7 +77,7 @@ const StatsView: React.FC<Props> = ({ stats, onRestart }) => {
         <Button
           leftIcon={<VscDebugRestart size="20px" />}
           variant="solid"
-          colorScheme="yellow"
+          colorScheme="cyan"
           minW="32"
           onClick={onRestart}
           mx="auto"

@@ -24,9 +24,13 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
       transition={{ delay, duration: 0.3 }}
     >
       <LinkBoxContainer hoverColor={hoverColor}>
-        <VStack>
-          <Box>{icon}</Box>
-          <Text fontWeight="500">{children}</Text>
+        <VStack w="100%" align="stretch">
+          <Box w="100%" sx={{ svg: { w: '100%' } }}>
+            {icon}
+          </Box>
+          <Text align="center" fontSize="20px" fontWeight="500">
+            {children}
+          </Text>
         </VStack>
       </LinkBoxContainer>
     </motion.div>

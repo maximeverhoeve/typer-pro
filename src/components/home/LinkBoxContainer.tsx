@@ -1,5 +1,5 @@
 import { AspectRatio, Box, Center, useBoolean } from '@chakra-ui/react';
-import React, { MouseEvent, PropsWithChildren, useState } from 'react';
+import React, { MouseEvent, PropsWithChildren } from 'react';
 
 interface Props {
   hoverColor: string;
@@ -28,10 +28,11 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
       transition="0.2s"
       border="1px solid"
       borderColor="text"
-      w="210px"
+      w="300px"
+      h="100%"
+      maxH="500px"
       p="8"
       py="16"
-      h="100%"
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -42,7 +43,9 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
       overflow="hidden"
       bg="box"
     >
-      <Box zIndex={1}>{children}</Box>
+      <Box flexGrow={1} zIndex={1}>
+        {children}
+      </Box>
       <Box
         position="absolute"
         w="100%"
