@@ -1,8 +1,12 @@
-import React from 'react';
-import { Heading, Text, VStack } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { Heading, Text, useBoolean, VStack } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const HeaderLogo: React.FC = () => {
+  const { pathname } = useLocation();
+  const [isInitialLoad, setIsInitialLoad] = useBoolean();
+
   return (
     <AnimatePresence>
       <VStack p="4" spacing="4" justify="center">
@@ -19,18 +23,23 @@ const HeaderLogo: React.FC = () => {
             transition={{ duration: 0.3, delay: 0.3, type: 'spring' }}
           >
             <Text color="primary">[</Text>
-            <motion.div
-              style={{
-                overflow: 'hidden',
-              }}
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 0.5, delay: 1 }}
-            >
-              <Text whiteSpace="nowrap" px="4">
-                typer:pro
-              </Text>
-            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={pathname}
+                style={{
+                  overflow: 'hidden',
+                }}
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                exit={{ width: 0 }}
+                onAnimationComplete={setIsInitialLoad.on}
+                transition={{ duration: 0.5, delay: !isInitialLoad ? 1 : 0 }}
+              >
+                <Text whiteSpace="nowrap" px="4">
+                  {pathname === '/' ? 'typer:pro' : pathname}
+                </Text>
+              </motion.div>
+            </AnimatePresence>
             <Text color="secondary">]</Text>
           </motion.div>
         </Heading>
