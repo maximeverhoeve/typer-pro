@@ -7,7 +7,12 @@ import LinkBox from '../components/home/LinkBox';
 
 const Home: React.FC = () => {
   return (
-    <Grid templateColumns="repeat(2, 1fr)" h="100%" gridGap="4">
+    <Grid
+      templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
+      h="100%"
+      gridGap="4"
+      maxW="100vw"
+    >
       <Link to="/singleplayer">
         <LinkBox icon={<SingleplayerIcon />}>singleplayer</LinkBox>
       </Link>

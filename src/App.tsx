@@ -39,7 +39,7 @@ const App: React.FC = () => {
         templateRows="30vh auto 30vh"
         transition="0.2s"
         bg="background"
-        h="100vh"
+        minH="100vh"
         color="text"
       >
         <Header
