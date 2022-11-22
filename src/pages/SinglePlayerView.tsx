@@ -28,7 +28,7 @@ const SinglePlayerView: React.FC = () => {
         exit={{ transform: 'scale(0)' }}
       >
         <Box display="inline">
-          <Spinner size="xl" color="yellow" />
+          <Spinner size="xl" color="secondary" />
         </Box>
       </motion.div>
     );
@@ -39,6 +39,7 @@ const SinglePlayerView: React.FC = () => {
         initial={{ transform: 'scale(0.1)' }}
         animate={{ transform: 'scale(1)' }}
         exit={{ transform: 'scale(0.1)', opacity: 0 }}
+        transition={{ duration: 0.2 }}
       >
         <TypingContainer joke={joke} onRestart={onRestart} />
       </motion.div>

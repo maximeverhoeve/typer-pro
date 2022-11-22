@@ -21,7 +21,7 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      transition={{ delay, duration: 0.4 }}
+      transition={{ delay, duration: 0.3 }}
     >
       <LinkBoxContainer hoverColor={hoverColor}>
         <VStack>

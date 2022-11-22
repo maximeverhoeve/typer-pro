@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, HStack, Input, VStack } from '@chakra-ui/react';
+import { Box, Button, HStack, Input, Text, VStack } from '@chakra-ui/react';
 import { Joke } from '../hooks/useJoke';
 import useTyper from '../hooks/useTyper';
 import ShowedText from './ShowedText';
@@ -38,8 +38,8 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
 
   const getStats = (): Stats => {
     const { start, end } = timer;
-
-    const totalTime = end - start;
+    const _end = end || Date.now();
+    const totalTime = _end - start;
     const oneMinInMs = 60000;
     const textWordLength = text.split(' ').length;
 
@@ -50,6 +50,43 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
       cpm: Math.round(cpm),
     };
   };
+  if (joke) {
+    return (
+      <Box maxW="3xl">
+        <HStack mb="4" fontSize="xl" spacing="10">
+          <Text color="text">WPM:{getStats().wpm}</Text>
+          <Text color="text">CPM:{getStats().cpm}</Text>
+        </HStack>
+        <VStack
+          bg="box"
+          border="1px solid"
+          borderColor="border"
+          p="6"
+          align="stretch"
+          spacing="6"
+        >
+          <ShowedText
+            validText={validText}
+            currentWord={wordToType}
+            text={textToType}
+          />
+          <Input
+            autoFocus={true}
+            autoCapitalize="off"
+            bg={hasError ? 'error' : 'box'}
+            borderRadius="none"
+            onChange={handleChange}
+            fontWeight="bold"
+            value={inputValue}
+            borderColor="border"
+            h="40px"
+            fontSize="xl"
+            _focus={{ boxShadow: 'unset', borderColor: 'border' }}
+          />
+        </VStack>
+      </Box>
+    );
+  }
 
   return (
     <VStack spacing="5" px="6" w="100%" maxW="600px" align="stretch">

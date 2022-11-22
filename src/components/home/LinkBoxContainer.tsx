@@ -1,4 +1,4 @@
-import { Box, Center, useBoolean } from '@chakra-ui/react';
+import { AspectRatio, Box, Center, useBoolean } from '@chakra-ui/react';
 import React, { MouseEvent, PropsWithChildren, useState } from 'react';
 
 interface Props {
@@ -9,29 +9,13 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
   hoverColor,
   children,
 }) => {
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
   const [isHovering, setIsHovering] = useBoolean();
 
   const handleMouseEnter = (event: MouseEvent<HTMLDivElement>): void => {
-    const localX = event.clientX - event.currentTarget.offsetLeft;
-    const localY = event.clientY - event.currentTarget.offsetTop;
-    setMousePos({
-      x: localX,
-      y: localY,
-    });
     setIsHovering.on();
   };
 
   const handleMouseLeave = (event: MouseEvent<HTMLDivElement>): void => {
-    const localX = event.clientX - event.currentTarget.offsetLeft;
-    const localY = event.clientY - event.currentTarget.offsetTop;
-    setMousePos({
-      x: localX,
-      y: localY,
-    });
     setIsHovering.off();
   };
 
@@ -56,11 +40,12 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
       }}
       position="relative"
       overflow="hidden"
+      bg="box"
     >
       <Box zIndex={1}>{children}</Box>
       <Box
         position="absolute"
-        w="110%"
+        w="100%"
         h={isHovering ? '100%' : '0%'}
         bottom={0}
         left={0}
