@@ -10,8 +10,9 @@ const Home: React.FC = () => {
       h="100%"
       gridGap="4"
       maxW="100vw"
+      overflow="hidden"
     >
-      <Center></Center>
+      <Center>{/* THREEJS SCENE */}</Center>
       <VStack align="stretch" justify="center">
         <LinkBox
           setIsHovering={() => setHoveringItem(0)}
