@@ -1,61 +1,39 @@
-import { AspectRatio, Box, Center, useBoolean } from '@chakra-ui/react';
-import React, { MouseEvent, PropsWithChildren } from 'react';
+import { Box } from '@chakra-ui/react';
+import React, { PropsWithChildren } from 'react';
 
 interface Props {
   hoverColor: string;
+  isHovering: boolean;
 }
 
 const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
   hoverColor,
   children,
+  isHovering,
 }) => {
-  const [isHovering, setIsHovering] = useBoolean();
-
-  const handleMouseEnter = (event: MouseEvent<HTMLDivElement>): void => {
-    setIsHovering.on();
-  };
-
-  const handleMouseLeave = (event: MouseEvent<HTMLDivElement>): void => {
-    setIsHovering.off();
-  };
-
   return (
-    <Center
-      _hover={{
-        transform: 'scale(1.05)',
-        color: 'white',
-      }}
+    <Box
+      sx={
+        isHovering
+          ? {
+              minH: '100%',
+              boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+              bg: hoverColor,
+              color: 'white',
+            }
+          : {}
+      }
       transition="0.2s"
-      border="1px solid"
-      borderColor="text"
-      w="300px"
-      h="100%"
-      maxH="500px"
-      p="8"
-      py="16"
-      boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      _active={{
-        transform: 'scale(0.95)',
-      }}
+      w={{ base: '100vw', md: '50vw' }}
+      p="4"
+      minH="0%"
       position="relative"
       overflow="hidden"
-      bg="box"
     >
       <Box flexGrow={1} zIndex={1}>
         {children}
       </Box>
-      <Box
-        position="absolute"
-        w="100%"
-        h={isHovering ? '100%' : '0%'}
-        bottom={0}
-        left={0}
-        bg={hoverColor}
-        transition="0.2s"
-      />
-    </Center>
+    </Box>
   );
 };
 
