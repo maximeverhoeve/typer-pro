@@ -1,24 +1,35 @@
-import React from 'react';
-import { Box, Button, HStack, Input, Text, VStack } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import {
+  Box,
+  IconButton,
+  Input,
+  Spinner,
+  VStack,
+  Tooltip,
+} from '@chakra-ui/react';
 import { Joke } from '../hooks/useJoke';
-import useTyper from '../hooks/useTyper';
+import useTyper, { Stats } from '../hooks/useTyper';
 import ShowedText from './ShowedText';
-import StatsView from './StatsView';
 import { VscDebugRestart } from 'react-icons/vsc';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   joke?: Joke;
+  isLoading?: boolean;
   onRestart?: () => void;
 }
 
-export interface Stats {
-  cpm: number;
-  wpm: number;
-}
-
-const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
+const TypingContainer: React.FC<Props> = ({ joke, onRestart, isLoading }) => {
   const text = joke?.joke || '';
+  const navigate = useNavigate();
+
+  const handleFinish = (stats: Stats): void => {
+    navigate('/singleplayer/results', {
+      state: {
+        stats,
+      },
+    });
+  };
 
   const {
     textToType,
@@ -26,132 +37,56 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart }) => {
     wordToType,
     inputValue,
     handleChange,
-    isFinished,
-    timer,
     hasError,
     onReset,
-  } = useTyper(text);
+  } = useTyper(text, handleFinish);
 
   const handleRestartClick = (): void => {
     onRestart?.();
     onReset();
   };
 
-  const getStats = (): Stats => {
-    const { start, end } = timer;
-    const _end = end || Date.now();
-    const totalTime = _end - start;
-    const oneMinInMs = 60000;
-    const textWordLength = text.split(' ').length;
-
-    const cpm = text.length * (oneMinInMs / totalTime);
-    const wpm = textWordLength * (oneMinInMs / totalTime);
-    return {
-      wpm: Math.round(wpm),
-      cpm: Math.round(cpm),
-    };
-  };
-  if (joke) {
-    return (
-      <Box maxW="3xl" w="100%">
-        <HStack mb="4" fontSize="xl" spacing="10">
-          <Text color="text">WPM:{getStats().wpm}</Text>
-          <Text color="text">CPM:{getStats().cpm}</Text>
-        </HStack>
-        <AnimatePresence mode="wait">
-          {isFinished ? (
-            <motion.div
-              key="stats"
-              initial={{ translateX: '20%', opacity: 0 }}
-              animate={{ translateX: 0, opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <VStack
-                bg="box"
-                border="1px solid"
-                borderColor="border"
-                p="6"
-                align="stretch"
-                spacing="6"
-                overflowX="hidden"
-              >
-                <StatsView stats={getStats()} onRestart={handleRestartClick} />
-              </VStack>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="input"
-              exit={{ translateX: '-20%', opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <VStack
-                bg="box"
-                border="1px solid"
-                borderColor="border"
-                p="6"
-                align="stretch"
-                spacing="6"
-                overflowX="hidden"
-              >
-                <ShowedText
-                  validText={validText}
-                  currentWord={wordToType}
-                  text={textToType}
-                />
-                <Input
-                  autoFocus={true}
-                  autoCapitalize="off"
-                  bg={hasError ? 'error' : 'box'}
-                  borderRadius="none"
-                  onChange={handleChange}
-                  fontWeight="bold"
-                  value={inputValue}
-                  borderColor="border"
-                  h="40px"
-                  fontSize="xl"
-                  _focus={{ boxShadow: 'unset', borderColor: 'border' }}
-                />
-              </VStack>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Box>
-    );
-  }
+  useEffect(() => {
+    onReset();
+  }, [text]);
 
   return (
-    <VStack spacing="5" px="6" w="100%" maxW="600px" align="stretch">
-      {isFinished ? (
-        <StatsView stats={getStats()} onRestart={handleRestartClick} />
-      ) : (
-        <>
+    <VStack spacing="8" height="100%" justify="flex-end" flexGrow={1}>
+      <Box maxW="4xl">
+        {isLoading ? (
+          <Box display="inline">
+            <Spinner size="xl" color="secondary" />
+          </Box>
+        ) : (
           <ShowedText
             validText={validText}
             currentWord={wordToType}
             text={textToType}
           />
-          <HStack>
-            <Input
-              autoFocus={true}
-              autoCapitalize="off"
-              bg={hasError ? 'red.300' : 'white'}
-              onChange={handleChange}
-              fontWeight="bold"
-              value={inputValue}
-              _focus={{ boxShadow: 'unset', borderColor: 'black' }}
-            />
-            <Button
-              leftIcon={<VscDebugRestart size="20px" />}
-              variant="solid"
-              colorScheme="yellow"
-              minW="32"
-              onClick={handleRestartClick}
-            >
-              Restart
-            </Button>
-          </HStack>
-        </>
-      )}
+        )}
+      </Box>
+      <Input
+        autoFocus
+        border="none"
+        fontSize="6xl"
+        color={hasError ? 'red.500' : 'gray.600'}
+        _focus={{ boxShadow: 'none' }}
+        value={inputValue}
+        borderRadius="none"
+        textAlign="center"
+        onChange={handleChange}
+        height="auto"
+      />
+      <Tooltip label="Restart" hasArrow placement="top">
+        <IconButton
+          aria-label="restart"
+          icon={<VscDebugRestart size="20px" />}
+          variant="ghost"
+          isLoading={isLoading}
+          _hover={{ bg: 'gray.700', color: 'white' }}
+          onClick={handleRestartClick}
+        />
+      </Tooltip>
     </VStack>
   );
 };

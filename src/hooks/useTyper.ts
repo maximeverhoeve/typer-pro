@@ -20,7 +20,15 @@ interface ReturnProps {
 
 const defaultTimer = { start: 0, end: 0 };
 
-const useTyper = (text: string): ReturnProps => {
+export interface Stats {
+  cpm: number;
+  wpm: number;
+}
+
+const useTyper = (
+  text: string,
+  onFinish?: (stats: Stats) => void,
+): ReturnProps => {
   const textArray = text.split(' ');
   const [validWords, setValidWords] = useState<string[]>([]);
   const [wordToTypeIndex, setWordToTypeIndex] = useState<number>(0);
@@ -33,6 +41,21 @@ const useTyper = (text: string): ReturnProps => {
   const wordToType = textArray[wordToTypeIndex];
   const isInputValid =
     wordToType?.substring(0, inputValue.length) === inputValue;
+
+  const getStats = (): Stats => {
+    const { start, end } = timer;
+    const _end = end || Date.now();
+    const totalTime = _end - start;
+    const oneMinInMs = 60000;
+    const textWordLength = text.split(' ').length;
+
+    const cpm = text.length * (oneMinInMs / totalTime);
+    const wpm = textWordLength * (oneMinInMs / totalTime);
+    return {
+      wpm: Math.round(wpm),
+      cpm: Math.round(cpm),
+    };
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!timer.start) {
@@ -48,6 +71,7 @@ const useTyper = (text: string): ReturnProps => {
     if (stop || (isWordValid && endsWithSpace)) {
       if (stop) {
         setTimer((prev) => ({ ...prev, end: Date.now() }));
+        onFinish?.(getStats());
       }
       setValidWords((prev) => [...prev, value.replaceAll(' ', '')]);
       setWordToTypeIndex((prev) => {

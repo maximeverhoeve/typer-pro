@@ -46,8 +46,7 @@ const useJoke = (): ReturnProps => {
   };
 
   useEffect(() => {
-    if (!joke) {
-      console.log('test');
+    if (!isLoading) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       getData();
     }
