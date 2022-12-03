@@ -1,12 +1,12 @@
 import create from 'zustand';
 
 interface PlayerState {
-  nickname?: string;
+  nickname: string;
   setNickname: (name: string) => void;
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
-  nickname: undefined,
+  nickname: 'devmax',
   setNickname: (name) => set(() => ({ nickname: name })),
 }));
 

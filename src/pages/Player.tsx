@@ -1,12 +1,14 @@
 import { Button, Input, Text, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React from 'react';
 import { HiArrowRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import usePlayerStore from '../store/usePlayerStore';
 
 const Player: React.FC = () => {
   const placeholdername = 'devmax';
-  const [nickname, setNickname] = useState<string>(placeholdername);
+  const nickname = usePlayerStore((state) => state.nickname);
+  const setNickname = usePlayerStore((state) => state.setNickname);
 
   const handleBlur = (): void => {
     if (!nickname) {
