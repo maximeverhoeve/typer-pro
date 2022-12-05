@@ -57,7 +57,11 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
           {data.map((player, index) => {
             const isActiveRow = player.id === playerId;
             return (
-              <Tr key={player.id} bg={isActiveRow ? 'primary' : undefined}>
+              <Tr
+                key={player.id}
+                bg={isActiveRow ? 'primary' : undefined}
+                color={isActiveRow ? 'white' : undefined}
+              >
                 <Td>{index + 1}</Td>
                 <Td>{player.name}</Td>
                 <Td>{player.acc}</Td>

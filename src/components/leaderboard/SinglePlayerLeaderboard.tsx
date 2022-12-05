@@ -25,48 +25,6 @@ const SinglePlayerLeaderboard: React.FC<Props> = () => {
       acc: 66,
       wpm: 85,
     },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
-    {
-      id: '3263237',
-      name: 'Martijn',
-      acc: 66,
-      wpm: 85,
-    },
   ];
 
   return <CustomTable data={data} playerId="3263232" />;
