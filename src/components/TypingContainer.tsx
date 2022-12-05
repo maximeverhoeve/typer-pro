@@ -27,6 +27,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart, isLoading }) => {
     navigate('/singleplayer/results', {
       state: {
         stats,
+        textId: joke?.id,
       },
     });
   };
