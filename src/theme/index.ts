@@ -1,7 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
 import { merge } from 'lodash';
+import table from './components/table';
 
 const defaultTheme = {
+  components: {
+    Table: table,
+  },
   fonts: {
     heading: 'Roboto Mono',
     body: 'Roboto Mono',

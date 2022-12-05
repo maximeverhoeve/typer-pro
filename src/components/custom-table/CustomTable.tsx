@@ -1,6 +1,13 @@
-import { Box, HStack, Text } from '@chakra-ui/react';
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import React from 'react';
-import CustomtableRow from './CustomtableRow';
 
 export interface LeaderboardData {
   id: string;
@@ -16,36 +23,51 @@ interface Props {
 
 const CustomTable: React.FC<Props> = ({ data, playerId }) => {
   return (
-    <Box
+    <TableContainer
+      maxH="250px"
       w="100%"
       h="100%"
       border="1px solid"
       borderColor="#414141"
       overflowY="auto"
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '12px',
+          bg: '#2F2F2F',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: '#454545',
+        },
+      }}
     >
-      {/* Header */}
-      <HStack
-        borderBottom="1px solid"
-        borderColor="#414141"
-        fontWeight="medium"
-        p="4"
-        spacing="6"
-      >
-        {/* Adding invisible number for spacing purpose */}
-        <Text opacity="0">2</Text>
-        <Text flexGrow="1">Player</Text>
-        <Text>acc[%]</Text>
-        <Text>wpm</Text>
-      </HStack>
-      {data.map((player, index) => (
-        <CustomtableRow
-          key={player.id}
-          data={player}
-          nr={index + 1}
-          activeId={playerId}
-        />
-      ))}
-    </Box>
+      <Table>
+        <Thead position="sticky" top="0">
+          <Tr>
+            {/* Adding invisible number for spacing purpose */}
+            <Th></Th>
+            <Th w="100%">Player</Th>
+            <Th>acc[%]</Th>
+            <Th>wpm</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data.map((player, index) => {
+            const isActiveRow = player.id === playerId;
+            return (
+              <Tr key={player.id} bg={isActiveRow ? 'primary' : undefined}>
+                <Td>{index + 1}</Td>
+                <Td>{player.name}</Td>
+                <Td>{player.acc}</Td>
+                <Td>{player.wpm}</Td>
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 };
 
