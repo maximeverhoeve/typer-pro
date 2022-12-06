@@ -1,19 +1,19 @@
-import { io, Socket } from 'socket.io-client';
+// import { io, Socket } from 'socket.io-client';
 import { createContext, useState, useEffect } from 'react';
 import {
-  ClientToServerEvents,
+  // ClientToServerEvents,
   Player,
-  ServerToClientEvents,
+  // ServerToClientEvents,
 } from '../types/socketTypes';
 import { useBoolean } from '@chakra-ui/react';
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  import.meta.env.VITE_SERVER_URL || 'http://localhost:3001',
-  { transports: ['websocket', 'polling', 'flashsocket'] },
-);
+// const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+//   import.meta.env.VITE_SERVER_URL || 'http://localhost:3001',
+//   { transports: ['websocket', 'polling', 'flashsocket'] },
+// );
 
 export interface SocketContextType {
-  socket: Socket<ServerToClientEvents, ClientToServerEvents>;
+  // socket: Socket<ServerToClientEvents, ClientToServerEvents>;
   nickname?: string;
   room?: string;
   isConnected: boolean;
@@ -24,7 +24,7 @@ export interface SocketContextType {
 
 export const SocketContext = createContext<SocketContextType>({
   // default values
-  socket,
+  // socket,
   isConnected: false,
   players: [],
   isReady: false,
@@ -39,7 +39,7 @@ const useSocketInit = (): SocketContextType => {
   const [isReady, setIsReady] = useBoolean();
 
   const onChangeProgress = (progress: number): void => {
-    socket.emit('player:progress', progress);
+    // socket.emit('player:progress', progress);
   };
 
   const onRoomJoined = (socketProps: {
@@ -61,45 +61,45 @@ const useSocketInit = (): SocketContextType => {
   // INITIAL EVENTS
   useEffect(() => {
     // Joined room
-    socket.on('room:joined', onRoomJoined);
+    // socket.on('room:joined', onRoomJoined);
 
     // Left room
-    socket.on('room:left', () => {
-      setRoom(undefined);
-    });
+    // socket.on('room:left', () => {
+    //   setRoom(undefined);
+    // });
 
     return () => {
-      socket.off('room:joined');
-      socket.off('room:left');
+      // socket.off('room:joined');
+      // socket.off('room:left');
     };
   }, []);
 
   // EVENTS ON ROOM CHANGE
-  useEffect(() => {
-    socket.on('connect', () => {
-      setIsConnected.on();
-      // reconnect to previous connected room
-      if (nickname && room) socket.emit('room:join', { nickname, room });
-    });
+  // useEffect(() => {
+  //   socket.on('connect', () => {
+  //     setIsConnected.on();
+  //     // reconnect to previous connected room
+  //     if (nickname && room) socket.emit('room:join', { nickname, room });
+  //   });
 
-    // Updated room
-    socket.on('room:update', onRoomUpdated);
+  //   // Updated room
+  //   socket.on('room:update', onRoomUpdated);
 
-    socket.on('disconnect', () => {
-      socket.emit('room:leave');
-      setRoom(undefined);
-      setIsConnected.off();
-    });
+  //   socket.on('disconnect', () => {
+  //     socket.emit('room:leave');
+  //     setRoom(undefined);
+  //     setIsConnected.off();
+  //   });
 
-    return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('room:update');
-    };
-  }, [room]);
+  //   return () => {
+  //     socket.off('connect');
+  //     socket.off('disconnect');
+  //     socket.off('room:update');
+  //   };
+  // }, [room]);
 
   return {
-    socket,
+    // socket,
     room,
     nickname,
     isConnected,

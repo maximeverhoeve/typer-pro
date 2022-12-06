@@ -42,7 +42,7 @@ const SinglePlayerResults: React.FC = () => {
           </Box>
         </VStack>
         <Box flexGrow={1}>
-          <SinglePlayerLeaderboard id={textId} />
+          <SinglePlayerLeaderboard id={textId} stats={stats} />
         </Box>
       </HStack>
     </motion.div>

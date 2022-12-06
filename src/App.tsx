@@ -7,11 +7,14 @@ import { customThemeDark, customThemeLight } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 enum THEMES {
   DARK = 'dark',
   LIGHT = 'light',
 }
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   // TEMP DISABLING WHILE CODING STYLING
@@ -32,27 +35,29 @@ const App: React.FC = () => {
   };
 
   return (
-    // <SocketContext.Provider value={socketContextValues}>
-    // <GameContext.Provider value={gameContextValues}>
-    <ChakraProvider theme={isDarkTheme ? customThemeDark : customThemeLight}>
-      <Grid
-        templateRows="30vh auto 30vh"
-        transition="0.2s"
-        bg="background"
-        minH="100vh"
-        color="text"
-      >
-        <Header
-          isDarkTheme={isDarkTheme}
-          onThemeChange={handleThemeChange}
-          onTransitionEnd={setTransitionEnded.on}
-        />
-        <Center flexGrow="1">{transitionEnded && <AnimatedRoutes />}</Center>
-        <Footer />
-      </Grid>
-    </ChakraProvider>
-    // </GameContext.Provider>
-    // </SocketContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      {/* <SocketContext.Provider value={socketContextValues}>
+        <GameContext.Provider value={gameContextValues}> */}
+      <ChakraProvider theme={isDarkTheme ? customThemeDark : customThemeLight}>
+        <Grid
+          templateRows="30vh auto 30vh"
+          transition="0.2s"
+          bg="background"
+          minH="100vh"
+          color="text"
+        >
+          <Header
+            isDarkTheme={isDarkTheme}
+            onThemeChange={handleThemeChange}
+            onTransitionEnd={setTransitionEnded.on}
+          />
+          <Center flexGrow="1">{transitionEnded && <AnimatedRoutes />}</Center>
+          <Footer />
+        </Grid>
+      </ChakraProvider>
+      {/* </GameContext.Provider>
+      </SocketContext.Provider> */}
+    </QueryClientProvider>
   );
 };
 

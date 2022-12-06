@@ -8,9 +8,9 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { Stats } from './TypingContainer';
 import CountUp from 'react-countup';
 import { VscDebugRestart } from 'react-icons/vsc';
+import { Stats } from '../hooks/useTyper';
 
 interface Props {
   stats: Stats;
