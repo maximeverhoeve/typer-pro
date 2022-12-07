@@ -1,10 +1,6 @@
 import { Spinner, useBoolean } from '@chakra-ui/react';
-import {
-  useFirestoreDocument,
-  useFirestoreQuery,
-  useFirestoreQueryData,
-} from '@react-query-firebase/firestore';
-import { addDoc, collection, doc, query, setDoc } from 'firebase/firestore';
+import { useFirestoreQueryData } from '@react-query-firebase/firestore';
+import { collection, doc, query, setDoc } from 'firebase/firestore';
 import React, { useEffect } from 'react';
 import { firestore } from '../../firebase';
 import { Stats } from '../../hooks/useTyper';
