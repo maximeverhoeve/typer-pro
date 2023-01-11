@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Center, Grid, VStack } from '@chakra-ui/react';
 import LinkBox from '../components/home/LinkBox';
+import { Canvas } from '@react-three/fiber';
 
 const Home: React.FC = () => {
   const [hoveringItem, setHoveringItem] = useState(0);
@@ -12,7 +13,16 @@ const Home: React.FC = () => {
       maxW="100vw"
       overflow="hidden"
     >
-      <Center>{/* THREEJS SCENE */}</Center>
+      <Center>
+        <Canvas>
+          <ambientLight />
+          <pointLight position={[10, 10, 10]} />
+          <mesh>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color="orange" />
+          </mesh>
+        </Canvas>
+      </Center>
       <VStack align="stretch" justify="center">
         <LinkBox
           setIsHovering={() => setHoveringItem(0)}
