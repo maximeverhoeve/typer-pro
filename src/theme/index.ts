@@ -36,7 +36,7 @@ const customThemeDark = extendTheme(
   merge(defaultTheme, {
     semanticTokens: {
       colors: {
-        background: '#202124',
+        background: '#202020',
         box: '#131415',
         text: '#f6f6f6',
         border: '#fff',

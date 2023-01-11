@@ -50,6 +50,7 @@ module.exports = {
     'react/require-render-return': 'off',
     'react/react-in-jsx-scope': 'off',
     'import/default': 'off',
+    'react/no-unknown-property': 'off',
     'import/no-named-as-default': 'off',
     eqeqeq: ['warn', 'smart'],
     'no-lonely-if': 'warn',

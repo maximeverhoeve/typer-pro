@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Center, Grid, VStack } from '@chakra-ui/react';
 import LinkBox from '../components/home/LinkBox';
 import { Canvas } from '@react-three/fiber';
+import MainScene from '../components/home/three/MainScene';
+import { OrbitControls } from '@react-three/drei';
 
 const Home: React.FC = () => {
   const [hoveringItem, setHoveringItem] = useState(0);
@@ -14,13 +16,14 @@ const Home: React.FC = () => {
       overflow="hidden"
     >
       <Center>
-        <Canvas>
-          <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          <mesh>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color="orange" />
-          </mesh>
+        <Canvas className="canvas" dpr={[1, 2]}>
+          <MainScene hoveringItem={hoveringItem} />
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+          />
         </Canvas>
       </Center>
       <VStack align="stretch" justify="center">
