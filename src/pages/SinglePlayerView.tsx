@@ -22,13 +22,13 @@ const SinglePlayerView: React.FC = () => {
 
   return (
     <motion.div
-      style={{ flexGrow: 1, height: '100%' }}
+      style={{ flexGrow: 1 }}
       initial={{ transform: 'scale(0.1)' }}
       animate={{ transform: 'scale(1)' }}
       exit={{ transform: 'scale(0.1)', opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <Center h="100%">
+      <Center h="100%" px="5">
         <TypingContainer
           joke={joke}
           isLoading={isLoading}

@@ -25,8 +25,11 @@ const Header: React.FC<Props> = ({
   return (
     <motion.div
       style={{
-        position: 'relative',
+        position: 'absolute',
         originY: '50%',
+        width: '100%',
+        left: 0,
+        zIndex: 1,
       }}
       initial={{ height: '100vh' }}
       animate={{ height: 'unset' }}

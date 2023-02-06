@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
-import { Center, Grid, VStack } from '@chakra-ui/react';
+import { Box, Center, VStack } from '@chakra-ui/react';
 import LinkBox from '../components/home/LinkBox';
-import { Canvas } from '@react-three/fiber';
-import MainScene from '../components/home/three/MainScene';
-import { OrbitControls } from '@react-three/drei';
 
 const Home: React.FC = () => {
   const [hoveringItem, setHoveringItem] = useState(0);
   return (
-    <Grid
-      templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
-      h="100%"
-      gridGap="4"
-      maxW="100vw"
-      overflow="hidden"
-    >
+    <Box mx="auto" h="100%" maxW="2xl" w="100%">
       <Center>
-        <Canvas className="canvas" dpr={[1, 2]}>
+        {/* <Canvas className="canvas" dpr={[1, 2]}>
           <MainScene hoveringItem={hoveringItem} />
           <OrbitControls
             enablePan={false}
@@ -24,9 +15,9 @@ const Home: React.FC = () => {
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 2}
           />
-        </Canvas>
+        </Canvas> */}
       </Center>
-      <VStack align="stretch" justify="center">
+      <VStack flexGrow={1} align="stretch" justify="flex-start">
         <LinkBox
           setIsHovering={() => setHoveringItem(0)}
           isHovering={hoveringItem === 0}
@@ -57,7 +48,7 @@ const Home: React.FC = () => {
           Leaderboard
         </LinkBox>
       </VStack>
-    </Grid>
+    </Box>
   );
 };
 
