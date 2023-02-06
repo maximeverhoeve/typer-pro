@@ -51,7 +51,7 @@ const App: React.FC = () => {
           color="text"
         >
           <Canvas className="canvas" dpr={[1, 2]}>
-            <MainScene hoveringItem={1} />
+            <MainScene hoveringItem={0} />
             <OrbitControls
               enablePan={false}
               enableZoom={false}
@@ -73,21 +73,6 @@ const App: React.FC = () => {
             <Footer />
           </Box>
         </Grid>
-        {/* <Grid
-          templateRows="30vh auto 30vh"
-          transition="0.2s"
-          bg="background"
-          minH="100vh"
-          color="text"
-        >
-          <Header
-            isDarkTheme={isDarkTheme}
-            onThemeChange={handleThemeChange}
-            onTransitionEnd={setTransitionEnded.on}
-          />
-          <Center flexGrow="1">{transitionEnded && <AnimatedRoutes />}</Center>
-          <Footer />
-        </Grid> */}
       </ChakraProvider>
       {/* </GameContext.Provider>
       </SocketContext.Provider> */}
