@@ -6,17 +6,7 @@ const Home: React.FC = () => {
   const [hoveringItem, setHoveringItem] = useState(0);
   return (
     <Box mx="auto" h="100%" maxW="2xl" w="100%">
-      <Center>
-        {/* <Canvas className="canvas" dpr={[1, 2]}>
-          <MainScene hoveringItem={hoveringItem} />
-          <OrbitControls
-            enablePan={false}
-            enableZoom={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-        </Canvas> */}
-      </Center>
+      <Center></Center>
       <VStack flexGrow={1} align="stretch" justify="flex-start">
         <LinkBox
           setIsHovering={() => setHoveringItem(0)}
@@ -29,10 +19,12 @@ const Home: React.FC = () => {
         <LinkBox
           setIsHovering={() => setHoveringItem(1)}
           isHovering={hoveringItem === 1}
-          to="/multiplayer"
+          // to="/multiplayer"
+          to="/"
           delay={0.2}
           hoverColor="secondary"
           description="Play against friends and see who is the typer pro"
+          isUnavailable
         >
           Multiplayer
         </LinkBox>

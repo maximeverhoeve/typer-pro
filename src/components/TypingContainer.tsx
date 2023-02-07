@@ -11,26 +11,21 @@ import { Joke } from '../hooks/useJoke';
 import useTyper, { Stats } from '../hooks/useTyper';
 import ShowedText from './ShowedText';
 import { VscDebugRestart } from 'react-icons/vsc';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   joke?: Joke;
   isLoading?: boolean;
   onRestart?: () => void;
+  onFinish: (stats: Stats) => void;
 }
 
-const TypingContainer: React.FC<Props> = ({ joke, onRestart, isLoading }) => {
+const TypingContainer: React.FC<Props> = ({
+  joke,
+  onRestart,
+  isLoading,
+  onFinish,
+}) => {
   const text = joke?.joke || '';
-  const navigate = useNavigate();
-
-  const handleFinish = (stats: Stats): void => {
-    navigate('/singleplayer/results', {
-      state: {
-        stats,
-        textId: joke?.id,
-      },
-    });
-  };
 
   const {
     textToType,
@@ -40,7 +35,7 @@ const TypingContainer: React.FC<Props> = ({ joke, onRestart, isLoading }) => {
     handleChange,
     hasError,
     onReset,
-  } = useTyper(text, handleFinish);
+  } = useTyper(text, onFinish);
 
   const handleRestartClick = (): void => {
     onRestart?.();

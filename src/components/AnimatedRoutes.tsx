@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from '../pages/Home';
-import Player from '../pages/Player';
+import Player from '../pages/player/Player';
 import SinglePlayerResults from '../pages/SinglePlayerResults';
 import SinglePlayerView from '../pages/SinglePlayerView';
 import MultiplayerSetup from './socket_chat/MultiplayerSetup';

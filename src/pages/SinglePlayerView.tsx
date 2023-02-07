@@ -3,6 +3,7 @@ import { Center } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 import { motion } from 'framer-motion';
+import { Stats } from '../hooks/useTyper';
 
 const SinglePlayerView: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
@@ -20,6 +21,15 @@ const SinglePlayerView: React.FC = () => {
     };
   }, []);
 
+  const handleFinish = (stats: Stats): void => {
+    // navigate('/singleplayer/results', {
+    //   state: {
+    //     stats,
+    //     textId: joke?.id,
+    //   },
+    // });
+  };
+
   return (
     <motion.div
       style={{ flexGrow: 1 }}
@@ -33,6 +43,7 @@ const SinglePlayerView: React.FC = () => {
           joke={joke}
           isLoading={isLoading}
           onRestart={onRestart}
+          onFinish={handleFinish}
         />
       </Center>
     </motion.div>
