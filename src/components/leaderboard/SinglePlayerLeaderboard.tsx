@@ -18,27 +18,26 @@ const SinglePlayerLeaderboard: React.FC<Props> = ({ id, stats }) => {
   const collectionRef = collection(firestore, `leaderboard/${id}/players`);
   const playerDocRef = doc(firestore, `leaderboard/${id}/players/${playerId}`);
   const ref = query(collectionRef);
-  const addDocument = async (): Promise<void> => {
-    try {
-      await setDoc(playerDocRef, {
-        name: nickname,
-        wpm: stats.wpm,
-        id: playerId,
-      });
-      setIsUserAdded.on();
-    } catch (err) {
-      console.error('playerdata was not added', err);
-    }
-  };
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    addDocument();
-  }, []);
+  // const addDocument = async (): Promise<void> => {
+  //   try {
+  //     await setDoc(playerDocRef, {
+  //       name: nickname,
+  //       wpm: stats.wpm,
+  //       id: playerId,
+  //     });
+  //     setIsUserAdded.on();
+  //   } catch (err) {
+  //     console.error('playerdata was not added', err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  //   addDocument();
+  // }, []);
   const { isLoading, data: firebaseData } = useFirestoreQueryData(
     ['leaderboard', id],
     ref,
     {},
-    { enabled: isUserAdded },
   );
   if (isLoading || !firebaseData) {
     return <Spinner color="primary" />;

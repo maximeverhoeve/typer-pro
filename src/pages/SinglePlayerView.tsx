@@ -1,33 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Center } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
+import usePostScore from '../features/singleplayer/hooks/usePostScore';
+import { useNavigate } from 'react-router-dom';
 
 const SinglePlayerView: React.FC = () => {
   const { joke, isLoading, onRestart } = useJoke();
-  const keyDownHandler = (e: KeyboardEvent): void => {
-    // Restart when Enter key is pressed
-    if (e.key === 'Enter' && e.ctrlKey) {
-      onRestart();
+  const postScore = usePostScore(joke?.id);
+  const navigate = useNavigate();
+
+  const handleFinish = async (stats: Stats): Promise<void> => {
+    const isSuccess = await postScore(stats);
+    if (isSuccess) {
+      navigate('/singleplayer/results', {
+        state: {
+          stats,
+          textId: joke?.id,
+        },
+      });
     }
-  };
-
-  useEffect(() => {
-    document.addEventListener('keydown', keyDownHandler);
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
-  }, []);
-
-  const handleFinish = (stats: Stats): void => {
-    // navigate('/singleplayer/results', {
-    //   state: {
-    //     stats,
-    //     textId: joke?.id,
-    //   },
-    // });
   };
 
   return (
@@ -43,7 +37,9 @@ const SinglePlayerView: React.FC = () => {
           joke={joke}
           isLoading={isLoading}
           onRestart={onRestart}
-          onFinish={handleFinish}
+          onFinish={(stats) => {
+            handleFinish(stats);
+          }}
         />
       </Center>
     </motion.div>
