@@ -45,7 +45,8 @@ const App: React.FC = () => {
         <Grid
           templateRows="repeat(2, 50vh)"
           bg="background"
-          minH="100vh"
+          h="100vh"
+          overflow="hidden"
           w="100%"
           transition="0.2s"
           color="text"
