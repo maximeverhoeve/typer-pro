@@ -1,28 +1,36 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import React, { useEffect } from 'react';
 import { Center } from '@chakra-ui/react';
 import useJoke from '../hooks/useJoke';
 import TypingContainer from '../components/TypingContainer';
 import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
 import usePostScore from '../features/singleplayer/hooks/usePostScore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const SinglePlayerView: React.FC = () => {
-  const { joke, isLoading, onRestart } = useJoke();
+  const { textId } = useParams<{ textId: string }>();
+  const { joke, isLoading, onRestart } = useJoke(textId);
   const postScore = usePostScore(joke?.id);
   const navigate = useNavigate();
 
   const handleFinish = async (stats: Stats): Promise<void> => {
     const isSuccess = await postScore(stats);
-    if (isSuccess) {
-      navigate('/singleplayer/results', {
+    if (isSuccess && joke) {
+      navigate(`/leaderboard/${joke.id}`, {
         state: {
           stats,
-          textId: joke?.id,
+          textId: joke.id,
         },
       });
     }
   };
+
+  useEffect(() => {
+    if (joke?.id && !textId) {
+      navigate(`/singleplayer/${joke.id}`, { replace: true });
+    }
+  }, [joke?.id]);
 
   return (
     <motion.div

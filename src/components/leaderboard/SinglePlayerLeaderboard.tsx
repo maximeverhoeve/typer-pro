@@ -3,13 +3,11 @@ import { useFirestoreQueryData } from '@react-query-firebase/firestore';
 import { collection, query } from 'firebase/firestore';
 import React from 'react';
 import { firestore } from '../../firebase';
-import { Stats } from '../../hooks/useTyper';
 import usePlayerStore from '../../store/usePlayerStore';
 import CustomTable, { LeaderboardData } from '../custom-table/CustomTable';
 
 interface Props {
   id: string;
-  stats: Stats;
 }
 
 const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {

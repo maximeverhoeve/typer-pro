@@ -1,19 +1,15 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 import CountUp from 'react-countup';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
 import { Stats } from '../hooks/useTyper';
 import { motion } from 'framer-motion';
 
-interface LocationState {
-  stats: Stats;
-  textId: string;
-}
-
 const SinglePlayerResults: React.FC = () => {
-  const location = useLocation();
-  const { stats, textId } = location.state as LocationState;
+  const { textId } = useParams<{ textId: string }>();
+
+  if (!textId) return <p>Leaderboard for joke not found</p>;
 
   return (
     <motion.div
@@ -37,12 +33,12 @@ const SinglePlayerResults: React.FC = () => {
           <Box>
             <Text>wpm:</Text>
             <Text>
-              <CountUp end={stats.wpm} duration={0.6} />
+              <CountUp end={0} duration={0.6} />
             </Text>
           </Box>
         </VStack>
         <Box flexGrow={1}>
-          <SinglePlayerLeaderboard id={textId} stats={stats} />
+          <SinglePlayerLeaderboard id={textId} />
         </Box>
       </HStack>
     </motion.div>
