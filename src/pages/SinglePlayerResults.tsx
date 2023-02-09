@@ -1,9 +1,8 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 import CountUp from 'react-countup';
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
-import { Stats } from '../hooks/useTyper';
 import { motion } from 'framer-motion';
 
 const SinglePlayerResults: React.FC = () => {
