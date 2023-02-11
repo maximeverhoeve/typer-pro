@@ -8,6 +8,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import React from 'react';
+import { getDisplayName } from '../../features/singleplayer/utils/playerUtils';
 
 export interface LeaderboardData {
   id: string;
@@ -53,18 +54,29 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((player, index) => {
-            const isActiveRow = player.id === playerId;
+          {data.map(({ id, acc, name, wpm }, index) => {
+            const isActiveRow = id === playerId;
             return (
               <Tr
-                key={player.id}
+                key={id}
                 bg={isActiveRow ? 'primary' : undefined}
                 color={isActiveRow ? 'white' : undefined}
               >
                 <Td>{index + 1}</Td>
-                <Td>{player.name}</Td>
-                <Td>{player.acc}</Td>
-                <Td>{player.wpm}</Td>
+                <Td
+                  sx={{
+                    span: {
+                      fontSize: '12px',
+                      opacity: 0.3,
+                      ml: 1,
+                    },
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: getDisplayName({ id, name }),
+                  }}
+                />
+                <Td>{acc}</Td>
+                <Td>{wpm}</Td>
               </Tr>
             );
           })}
