@@ -7,16 +7,24 @@ import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
 import usePostScore from '../features/singleplayer/hooks/usePostScore';
 import { useNavigate, useParams } from 'react-router-dom';
+import usePreviousStats from '../hooks/usePreviousStats';
 
 const SinglePlayerView: React.FC = () => {
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
-  const postScore = usePostScore(joke?.id);
+  const postScore = usePostScore(textId || joke?.id);
+  const {
+    isLoading: isLoadingPrevious,
+    data: previousData,
+    refetch,
+  } = usePreviousStats(textId || joke?.id);
   const navigate = useNavigate();
 
   const handleFinish = async (stats: Stats): Promise<void> => {
-    const isSuccess = await postScore(stats);
-    if (isSuccess && joke) {
+    if (!previousData || stats.wpm > previousData.wpm) {
+      await postScore(stats);
+    }
+    if (joke) {
       navigate(`/leaderboard/${joke.id}`, {
         state: {
           stats,
@@ -27,10 +35,16 @@ const SinglePlayerView: React.FC = () => {
   };
 
   useEffect(() => {
+    // When no text id was provided, it should add the random generated textId to the url
     if (joke?.id && !textId) {
       navigate(`/singleplayer/${joke.id}`, { replace: true });
     }
   }, [joke?.id]);
+
+  useEffect(() => {
+    // manually refetch on mount, because query-firstore does not have that prop
+    refetch();
+  }, []);
 
   return (
     <motion.div
@@ -43,7 +57,7 @@ const SinglePlayerView: React.FC = () => {
       <Center h="100%" px="5">
         <TypingContainer
           joke={joke}
-          isLoading={isLoading}
+          isLoading={isLoading || isLoadingPrevious}
           onRestart={onRestart}
           onFinish={(stats) => {
             handleFinish(stats);

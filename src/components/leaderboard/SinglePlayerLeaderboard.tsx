@@ -18,8 +18,10 @@ const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {
   const { isLoading, data: firebaseData } = useFirestoreQueryData(
     ['leaderboard', id],
     ref,
-    {},
+    // Subscribing will make sure it updates instantly when the database changes
+    { subscribe: true },
   );
+
   if (isLoading || !firebaseData) {
     return <Spinner color="primary" />;
   }
