@@ -56,15 +56,6 @@ const SinglePlayerResults: React.FC = () => {
               </Text>
             </Box>
             <Spacer />
-            <Tooltip label="Start a new game" placement="top" hasArrow>
-              <IconButton
-                variant="outline"
-                size="lg"
-                aria-label="New game"
-                onClick={() => navigate('/singleplayer')}
-                icon={<AiFillCaretRight />}
-              />
-            </Tooltip>
             <Tooltip label="Try again" placement="top" hasArrow>
               <IconButton
                 variant="outline"
@@ -73,6 +64,15 @@ const SinglePlayerResults: React.FC = () => {
                 onClick={() => navigate(`/singleplayer/${textId}`)}
                 icon={<VscDebugRestart />}
               />
+              <Tooltip label="Start a new game" placement="top" hasArrow>
+                <IconButton
+                  variant="outline"
+                  size="lg"
+                  aria-label="New game"
+                  onClick={() => navigate('/singleplayer')}
+                  icon={<AiFillCaretRight />}
+                />
+              </Tooltip>
             </Tooltip>
           </VStack>
         )}

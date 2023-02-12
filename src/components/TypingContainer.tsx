@@ -6,11 +6,14 @@ import {
   Spinner,
   VStack,
   Tooltip,
+  HStack,
 } from '@chakra-ui/react';
 import { Joke } from '../hooks/useJoke';
 import useTyper, { Stats } from '../hooks/useTyper';
 import ShowedText from './ShowedText';
 import { VscDebugRestart } from 'react-icons/vsc';
+import { AiFillCaretRight } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   joke?: Joke;
@@ -26,6 +29,7 @@ const TypingContainer: React.FC<Props> = ({
   onFinish,
 }) => {
   const text = joke?.joke || '';
+  const navigate = useNavigate();
 
   const {
     textToType,
@@ -73,16 +77,26 @@ const TypingContainer: React.FC<Props> = ({
         onChange={handleChange}
         height="auto"
       />
-      <Tooltip label="Restart" hasArrow placement="top">
-        <IconButton
-          aria-label="restart"
-          icon={<VscDebugRestart size="20px" />}
-          variant="ghost"
-          isLoading={isLoading}
-          _hover={{ bg: 'gray.700', color: 'white' }}
-          onClick={handleRestartClick}
-        />
-      </Tooltip>
+      <HStack>
+        <Tooltip label="Try again" placement="top" hasArrow>
+          <IconButton
+            variant="outline"
+            size="lg"
+            aria-label="Try again"
+            onClick={handleRestartClick}
+            icon={<VscDebugRestart />}
+          />
+        </Tooltip>
+        <Tooltip label="Start a new game" placement="top" hasArrow>
+          <IconButton
+            variant="outline"
+            size="lg"
+            aria-label="New game"
+            onClick={() => navigate('/singleplayer')}
+            icon={<AiFillCaretRight />}
+          />
+        </Tooltip>
+      </HStack>
     </VStack>
   );
 };

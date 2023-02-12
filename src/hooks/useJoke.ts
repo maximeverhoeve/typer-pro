@@ -53,7 +53,7 @@ const useJoke = (textId?: string): ReturnProps => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       getData();
     }
-  }, []);
+  }, [textId]);
 
   const onRestart = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
