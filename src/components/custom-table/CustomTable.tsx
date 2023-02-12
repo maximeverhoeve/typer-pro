@@ -27,6 +27,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
   return (
     <TableContainer
       maxH="250px"
+      h="100%"
       w="100%"
       border="1px solid"
       borderColor="#414141"
