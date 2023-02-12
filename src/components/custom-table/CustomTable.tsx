@@ -3,6 +3,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -54,6 +55,13 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
           </Tr>
         </Thead>
         <Tbody>
+          {!data.length && (
+            <Tr>
+              <Td colSpan={4} p="4">
+                <Text align="center">No leaderboard data found</Text>
+              </Td>
+            </Tr>
+          )}
           {data.map(({ id, acc, name, wpm }, index) => {
             const isActiveRow = id === playerId;
             return (
