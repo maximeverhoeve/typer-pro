@@ -26,7 +26,6 @@ interface Props {
 const CustomTable: React.FC<Props> = ({ data, playerId }) => {
   return (
     <TableContainer
-      maxH="250px"
       h="100%"
       w="100%"
       border="1px solid"
@@ -71,7 +70,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
               </Td>
             </Tr>
           )}
-          {data.map(({ id, acc, name, wpm }, index) => {
+          {data.map(({ id, name, wpm }, index) => {
             const isActiveRow = id === playerId;
             return (
               <Tr

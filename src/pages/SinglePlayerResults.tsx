@@ -45,7 +45,7 @@ const SinglePlayerResults: React.FC = () => {
         h="100%"
         spacing="6"
         align="stretch"
-        maxH="250px"
+        maxH="268px"
       >
         {stats && (
           <VStack fontSize="2xl" align="stretch" justify="space-between">
