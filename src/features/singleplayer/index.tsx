@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect } from 'react';
 import { Center } from '@chakra-ui/react';
-import useJoke from '../hooks/useJoke';
-import TypingContainer from '../components/TypingContainer';
+import useJoke from '../../hooks/useJoke';
+import TypingContainer from '../../components/TypingContainer';
 import { motion } from 'framer-motion';
-import { Stats } from '../hooks/useTyper';
-import usePostScore from '../features/singleplayer/hooks/usePostScore';
+import { Stats } from '../../hooks/useTyper';
+import usePostScore from './hooks/usePostScore';
 import { useNavigate, useParams } from 'react-router-dom';
-import usePreviousStats from '../hooks/usePreviousStats';
+import usePreviousStats from '../../hooks/usePreviousStats';
 
-const SinglePlayerView: React.FC = () => {
+const SinglePlayer: React.FC = () => {
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
   const postScore = usePostScore(textId || joke?.id);
@@ -68,4 +68,4 @@ const SinglePlayerView: React.FC = () => {
   );
 };
 
-export default SinglePlayerView;
+export default SinglePlayer;

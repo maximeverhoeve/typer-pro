@@ -3,8 +3,8 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from '../pages/Home';
 import Player from '../pages/player/Player';
-import SinglePlayerResults from '../pages/Leaderboard';
-import SinglePlayerView from '../pages/SinglePlayerView';
+import Leaderboard from '../pages/Leaderboard';
+import SinglePlayer from '../features/singleplayer';
 import MultiplayerSetup from './socket_chat/MultiplayerSetup';
 
 const AnimatedRoutes: React.FC = () => {
@@ -22,11 +22,11 @@ const AnimatedRoutes: React.FC = () => {
       <Routes location={location} key={getKeyForAnimationChange()}>
         <Route path="/" element={<Home />} />
         <Route path="/player" element={<Player />} />
-        <Route path="/singleplayer" element={<SinglePlayerView />}>
-          <Route path=":textId" element={<SinglePlayerView />} />
+        <Route path="/singleplayer" element={<SinglePlayer />}>
+          <Route path=":textId" element={<SinglePlayer />} />
         </Route>
-        <Route path="/leaderboard" element={<SinglePlayerResults />}>
-          <Route path=":textId" element={<SinglePlayerResults />} />
+        <Route path="/leaderboard" element={<Leaderboard />}>
+          <Route path=":textId" element={<Leaderboard />} />
         </Route>
         <Route path="/multiplayer" element={<MultiplayerSetup />} />
       </Routes>
