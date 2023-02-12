@@ -37,12 +37,18 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
         '&::-webkit-scrollbar': {
           width: '12px',
           bg: '#2F2F2F',
+          borderTopRightRadius: 'md',
+          borderBottomRightRadius: 'md',
+          overflow: 'hidden',
         },
         '&::-webkit-scrollbar-track': {
           width: '6px',
+          overflow: 'hidden',
         },
         '&::-webkit-scrollbar-thumb': {
           background: '#454545',
+          borderTopRightRadius: 'md',
+          borderBottomRightRadius: 'md',
         },
       }}
     >
