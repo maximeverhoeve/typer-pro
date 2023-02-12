@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 // import useSocketInit, { SocketContext } from './hooks/useSocketInit';
 // import useGameInit, { GameContext } from './hooks/useGameInit';
-import { customThemeDark, customThemeLight } from './theme';
+import { customThemeDark } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
@@ -41,7 +41,7 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       {/* <SocketContext.Provider value={socketContextValues}>
         <GameContext.Provider value={gameContextValues}> */}
-      <ChakraProvider theme={isDarkTheme ? customThemeDark : customThemeLight}>
+      <ChakraProvider theme={customThemeDark}>
         <Grid
           templateRows="repeat(2, 50vh)"
           bg="background"

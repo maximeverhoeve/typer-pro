@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({
           />
         </Box>
         <HeaderLogo />
-        <Flex justify="flex-end" p="4">
+        <Flex justify="flex-end" align="flex-start" p="4">
           <IconButton
             borderRadius="none"
             bg="none"

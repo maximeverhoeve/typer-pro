@@ -56,20 +56,20 @@ const SinglePlayerResults: React.FC = () => {
               </Text>
             </Box>
             <Spacer />
-            <Tooltip label="Start a new race" placement="top" hasArrow>
+            <Tooltip label="Start a new game" placement="top" hasArrow>
               <IconButton
                 variant="outline"
                 size="lg"
-                aria-label="New race"
+                aria-label="New game"
                 onClick={() => navigate('/singleplayer')}
                 icon={<AiFillCaretRight />}
               />
             </Tooltip>
-            <Tooltip label="Restart race" placement="top" hasArrow>
+            <Tooltip label="Try again" placement="top" hasArrow>
               <IconButton
                 variant="outline"
                 size="lg"
-                aria-label="Restart race"
+                aria-label="Try again"
                 onClick={() => navigate(`/singleplayer/${textId}`)}
                 icon={<VscDebugRestart />}
               />
