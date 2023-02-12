@@ -25,7 +25,7 @@ const customThemeLight = extendTheme(
   merge(defaultTheme, {
     semanticTokens: {
       colors: {
-        background: '#F6F6F6',
+        background: '#fafafa',
         text: '#202124',
         box: '#fff',
         border: '#131415',
