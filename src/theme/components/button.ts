@@ -5,6 +5,8 @@ const button: ComponentStyleConfig = {
   baseStyle: {
     lineHeight: '1.2',
     borderRadius: 'md',
+    px: 3,
+    py: 2,
     fontWeight: 'semibold',
     transitionProperty: 'common',
     transitionDuration: 'normal',

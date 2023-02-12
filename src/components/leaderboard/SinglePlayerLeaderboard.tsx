@@ -1,6 +1,6 @@
 import { Center, Spinner } from '@chakra-ui/react';
 import { useFirestoreQueryData } from '@react-query-firebase/firestore';
-import { collection, query } from 'firebase/firestore';
+import { collection, orderBy, query } from 'firebase/firestore';
 import React from 'react';
 import { firestore } from '../../firebase';
 import usePlayerStore from '../../store/usePlayerStore';
@@ -13,7 +13,7 @@ interface Props {
 const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {
   const { id: playerId } = usePlayerStore((state) => state);
   const collectionRef = collection(firestore, `leaderboard/${id}/players`);
-  const ref = query(collectionRef);
+  const ref = query(collectionRef, orderBy('wpm', 'desc'));
 
   const { isLoading, data: firebaseData } = useFirestoreQueryData(
     ['leaderboard', id],

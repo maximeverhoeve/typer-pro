@@ -32,6 +32,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
       border="1px solid"
       borderColor="#414141"
       overflowY="auto"
+      borderRadius="md"
       sx={{
         '&::-webkit-scrollbar': {
           width: '12px',

@@ -24,6 +24,7 @@ const LinkBoxContainer: React.FC<PropsWithChildren & Props> = ({
           : {}
       }
       transition="0.2s"
+      borderRadius="md"
       w="100%"
       p="4"
       minH="0%"
