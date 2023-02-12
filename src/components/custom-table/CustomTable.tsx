@@ -45,12 +45,13 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
       }}
     >
       <Table>
-        <Thead position="sticky" top="0">
+        <Thead position="sticky" top="0" zIndex="1">
           <Tr>
             {/* Adding invisible number for spacing purpose */}
             <Th></Th>
             <Th w="100%">Player</Th>
-            <Th>acc[%]</Th>
+            {/* Disabling accuracy for now (not supported) */}
+            {/* <Th>acc[%]</Th> */}
             <Th>wpm</Th>
           </Tr>
         </Thead>
@@ -75,7 +76,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
                   sx={{
                     span: {
                       fontSize: '12px',
-                      opacity: 0.3,
+                      opacity: 0.4,
                       ml: 1,
                     },
                   }}
@@ -83,7 +84,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
                     __html: getDisplayName({ id, name }),
                   }}
                 />
-                <Td>{acc}</Td>
+                {/* <Td>{acc}</Td> */}
                 <Td>{wpm}</Td>
               </Tr>
             );

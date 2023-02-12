@@ -1,4 +1,4 @@
-import { Spinner } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
 import { useFirestoreQueryData } from '@react-query-firebase/firestore';
 import { collection, query } from 'firebase/firestore';
 import React from 'react';
@@ -23,7 +23,11 @@ const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {
   );
 
   if (isLoading || !firebaseData) {
-    return <Spinner color="primary" />;
+    return (
+      <Center>
+        <Spinner color="primary" />
+      </Center>
+    );
   }
   return (
     <CustomTable data={firebaseData as LeaderboardData[]} playerId={playerId} />
