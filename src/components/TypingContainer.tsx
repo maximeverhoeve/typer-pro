@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   Box,
   IconButton,
-  Input,
   Spinner,
   VStack,
   Tooltip,
@@ -14,6 +13,7 @@ import ShowedText from './ShowedText';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import SinglePlayerTypingInput from '../features/singleplayer/components/SinglePlayerTypingInput';
 
 interface Props {
   joke?: Joke;
@@ -65,17 +65,10 @@ const TypingContainer: React.FC<Props> = ({
           />
         )}
       </Box>
-      <Input
-        autoFocus
-        border="none"
-        fontSize="6xl"
-        color={hasError ? 'red.500' : 'gray.600'}
-        _focus={{ boxShadow: 'none' }}
+      <SinglePlayerTypingInput
         value={inputValue}
-        borderRadius="none"
-        textAlign="center"
+        hasError={hasError}
         onChange={handleChange}
-        height="auto"
       />
       <HStack>
         <Tooltip label="Try again" placement="top" hasArrow>
