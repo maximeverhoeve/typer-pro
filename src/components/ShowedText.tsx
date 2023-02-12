@@ -11,9 +11,9 @@ interface Props {
 const ShowedText: React.FC<Props> = ({ validText, currentWord, text }) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, height: '0%' }}
+      animate={{ opacity: 1, height: '100%' }}
+      exit={{ opacity: 0, height: '0%' }}
       transition={{ duration: 0.3 }}
     >
       <Text fontSize="lg" color="gray.500">
