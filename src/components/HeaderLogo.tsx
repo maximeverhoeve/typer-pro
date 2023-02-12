@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Heading, Text, useBoolean, VStack } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -6,6 +6,19 @@ import { useLocation } from 'react-router-dom';
 const HeaderLogo: React.FC = () => {
   const { pathname } = useLocation();
   const [isInitialLoad, setIsInitialLoad] = useBoolean();
+
+  const getHeaderName = (): string => {
+    if (pathname.includes('/leaderboard')) {
+      return 'Leaderboard';
+    }
+    if (pathname.includes('/singleplayer')) {
+      return 'Singleplayer';
+    }
+    if (pathname.includes('/multiplayer')) {
+      return 'Multiplayer';
+    }
+    return 'typer:pro';
+  };
 
   return (
     <AnimatePresence>
@@ -25,7 +38,7 @@ const HeaderLogo: React.FC = () => {
             <Text color="primary">[</Text>
             <AnimatePresence mode="wait">
               <motion.div
-                key={pathname}
+                key={getHeaderName()}
                 style={{
                   overflow: 'hidden',
                 }}
@@ -36,7 +49,7 @@ const HeaderLogo: React.FC = () => {
                 transition={{ duration: 0.5, delay: !isInitialLoad ? 1 : 0 }}
               >
                 <Text whiteSpace="nowrap" px="4">
-                  {pathname === '/' ? 'typer:pro' : pathname}
+                  {getHeaderName()}
                 </Text>
               </motion.div>
             </AnimatePresence>
