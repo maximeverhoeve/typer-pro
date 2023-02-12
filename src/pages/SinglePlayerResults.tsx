@@ -1,19 +1,33 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  IconButton,
+  Spacer,
+  Text,
+  Tooltip,
+  VStack,
+} from '@chakra-ui/react';
 import CountUp from 'react-countup';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
-import { Stats } from '../hooks/useTyper';
 import { motion } from 'framer-motion';
+import { Stats } from '../hooks/useTyper';
+import { VscDebugRestart } from 'react-icons/vsc';
+import { AiFillCaretRight } from 'react-icons/ai';
 
-interface LocationState {
-  stats: Stats;
-  textId: string;
+interface LocationType {
+  state?: {
+    stats?: Stats;
+  };
 }
 
 const SinglePlayerResults: React.FC = () => {
-  const location = useLocation();
-  const { stats, textId } = location.state as LocationState;
+  const navigate = useNavigate();
+  const location = useLocation() as LocationType;
+  const stats = location?.state?.stats;
+  const { textId } = useParams<{ textId: string }>();
+  if (!textId) return <p>Leaderboard for joke not found</p>;
 
   return (
     <motion.div
@@ -31,18 +45,39 @@ const SinglePlayerResults: React.FC = () => {
         h="100%"
         spacing="6"
         align="stretch"
-        maxH="250px"
+        maxH="268px"
       >
-        <VStack fontSize="2xl" align="stretch">
-          <Box>
-            <Text>wpm:</Text>
-            <Text>
-              <CountUp end={stats.wpm} duration={0.6} />
-            </Text>
-          </Box>
-        </VStack>
+        {stats && (
+          <VStack fontSize="2xl" align="stretch" justify="space-between">
+            <Box>
+              <Text>wpm</Text>
+              <Text>
+                <CountUp end={stats?.wpm} duration={0.6} />
+              </Text>
+            </Box>
+            <Spacer />
+            <Tooltip label="Start a new race" placement="top" hasArrow>
+              <IconButton
+                variant="outline"
+                size="lg"
+                aria-label="New race"
+                onClick={() => navigate('/singleplayer')}
+                icon={<AiFillCaretRight />}
+              />
+            </Tooltip>
+            <Tooltip label="Restart race" placement="top" hasArrow>
+              <IconButton
+                variant="outline"
+                size="lg"
+                aria-label="Restart race"
+                onClick={() => navigate(`/singleplayer/${textId}`)}
+                icon={<VscDebugRestart />}
+              />
+            </Tooltip>
+          </VStack>
+        )}
         <Box flexGrow={1}>
-          <SinglePlayerLeaderboard id={textId} stats={stats} />
+          <SinglePlayerLeaderboard id={textId} />
         </Box>
       </HStack>
     </motion.div>

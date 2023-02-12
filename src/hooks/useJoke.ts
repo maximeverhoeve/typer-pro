@@ -16,7 +16,7 @@ interface ReturnProps {
   onRestart: () => void;
 }
 
-const useJoke = (): ReturnProps => {
+const useJoke = (textId?: string): ReturnProps => {
   const [joke, setJoke] = useState<Joke>();
   const [isLoading, setIsLoading] = useBoolean();
 
@@ -32,9 +32,12 @@ const useJoke = (): ReturnProps => {
 
   const getData = async (): Promise<void> => {
     setIsLoading.on();
-    const data = await fetch(
-      'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist&type=single&amount=1',
-    );
+    let url =
+      'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist&type=single&amount=1';
+    if (textId) {
+      url = url + `&idRange=${textId}`;
+    }
+    const data = await fetch(url);
     if (data.ok) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const res: Joke = await data.json();

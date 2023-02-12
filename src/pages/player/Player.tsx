@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { HiArrowRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import usePlayerStore from '../store/usePlayerStore';
+import usePlayerStore from '../../store/usePlayerStore';
 
 const Player: React.FC = () => {
   const placeholdername = 'devmax';

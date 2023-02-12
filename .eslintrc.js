@@ -66,11 +66,12 @@ module.exports = {
     'arrow-spacing': 'warn',
     'no-empty-function': 'warn',
     'multiline-ternary': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
-    '@typescript-eslint/no-floating-promises': 'warn',
-    "@typescript-eslint/member-delimiter-style": "off",
+    '@typescript-eslint/member-delimiter-style': 'off',
     '@typescript-eslint/no-empty-interface': [
       'warn',
       {

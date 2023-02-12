@@ -13,7 +13,8 @@ const table: ComponentStyleConfig = {
     th: {
       py: '3',
       px: '3',
-      borderBottom: '1px solid #414141',
+      borderBottom: '1px solid',
+      borderColor: 'border',
       textTransform: 'unset',
       fontWeight: 'medium',
       fontFamily: 'unset',

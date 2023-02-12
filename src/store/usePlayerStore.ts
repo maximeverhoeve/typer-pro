@@ -4,9 +4,9 @@ import { persist, PersistOptions } from 'zustand/middleware';
 import { StateCreator } from 'zustand/vanilla';
 
 interface PlayerState {
+  id: string;
   nickname: string;
   setNickname: (name: string) => void;
-  id: string;
 }
 
 type MyPersist = (
@@ -16,11 +16,14 @@ type MyPersist = (
 
 const usePlayerStore = create<PlayerState>(
   (persist as MyPersist)(
-    (set) => ({
-      nickname: 'devmax',
-      setNickname: (name) => set(() => ({ nickname: name })),
-      id: v4(),
-    }),
+    (set) => {
+      const id = v4();
+      return {
+        nickname: 'devmax',
+        setNickname: (name) => set(() => ({ nickname: name })),
+        id,
+      };
+    },
     { name: 'player-state', getStorage: () => sessionStorage },
   ),
 );

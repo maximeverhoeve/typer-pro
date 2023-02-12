@@ -1,10 +1,12 @@
 import { extendTheme } from '@chakra-ui/react';
 import { merge } from 'lodash';
+import button from './components/button';
 import table from './components/table';
 
 const defaultTheme = {
   components: {
     Table: table,
+    Button: button,
   },
   fonts: {
     heading: 'Roboto Mono',
@@ -23,7 +25,7 @@ const customThemeLight = extendTheme(
   merge(defaultTheme, {
     semanticTokens: {
       colors: {
-        background: '#F6F6F6',
+        background: '#fafafa',
         text: '#202124',
         box: '#fff',
         border: '#131415',
@@ -36,10 +38,10 @@ const customThemeDark = extendTheme(
   merge(defaultTheme, {
     semanticTokens: {
       colors: {
-        background: '#202020',
+        background: '#121212',
         box: '#131415',
         text: '#f6f6f6',
-        border: '#fff',
+        border: '#414141',
       },
     },
     fonts: {
