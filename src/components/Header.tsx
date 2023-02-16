@@ -1,10 +1,11 @@
-import { Box, Flex, Grid, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Grid, IconButton, Text } from '@chakra-ui/react';
 import React from 'react';
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { AiFillHome } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import HeaderLogo from './HeaderLogo';
+import { getDisplayName } from '../features/singleplayer/utils/playerUtils';
+import usePlayerStore from '../store/usePlayerStore';
 
 interface Props {
   isDarkTheme: boolean;
@@ -18,9 +19,7 @@ const Header: React.FC<Props> = ({
   onTransitionEnd,
 }) => {
   const navigate = useNavigate();
-  const handleToggle = (): void => {
-    onThemeChange();
-  };
+  const { id, nickname } = usePlayerStore((state) => state);
 
   return (
     <motion.div
@@ -55,14 +54,17 @@ const Header: React.FC<Props> = ({
         </Box>
         <HeaderLogo />
         <Flex justify="flex-end" align="flex-start" p="4">
-          <IconButton
-            borderRadius="none"
-            bg="none"
-            _hover={{}}
-            aria-label="darkmode"
-            onClick={handleToggle}
-            icon={isDarkTheme ? <BsFillSunFill /> : <BsFillMoonFill />}
-            color="text"
+          <Text
+            sx={{
+              span: {
+                fontSize: '12px',
+                opacity: 0.4,
+                ml: 1,
+              },
+            }}
+            dangerouslySetInnerHTML={{
+              __html: getDisplayName({ id, name: nickname }),
+            }}
           />
         </Flex>
       </Grid>
