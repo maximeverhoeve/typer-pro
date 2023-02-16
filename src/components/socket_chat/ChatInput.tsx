@@ -3,14 +3,14 @@ import React, { useRef, useState, ChangeEvent } from 'react';
 import { IoMdSend } from 'react-icons/io';
 import useSocketContext from '../../hooks/useSocketContext';
 
-let timeOutId: NodeJS.Timeout;
+// let timeOutId;
 
 interface Props {
   onFocusChange: (focused: boolean) => void;
 }
 
 const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
-  const { socket, nickname, room, isConnected } = useSocketContext();
+  const { nickname, room, isConnected } = useSocketContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [chatMessage, setChatMessage] = useState<string>('');
 
@@ -19,10 +19,10 @@ const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
     inputRef.current?.focus();
 
     // if user disconnected for some reason -> connect again
-    if (!isConnected) socket.connect();
+    // if (!isConnected) socket.connect();
 
     if (chatMessage && nickname && room) {
-      socket.emit('chat:send', { message: chatMessage, nickname, room });
+      // socket.emit('chat:send', { message: chatMessage, nickname, room });
     }
     setChatMessage('');
   };
@@ -32,19 +32,19 @@ const ChatInput: React.FC<Props> = ({ onFocusChange }) => {
   };
 
   const handleInputFocus = (): void => {
-    if (timeOutId) {
-      clearInterval(timeOutId);
-    }
+    // if (timeOutId) {
+    //   clearInterval(timeOutId);
+    // }
     onFocusChange(true);
   };
 
   const handleInputBlur = (): void => {
-    if (timeOutId) {
-      clearInterval(timeOutId);
-    }
-    timeOutId = setTimeout(() => {
-      onFocusChange(false);
-    }, 2000);
+    // if (timeOutId) {
+    //   clearInterval(timeOutId);
+    // }
+    // timeOutId = setTimeout(() => {
+    //   onFocusChange(false);
+    // }, 2000);
   };
   return (
     <HStack as="form" onSubmit={handleSendButton}>

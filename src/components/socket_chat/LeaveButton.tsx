@@ -4,11 +4,11 @@ import { MdLogout } from 'react-icons/md';
 import useSocketContext from '../../hooks/useSocketContext';
 
 const LeaveButton: React.FC = () => {
-  const { socket } = useSocketContext();
+  // const { socket } = useSocketContext();
 
   const handleClick = (): void => {
     // leave room evnt
-    socket.emit('room:leave');
+    // socket.emit('room:leave');
   };
 
   return (

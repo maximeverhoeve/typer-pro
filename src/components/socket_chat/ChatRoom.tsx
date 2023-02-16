@@ -16,7 +16,7 @@ interface Props {
 }
 
 const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
-  const { socket } = useSocketContext();
+  // const { socket } = useSocketContext();
   const [isInputFocused, setIsInputFocused] = useBoolean();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
@@ -26,12 +26,12 @@ const ChatRoom: React.FC<Props> = ({ nickname, room }) => {
   };
 
   useEffect(() => {
-    socket.on('chat:receive', (message) => {
-      setMessages((prev) => [...prev, message]);
-    });
+    // socket.on('chat:receive', (message) => {
+    //   setMessages((prev) => [...prev, message]);
+    // });
 
     return () => {
-      socket.off('chat:receive');
+      // socket.off('chat:receive');
     };
   }, []);
 

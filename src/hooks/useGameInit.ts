@@ -13,7 +13,7 @@ export const GameContext = createContext<GameContextType>({
 });
 
 const useGameInit = (): GameContextType => {
-  const { socket } = useSocketContext();
+  // const { socket } = useSocketContext();
   const [isStarted, setIsStarted] = useBoolean();
   const [textToType, setTextToType] = useState<string>();
 
@@ -24,10 +24,10 @@ const useGameInit = (): GameContextType => {
   };
 
   useEffect(() => {
-    socket.on('game:started', onGameStart);
+    // socket.on('game:started', onGameStart);
 
     return () => {
-      socket.off('game:started');
+      // socket.off('game:started');
     };
   }, []);
 

@@ -14,15 +14,15 @@ import { FaCheck } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
 const PreGameLobby: React.FC = () => {
-  const { socket, room, nickname, players, isReady } = useSocketContext();
+  const { room, nickname, players, isReady } = useSocketContext();
 
   const handleClickReady = (): void => {
     // Toggle ready
-    socket.emit('player:update-ready', !isReady);
+    // socket.emit('player:update-ready', !isReady);
   };
 
   const handleStart = (): void => {
-    socket.emit('game:start');
+    // socket.emit('game:start');
   };
 
   const isEveryPlayerReady = players.every((p) => p.isReady);

@@ -4,13 +4,13 @@ import useSocketContext from '../../hooks/useSocketContext';
 import { motion } from 'framer-motion';
 
 const MultiplayerSetup: React.FC = () => {
-  const { socket, nickname: contextNickname } = useSocketContext();
+  const { nickname: contextNickname } = useSocketContext();
   const [nickname, setNickname] = useState<string>(contextNickname || '');
   const [room, setRoom] = useState<string>('');
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    socket.emit('room:join', { nickname, room });
+    // socket.emit('room:join', { nickname, room });
   };
 
   return (

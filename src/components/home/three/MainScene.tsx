@@ -47,10 +47,13 @@ const MainScene: React.FC<Props> = ({ hoveringItem }) => {
     [isHovering, isDown, hoveringItem],
   );
 
+  const AnimatedAmbientLight = a.ambientLight;
+
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={75}>
-        <a.ambientLight intensity={ambient} />
+        {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
+        <AnimatedAmbientLight intensity={ambient} />
         <a.pointLight
           ref={light}
           position-z={-15}
