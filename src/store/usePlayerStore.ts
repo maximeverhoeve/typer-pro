@@ -14,10 +14,11 @@ type MyPersist = (
   options: PersistOptions<PlayerState>,
 ) => StateCreator<PlayerState>;
 
+const id = v4();
+
 const usePlayerStore = create<PlayerState>(
   (persist as MyPersist)(
     (set) => {
-      const id = v4();
       return {
         nickname: 'devmax',
         setNickname: (name) => set(() => ({ nickname: name })),

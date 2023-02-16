@@ -52,7 +52,7 @@ const App: React.FC = () => {
           color="text"
         >
           <Canvas className="canvas" dpr={[1, 2]}>
-            <MainScene hoveringItem={0} />
+            <MainScene />
             <OrbitControls
               enablePan={false}
               enableZoom={false}

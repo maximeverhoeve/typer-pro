@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Center, VStack } from '@chakra-ui/react';
 import LinkBox from '../components/home/LinkBox';
+import useCanvasStore from '../store/useCanvasStore';
 
 const Home: React.FC = () => {
-  const [hoveringItem, setHoveringItem] = useState(0);
+  const { hoveredItem, setHoveredItem } = useCanvasStore((state) => state);
+
   return (
     <Box mx="auto" h="100%" maxW="2xl" w="100%">
       <Center></Center>
       <VStack flexGrow={1} align="stretch" justify="flex-start">
         <LinkBox
-          setIsHovering={() => setHoveringItem(0)}
-          isHovering={hoveringItem === 0}
+          setIsHovering={() => setHoveredItem('SINGLEPLAYER')}
+          isHovering={hoveredItem === 'SINGLEPLAYER'}
           to="/player"
           description="Practice your skills to become a typer pro!"
         >
           Singleplayer
         </LinkBox>
         <LinkBox
-          setIsHovering={() => setHoveringItem(1)}
-          isHovering={hoveringItem === 1}
+          setIsHovering={() => setHoveredItem('MULTIPLAYER')}
+          isHovering={hoveredItem === 'MULTIPLAYER'}
           // to="/multiplayer"
           to="/"
           delay={0.2}
@@ -29,8 +31,8 @@ const Home: React.FC = () => {
           Multiplayer
         </LinkBox>
         <LinkBox
-          setIsHovering={() => setHoveringItem(2)}
-          isHovering={hoveringItem === 2}
+          setIsHovering={() => setHoveredItem('LEADERBOARD')}
+          isHovering={hoveredItem === 'LEADERBOARD'}
           to="/"
           delay={0.4}
           hoverColor="gray.500"
