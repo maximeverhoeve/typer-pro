@@ -8,6 +8,7 @@ import {
   Environment,
   MeshDistortMaterial,
   ContactShadows,
+  Plane,
 } from '@react-three/drei';
 import { Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
@@ -23,13 +24,28 @@ const MainScene: React.FC = () => {
   const [isDown, setIsDown] = useBoolean();
   const [isHovering, setIsHovering] = useBoolean();
 
-  const { position } = useSpring({
-    position: [0.5, hoveredItem === 'SINGLEPLAYER' ? -3.5 : 0, 0] as [
-      number,
-      number,
-      number,
-    ],
-  });
+  const [{ position2, position1, scale }] = useSpring(
+    {
+      position1: [hoveredItem === 'SINGLEPLAYER' ? 0 : -1, 0, 0] as [
+        number,
+        number,
+        number,
+      ],
+      position2: [hoveredItem === 'SINGLEPLAYER' ? 0 : 1, 0, 0] as [
+        number,
+        number,
+        number,
+      ],
+      scale: hoveredItem === 'SINGLEPLAYER' ? 0 : 1,
+      config: {
+        mass: 1,
+        tension: 250,
+        friction: 20,
+        precision: 0.01,
+      },
+    },
+    [hoveredItem],
+  );
 
   useFrame((props, delta) => {
     if (sphere.current && sphere2.current) {
@@ -58,9 +74,9 @@ const MainScene: React.FC = () => {
         onPointerOut={setIsHovering.off}
         onPointerDown={setIsDown.on}
         onPointerUp={setIsDown.off}
-        position={[-0.5, 0, 0]}
+        position={position1}
       >
-        <boxGeometry args={[0.5, 1, 0.5]} />
+        <boxGeometry args={[1, 1.5, 1]} />
         <meshStandardMaterial
           color="#DC0077"
           roughness={0.1}
@@ -68,8 +84,8 @@ const MainScene: React.FC = () => {
           // wireframe
         />
       </a.mesh>
-      <a.mesh ref={sphere2} position={position}>
-        <boxGeometry args={[0.5, 1, 0.5]} />
+      <a.mesh ref={sphere2} position={position2} scale={scale}>
+        <boxGeometry args={[1, 1.5, 1]} />
         <meshStandardMaterial
           color="#00CACA"
           roughness={0.1}
@@ -80,9 +96,9 @@ const MainScene: React.FC = () => {
       <Environment preset="forest" />
       <ContactShadows
         rotation={[Math.PI / 2, 0, 0]}
-        color="#DC0077"
+        color="#fff"
         position={[0, -1.5, 0]}
-        opacity={0.8}
+        opacity={0.2}
         width={1}
         height={1}
         blur={2.5}
