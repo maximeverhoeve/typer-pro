@@ -1,4 +1,4 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
 import { useBoolean } from '@chakra-ui/react';
@@ -6,18 +6,16 @@ import { useFrame } from '@react-three/fiber';
 import {
   PerspectiveCamera,
   Environment,
-  MeshDistortMaterial,
   ContactShadows,
-  Plane,
 } from '@react-three/drei';
 import { Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-const AnimatedMaterial = a(MeshDistortMaterial);
 
 const MainScene: React.FC = () => {
   const sphere = useRef<Mesh>(null);
+  const camera = useRef(null);
   const sphere2 = useRef<Mesh>(null);
   const { hoveredItem } = useCanvasStore((state) => state);
   const light = useRef(null);
@@ -58,7 +56,13 @@ const MainScene: React.FC = () => {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 3]} fov={75}>
+      <PerspectiveCamera
+        ref={camera}
+        makeDefault
+        position={[0, 0, 5]}
+        fov={45}
+        aspect={window.innerWidth / window.innerHeight}
+      >
         {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
         <AnimatedAmbientLight intensity={1} />
         <a.pointLight
