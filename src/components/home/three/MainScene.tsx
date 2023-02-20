@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
-import { useBoolean } from '@chakra-ui/react';
 import { useFrame } from '@react-three/fiber';
 import {
   PerspectiveCamera,
@@ -10,6 +9,7 @@ import {
 } from '@react-three/drei';
 import { Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
+import Player from './Player';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -19,8 +19,8 @@ const MainScene: React.FC = () => {
   const sphere2 = useRef<Mesh>(null);
   const { hoveredItem } = useCanvasStore((state) => state);
   const light = useRef(null);
-  const [isDown, setIsDown] = useBoolean();
-  const [isHovering, setIsHovering] = useBoolean();
+
+  const AnimatedPlayer = a(Player);
 
   const [{ position2, position1, scale }] = useSpring(
     {
@@ -52,8 +52,6 @@ const MainScene: React.FC = () => {
     }
   });
 
-  const AnimatedAmbientLight = a.ambientLight;
-
   return (
     <>
       <PerspectiveCamera
@@ -64,7 +62,7 @@ const MainScene: React.FC = () => {
         aspect={window.innerWidth / window.innerHeight}
       >
         {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
-        <AnimatedAmbientLight intensity={1} />
+        <a.ambientLight intensity={1} />
         <a.pointLight
           ref={light}
           position-z={-15}
@@ -72,31 +70,13 @@ const MainScene: React.FC = () => {
           color="#F8C069"
         />
       </PerspectiveCamera>
-      <a.mesh
-        ref={sphere}
-        onPointerOver={setIsHovering.on}
-        onPointerOut={setIsHovering.off}
-        onPointerDown={setIsDown.on}
-        onPointerUp={setIsDown.off}
-        position={position1}
-      >
-        <boxGeometry args={[1, 1.5, 1]} />
-        <meshStandardMaterial
-          color="#DC0077"
-          roughness={0.1}
-          metalness={0.4}
-          // wireframe
-        />
-      </a.mesh>
-      <a.mesh ref={sphere2} position={position2} scale={scale}>
-        <boxGeometry args={[1, 1.5, 1]} />
-        <meshStandardMaterial
-          color="#00CACA"
-          roughness={0.1}
-          metalness={0.4}
-          // wireframe
-        />
-      </a.mesh>
+      <AnimatedPlayer ref={sphere} position={position1} color="#DC0077" />
+      <AnimatedPlayer
+        ref={sphere2}
+        position={position2}
+        color="#00CACA"
+        scale={scale}
+      />
       <Environment preset="forest" />
       <ContactShadows
         rotation={[Math.PI / 2, 0, 0]}
