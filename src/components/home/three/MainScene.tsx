@@ -10,6 +10,7 @@ import {
 import { Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
+import SceneRouter from './SceneRouter';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -70,6 +71,7 @@ const MainScene: React.FC = () => {
           color="#F8C069"
         />
       </PerspectiveCamera>
+      <SceneRouter />
       <AnimatedPlayer ref={sphere} position={position1} color="#DC0077" />
       <AnimatedPlayer
         ref={sphere2}
