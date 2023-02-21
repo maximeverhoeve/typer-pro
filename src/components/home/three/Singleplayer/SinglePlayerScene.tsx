@@ -10,7 +10,6 @@ const SinglePlayerScene: React.FC = () => {
   const playerRef = useRef<Mesh>(null);
   const [isMoving, setIsMoving] = useBoolean();
   const progress = useSinglePlayerStore((state) => state.progress);
-  const AnimatedPlayer = a(Player);
   const [{ scale }] = useSpring(
     {
       scale: progress,
@@ -33,12 +32,14 @@ const SinglePlayerScene: React.FC = () => {
     }
   });
 
+  const AnimatedPlayer = a(Player);
   return (
     <>
       <AnimatedPlayer
         ref={playerRef}
         scale={scale}
-        color={isMoving ? '#00CACA' : '#DC0077'}
+        color="#444"
+        isMoving={isMoving}
       />
     </>
   );

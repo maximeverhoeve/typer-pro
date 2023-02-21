@@ -20,15 +20,15 @@ const ThreeEnvironment: React.FC = () => {
       >
         {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
         <a.ambientLight intensity={1} />
-        <a.pointLight position-z={-15} intensity={1} color="#F8C069" />
+        <a.pointLight position-z={-15} intensity={1} color="#DC0077" />
       </PerspectiveCamera>
       <SceneRouter />
       <Environment preset="forest" />
       <ContactShadows
         rotation={[Math.PI / 2, 0, 0]}
-        color="#fff"
+        color="#999"
         position={[0, -1.5, 0]}
-        opacity={0.2}
+        opacity={0.5}
         width={1}
         height={1}
         blur={2.5}
@@ -36,7 +36,7 @@ const ThreeEnvironment: React.FC = () => {
       />
       <OrbitControls
         enablePan={false}
-        enableZoom={false}
+        // enableZoom={false}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 2}
       />
