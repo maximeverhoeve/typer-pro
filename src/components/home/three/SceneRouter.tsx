@@ -1,7 +1,6 @@
-import { Transition } from '@react-spring/core';
-import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import MainScene from './MainScene';
 import SinglePlayerScene from './Singleplayer/SinglePlayerScene';
 
 enum SCENE {
@@ -21,21 +20,16 @@ const SceneRouter: React.FC = () => {
   };
 
   return (
-    <Transition
-      items={[]}
-      from={{ opacity: 0 }}
-      enter={{ opacity: 1 }}
-      leave={{ opacity: 0 }}
-    >
+    <group>
       {
         {
-          SINGLEPLAYER: () => <SinglePlayerScene />,
-          MULTIPLAYER: () => <>multiplayer scene</>,
-          MAIN: () => <>main scene</>,
-          LEADERBOARD: () => <>singleplayer scene</>,
+          SINGLEPLAYER: <SinglePlayerScene />,
+          MULTIPLAYER: <>multiplayer scene</>,
+          MAIN: <MainScene />,
+          LEADERBOARD: <>singleplayer scene</>,
         }[getScene()]
       }
-    </Transition>
+    </group>
   );
 };
 

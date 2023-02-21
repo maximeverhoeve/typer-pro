@@ -1,8 +1,6 @@
 import { Box, ChakraProvider, Grid, useBoolean } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 // import useSocketInit, { SocketContext } from './hooks/useSocketInit';
 // import useGameInit, { GameContext } from './hooks/useGameInit';
 import { customThemeDark } from './theme';
@@ -10,7 +8,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import MainScene from './components/home/three/MainScene';
+import ThreeEnvironment from './components/home/three/ThreeEnvironment';
 
 enum THEMES {
   DARK = 'dark',
@@ -51,15 +49,7 @@ const App: React.FC = () => {
           transition="0.2s"
           color="text"
         >
-          <Canvas className="canvas" dpr={[1, 2]}>
-            <MainScene />
-            <OrbitControls
-              enablePan={false}
-              enableZoom={false}
-              maxPolarAngle={Math.PI / 2}
-              minPolarAngle={Math.PI / 2}
-            />
-          </Canvas>
+          <ThreeEnvironment />
           <Header
             isDarkTheme={isDarkTheme}
             onThemeChange={handleThemeChange}
