@@ -104,6 +104,7 @@ const useTyper = (
     setValidWords([]);
     setWordToTypeIndex(0);
     setTimer(defaultTimer);
+    setProgress(0);
   };
 
   return {
