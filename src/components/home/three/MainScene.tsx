@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
+import { ThreePosition } from '../../../types/three';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -17,16 +18,16 @@ const MainScene: React.FC = () => {
 
   const [{ position2, position1, scale }] = useSpring(
     {
-      position1: [hoveredItem === 'SINGLEPLAYER' ? 0 : -1, 0, 0] as [
-        number,
-        number,
-        number,
-      ],
-      position2: [hoveredItem === 'SINGLEPLAYER' ? 0 : 1, 0, 0] as [
-        number,
-        number,
-        number,
-      ],
+      position1: [
+        hoveredItem === 'SINGLEPLAYER' ? 0 : -1,
+        0,
+        0,
+      ] as ThreePosition,
+      position2: [
+        hoveredItem === 'SINGLEPLAYER' ? 0 : 1,
+        0,
+        0,
+      ] as ThreePosition,
       scale: hoveredItem === 'SINGLEPLAYER' ? 0 : 1,
       config: {
         mass: 1,
