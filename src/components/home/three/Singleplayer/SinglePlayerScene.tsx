@@ -32,15 +32,9 @@ const SinglePlayerScene: React.FC = () => {
     }
   });
 
-  const AnimatedPlayer = a(Player);
   return (
     <>
-      <AnimatedPlayer
-        ref={playerRef}
-        scale={scale}
-        color="#444"
-        isMoving={isMoving}
-      />
+      <Player color="#444" isMoving={isMoving} />
     </>
   );
 };

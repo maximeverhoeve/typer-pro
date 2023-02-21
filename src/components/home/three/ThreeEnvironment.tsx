@@ -35,7 +35,8 @@ const ThreeEnvironment: React.FC = () => {
         far={1.5}
       />
       <OrbitControls
-        enablePan={false}
+        // enablePan={false}
+        // enableRotate={false}
         // enableZoom={false}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 2}

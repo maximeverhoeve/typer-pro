@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, Ref } from 'react';
-import { Group, Mesh, SkinnedMesh } from 'three';
-import { MeshProps } from '@react-three/fiber';
+import { Group, SkinnedMesh } from 'three';
+import { GroupProps } from '@react-three/fiber';
 import { useAnimations, useGLTF } from '@react-three/drei';
 
 interface Props {
@@ -8,13 +8,12 @@ interface Props {
   isMoving?: boolean;
 }
 
-type RefMesh = Mesh;
+type RefMesh = Group;
 
-const Player = forwardRef<RefMesh, Props & MeshProps>(
+const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ isMoving, color = '#333', ...props }, ref) => {
-    const { nodes, animations } = useGLTF('/player.glb');
+    const { nodes, animations, scene } = useGLTF('/player.glb');
     const { ref: _ref, actions } = useAnimations(animations);
-
     useEffect(() => {
       if (isMoving) {
         actions.Standing?.fadeOut(0.2);
@@ -31,13 +30,14 @@ const Player = forwardRef<RefMesh, Props & MeshProps>(
         scale={0.002}
         position={[0, -1.45, 0]}
         rotation={[Math.PI / 2, 0, 0]}
+        {...props}
       >
         <primitive object={nodes.mixamorigHips} />
         <skinnedMesh
           castShadow
           receiveShadow
-          geometry={(nodes.Cube001 as SkinnedMesh).geometry}
-          skeleton={(nodes.Cube001 as SkinnedMesh).skeleton}
+          geometry={(nodes.Cube001 as SkinnedMesh).clone().geometry}
+          skeleton={(nodes.Cube001 as SkinnedMesh).clone().skeleton}
         >
           <meshStandardMaterial color={color} roughness={0.8} metalness={1} />
         </skinnedMesh>

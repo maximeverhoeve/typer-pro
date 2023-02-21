@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
 import { useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
+import { Group, Mesh } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
 import { ThreePosition } from '../../../types/three';
@@ -10,11 +10,9 @@ import { ThreePosition } from '../../../types/three';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
 const MainScene: React.FC = () => {
-  const sphere = useRef<Mesh>(null);
-  const sphere2 = useRef<Mesh>(null);
+  const sphere = useRef<Group>(null);
+  const sphere2 = useRef<Group>(null);
   const { hoveredItem } = useCanvasStore((state) => state);
-
-  const AnimatedPlayer = a(Player);
 
   const [{ position2, position1, scale }] = useSpring(
     {
@@ -47,15 +45,10 @@ const MainScene: React.FC = () => {
   });
 
   return (
-    <>
-      <AnimatedPlayer ref={sphere} position={position1} color="#DC0077" />
-      <AnimatedPlayer
-        ref={sphere2}
-        position={position2}
-        color="#00CACA"
-        scale={scale}
-      />
-    </>
+    <group>
+      <Player />
+      {/* <Player position={[2, 0, 0]} /> */}
+    </group>
   );
 };
 
