@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import useSinglePlayerStore from '../store/useSinglePlayerStore';
 import useSocketContext from './useSocketContext';
 
 interface Timer {
@@ -35,6 +36,7 @@ const useTyper = (
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const { onChangeProgress, room } = useSocketContext();
+  const setProgress = useSinglePlayerStore((state) => state.setProgress);
 
   const isFinished = textArray.length < wordToTypeIndex + 1;
   const isLastWord = textArray.length < wordToTypeIndex + 2;
@@ -73,7 +75,14 @@ const useTyper = (
         setTimer((prev) => ({ ...prev, end: Date.now() }));
         onFinish?.(getStats());
       }
-      setValidWords((prev) => [...prev, value.replaceAll(' ', '')]);
+      setValidWords((prev) => {
+        const newValidWords = [...prev, value.replaceAll(' ', '')];
+        // set new progress value
+        const allCharsLength = textArray.join('').length;
+        const validCharsLength = newValidWords.join('').length;
+        setProgress(validCharsLength / allCharsLength);
+        return newValidWords;
+      });
       setWordToTypeIndex((prev) => {
         const newIndex = prev + 1;
         const progress = newIndex / textArray.length;
@@ -83,6 +92,9 @@ const useTyper = (
 
       setInputValue('');
     } else {
+      const allCharsLength = textArray.join('').length;
+      const validCharsLength = validWords.join('').length;
+      setProgress((validCharsLength + value.length) / allCharsLength);
       setInputValue(value);
     }
   };
