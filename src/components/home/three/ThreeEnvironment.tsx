@@ -16,11 +16,11 @@ const ThreeEnvironment: React.FC = () => {
         makeDefault
         position={[0, 0, 5]}
         fov={45}
+        near={0.01}
         aspect={window.innerWidth / window.innerHeight}
       >
         {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
         <a.ambientLight intensity={1} />
-        <a.pointLight position-z={-15} intensity={1} color="#DC0077" />
       </PerspectiveCamera>
       <SceneRouter />
       <Environment preset="forest" />

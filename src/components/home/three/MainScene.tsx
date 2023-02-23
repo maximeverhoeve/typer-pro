@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
 import { useFrame } from '@react-three/fiber';
-import { Group, Mesh } from 'three';
+import { Group } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
 import { ThreePosition } from '../../../types/three';
@@ -22,9 +22,9 @@ const MainScene: React.FC = () => {
         0,
       ] as ThreePosition,
       position2: [
-        hoveredItem === 'SINGLEPLAYER' ? 0 : 1,
+        1,
         0,
-        0,
+        hoveredItem === 'SINGLEPLAYER' ? -3 : 0,
       ] as ThreePosition,
       scale: hoveredItem === 'SINGLEPLAYER' ? 0 : 1,
       config: {
@@ -46,8 +46,12 @@ const MainScene: React.FC = () => {
 
   return (
     <group>
-      <Player />
-      {/* <Player position={[2, 0, 0]} /> */}
+      <a.group position={position1}>
+        <Player />
+      </a.group>
+      <a.group position={position2} scale={scale}>
+        <Player color="#00CACA" />
+      </a.group>
     </group>
   );
 };

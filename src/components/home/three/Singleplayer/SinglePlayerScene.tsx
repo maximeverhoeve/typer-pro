@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { a, useSpring } from '@react-spring/three';
+import { useSpring } from '@react-spring/three';
 import { useFrame } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
@@ -34,7 +34,11 @@ const SinglePlayerScene: React.FC = () => {
 
   return (
     <>
-      <Player color="#444" isMoving={isMoving} />
+      <group>
+        <Player isMoving={isMoving} />
+        <Player position={[2, 0, 0]} isMoving={!isMoving} color="#00CACA" />
+        <Player position={[-2, 0, 0]} isMoving={!isMoving} color="#0a0" />
+      </group>
     </>
   );
 };
