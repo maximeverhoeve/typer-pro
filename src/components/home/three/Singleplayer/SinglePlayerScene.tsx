@@ -34,13 +34,11 @@ const SinglePlayerScene: React.FC = () => {
     }
   });
 
-  const AnimatedPlayer = a(Player);
-
   return (
     <>
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
-          <AnimatedPlayer ref={playerRef} isMoving={isMoving} />
+          <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
         <Player position={[2, 0, 0]} isMoving={!isMoving} color="#00CACA" />
         <Player position={[-2, 0, 0]} isMoving={!isMoving} color="#0a0" />

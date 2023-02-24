@@ -8,10 +8,14 @@ import { Stats } from '../../hooks/useTyper';
 import usePostScore from './hooks/usePostScore';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePreviousStats from '../../hooks/usePreviousStats';
+import useSinglePlayerStore from '../../store/useSinglePlayerStore';
 
 const SinglePlayer: React.FC = () => {
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
+  const setPreviousTime = useSinglePlayerStore(
+    (state) => state.setPreviousTime,
+  );
   const postScore = usePostScore(textId || joke?.id);
   const {
     isLoading: isLoadingPrevious,
@@ -40,6 +44,17 @@ const SinglePlayer: React.FC = () => {
       navigate(`/singleplayer/${joke.id}`, { replace: true });
     }
   }, [joke?.id]);
+
+  useEffect(() => {
+    if (previousData?.wpm && joke) {
+      // get the amount of words to calculate duration of the wpm
+      const numWords = joke.joke.split(' ').length;
+      const previousTime = (60 / previousData.wpm) * numWords;
+      setPreviousTime(previousTime);
+    } else {
+      setPreviousTime(undefined);
+    }
+  }, [previousData]);
 
   useEffect(() => {
     // manually refetch on mount, because query-firstore does not have that prop
