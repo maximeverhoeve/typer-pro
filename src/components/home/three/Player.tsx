@@ -9,13 +9,13 @@ interface Props {
   isMoving?: boolean;
 }
 
-useGLTF.preload('./player.glb');
+useGLTF.preload('/player.glb');
 
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ isMoving, color = '#DC0077', ...props }, ref) => {
-    const { animations, scene } = useGLTF('./player.glb');
+    const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
     });
@@ -42,25 +42,36 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
       <group ref={_ref as Ref<Group>} {...props}>
         <pointLight
           position-y={0.5}
-          position-x={0}
-          position-z={0.5}
-          intensity={10}
-          distance={3}
+          position-z={-0.8}
+          intensity={100}
+          distance={2}
+          color={color}
+        />
+        <pointLight
+          position-y={0.5}
+          position-z={0.8}
+          intensity={100}
+          distance={2}
           color={color}
         />
         <group
-          scale={0.002}
+          scale={0.0025}
           position={[0, -1.45, 0]}
           rotation={[Math.PI / 2, 0, 0]}
         >
           <primitive object={nodes.mixamorigHips} />
           <skinnedMesh
             castShadow
-            receiveShadow
+            // receiveShadow
             geometry={(nodes.Cube001 as SkinnedMesh).clone().geometry}
             skeleton={(nodes.Cube001 as SkinnedMesh).clone().skeleton}
           >
-            <meshStandardMaterial color="#333" roughness={0.8} metalness={1} />
+            <meshStandardMaterial
+              color="#222"
+              roughness={0.3}
+              metalness={0.65}
+              flatShading
+            />
           </skinnedMesh>
         </group>
       </group>

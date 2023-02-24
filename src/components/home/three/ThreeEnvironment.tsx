@@ -1,13 +1,12 @@
 import {
   ContactShadows,
-  Environment,
   OrbitControls,
   PerspectiveCamera,
 } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { a } from '@react-spring/three';
 import React from 'react';
 import SceneRouter from './SceneRouter';
+import SceneLights from './SceneLights';
 
 const ThreeEnvironment: React.FC = () => {
   return (
@@ -18,12 +17,10 @@ const ThreeEnvironment: React.FC = () => {
         fov={45}
         near={0.01}
         aspect={window.innerWidth / window.innerHeight}
-      >
-        {/* @ts-expect-error: https://github.com/pmndrs/react-spring/issues/1515 */}
-        <a.ambientLight intensity={1} />
-      </PerspectiveCamera>
+      />
+      <SceneLights />
+
       <SceneRouter />
-      <Environment preset="forest" />
       <ContactShadows
         rotation={[Math.PI / 2, 0, 0]}
         color="#999"
