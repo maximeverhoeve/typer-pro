@@ -7,6 +7,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 interface Props {
   color?: string;
   isMoving?: boolean;
+  isGhost?: boolean;
 }
 
 useGLTF.preload('/player.glb');
@@ -14,7 +15,7 @@ useGLTF.preload('/player.glb');
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ isMoving, color = '#DC0077', ...props }, ref) => {
+  ({ isMoving, color = '#DC0077', isGhost, ...props }, ref) => {
     const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
@@ -63,15 +64,16 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           <primitive object={nodes.mixamorigHips} />
           <skinnedMesh
             castShadow
-            // receiveShadow
+            receiveShadow
             geometry={(nodes.Cube001 as SkinnedMesh).clone().geometry}
             skeleton={(nodes.Cube001 as SkinnedMesh).clone().skeleton}
           >
             <meshStandardMaterial
               color="#222"
-              roughness={0.3}
-              metalness={0.65}
-              flatShading
+              roughness={isGhost ? 0 : 0.3}
+              metalness={isGhost ? 0 : 0.65}
+              wireframe={isGhost}
+              flatShading={!isGhost}
             />
           </skinnedMesh>
         </group>

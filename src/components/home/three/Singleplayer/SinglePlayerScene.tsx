@@ -43,7 +43,9 @@ const SinglePlayerScene: React.FC = () => {
 
   useFrame((props, delta) => {
     if (animatedGroupRef.current) {
-      props.camera.position.z = animatedGroupRef.current.position.z + 5;
+      props.camera.position.z = animatedGroupRef.current.position.z + 5.5;
+      props.camera.lookAt(animatedGroupRef.current.position);
+      props.camera.position.x = -2;
       // playerRef.current.rotation.y += delta * 0.5;
     }
   });
@@ -54,13 +56,16 @@ const SinglePlayerScene: React.FC = () => {
         <a.group ref={animatedGroupRef} position-z={z}>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
-        <a.group position-z={previousZ}>
-          <Player
-            position={[2, 0, 0]}
-            isMoving={isMovingGhost}
-            color="#00CACA"
-          />
-        </a.group>
+        {previousTime && (
+          <a.group position-z={previousZ}>
+            <Player
+              // position={[2, 0, 0]}
+              isGhost
+              isMoving={isMovingGhost}
+              color="#00CACA"
+            />
+          </a.group>
+        )}
       </group>
     </>
   );
