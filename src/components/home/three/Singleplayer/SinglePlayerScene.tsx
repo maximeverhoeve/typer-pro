@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { useSpring, a } from '@react-spring/three';
+import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
@@ -10,7 +10,13 @@ const SinglePlayerScene: React.FC = () => {
   const playerRef = useRef<Group>(null);
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
-  const progress = useSinglePlayerStore((state) => state.progress);
+  const [isMovingGhost, setIsMovingGhost] = useBoolean();
+  const { progress, previousTime } = useSinglePlayerStore((state) => state);
+  const previousZ = useSpringValue(0, {
+    from: 0,
+    onStart: setIsMovingGhost.on,
+    onRest: setIsMovingGhost.off,
+  });
   const [{ z }] = useSpring(
     {
       z: progress * 100,
@@ -21,7 +27,15 @@ const SinglePlayerScene: React.FC = () => {
         precision: 0.01,
         duration: 400,
       },
-      onStart: setIsMoving.on,
+      onStart: async () => {
+        setIsMoving.on();
+        await previousZ.start({
+          to: 100,
+          config: {
+            duration: (previousTime || 0) * 1000,
+          },
+        });
+      },
       onRest: setIsMoving.off,
     },
     [progress],
@@ -40,8 +54,13 @@ const SinglePlayerScene: React.FC = () => {
         <a.group ref={animatedGroupRef} position-z={z}>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
-        <Player position={[2, 0, 0]} isMoving={!isMoving} color="#00CACA" />
-        <Player position={[-2, 0, 0]} isMoving={!isMoving} color="#0a0" />
+        <a.group position-z={previousZ}>
+          <Player
+            position={[2, 0, 0]}
+            isMoving={isMovingGhost}
+            color="#00CACA"
+          />
+        </a.group>
       </group>
     </>
   );
