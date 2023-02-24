@@ -39,7 +39,7 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
     }, [isMoving]);
 
     return (
-      <group ref={_ref as Ref<Group>} {...props}>
+      <group ref={ref} {...props}>
         <pointLight
           position-y={0.5}
           position-z={-0.8}
@@ -58,6 +58,7 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           scale={0.0025}
           position={[0, -1.45, 0]}
           rotation={[Math.PI / 2, 0, 0]}
+          ref={_ref as Ref<Group>}
         >
           <primitive object={nodes.mixamorigHips} />
           <skinnedMesh

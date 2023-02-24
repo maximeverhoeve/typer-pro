@@ -1,18 +1,19 @@
 import React, { useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { useSpring } from '@react-spring/three';
+import { useSpring, a } from '@react-spring/three';
 import { useFrame } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
-import { Mesh } from 'three';
+import { Group } from 'three';
 
 const SinglePlayerScene: React.FC = () => {
-  const playerRef = useRef<Mesh>(null);
+  const playerRef = useRef<Group>(null);
+  const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
   const progress = useSinglePlayerStore((state) => state.progress);
-  const [{ scale }] = useSpring(
+  const [{ z }] = useSpring(
     {
-      scale: progress,
+      z: progress * 100,
       config: {
         mass: 1,
         tension: 100,
@@ -27,15 +28,20 @@ const SinglePlayerScene: React.FC = () => {
   );
 
   useFrame((props, delta) => {
-    if (playerRef.current) {
-      playerRef.current.rotation.y += delta * 0.5;
+    if (animatedGroupRef.current) {
+      props.camera.position.z = animatedGroupRef.current.position.z + 5;
+      // playerRef.current.rotation.y += delta * 0.5;
     }
   });
+
+  const AnimatedPlayer = a(Player);
 
   return (
     <>
       <group>
-        <Player isMoving={isMoving} />
+        <a.group ref={animatedGroupRef} position-z={z}>
+          <AnimatedPlayer ref={playerRef} isMoving={isMoving} />
+        </a.group>
         <Player position={[2, 0, 0]} isMoving={!isMoving} color="#00CACA" />
         <Player position={[-2, 0, 0]} isMoving={!isMoving} color="#0a0" />
       </group>
