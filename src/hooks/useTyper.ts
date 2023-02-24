@@ -36,7 +36,7 @@ const useTyper = (
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const { onChangeProgress, room } = useSocketContext();
-  const setProgress = useSinglePlayerStore((state) => state.setProgress);
+  const { setProgress, progress } = useSinglePlayerStore((state) => state);
 
   const isFinished = textArray.length < wordToTypeIndex + 1;
   const isLastWord = textArray.length < wordToTypeIndex + 2;
@@ -94,7 +94,10 @@ const useTyper = (
     } else {
       const allCharsLength = textArray.join('').length;
       const validCharsLength = validWords.join('').length;
-      setProgress((validCharsLength + value.length) / allCharsLength);
+      const newProgress = (validCharsLength + value.length) / allCharsLength;
+      if (isInputValid && newProgress > progress) {
+        setProgress((validCharsLength + value.length) / allCharsLength);
+      }
       setInputValue(value);
     }
   };
