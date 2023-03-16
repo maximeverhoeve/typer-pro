@@ -25,7 +25,7 @@ const usePlayerStore = create<PlayerState>(
         id,
       };
     },
-    { name: 'player-state', getStorage: () => sessionStorage },
+    { name: 'player-state', getStorage: () => localStorage },
   ),
 );
 
