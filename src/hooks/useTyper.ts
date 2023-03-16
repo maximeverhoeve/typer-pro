@@ -36,7 +36,9 @@ const useTyper = (
   const [inputValue, setInputValue] = useState<string>('');
   const [timer, setTimer] = useState<Timer>(defaultTimer);
   const { onChangeProgress, room } = useSocketContext();
-  const { setProgress, progress } = useSinglePlayerStore((state) => state);
+  const { setProgress, progress, setIsGameStarted } = useSinglePlayerStore(
+    (state) => state,
+  );
 
   const isFinished = textArray.length < wordToTypeIndex + 1;
   const isLastWord = textArray.length < wordToTypeIndex + 2;
@@ -61,7 +63,9 @@ const useTyper = (
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!timer.start) {
+      // onStart
       setTimer((prev) => ({ ...prev, start: Date.now() }));
+      setIsGameStarted.on();
     }
 
     const value = e.currentTarget.value;
@@ -108,6 +112,7 @@ const useTyper = (
     setWordToTypeIndex(0);
     setTimer(defaultTimer);
     setProgress(0);
+    setIsGameStarted.off();
   };
 
   return {

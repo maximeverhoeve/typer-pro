@@ -54,7 +54,7 @@ const SinglePlayer: React.FC = () => {
     } else {
       setPreviousTime(undefined);
     }
-  }, [previousData]);
+  }, [previousData, joke]);
 
   useEffect(() => {
     // manually refetch on mount, because query-firstore does not have that prop

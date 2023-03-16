@@ -17,6 +17,9 @@ const usePreviousStats = (
   return useFirestoreDocumentData(
     ['player-stats', playerId, textId],
     playerDataRef,
+    {
+      subscribe: true,
+    },
   );
 };
 

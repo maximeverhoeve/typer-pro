@@ -5,6 +5,11 @@ interface SinglePlayerState {
   setProgress: (value: number) => void;
   setPreviousTime: (time?: number) => void;
   previousTime?: number;
+  isGameStarted: boolean;
+  setIsGameStarted: {
+    on: () => void;
+    off: () => void;
+  };
 }
 
 const useSinglePlayerStore = create<SinglePlayerState>((set) => {
@@ -12,6 +17,11 @@ const useSinglePlayerStore = create<SinglePlayerState>((set) => {
     progress: 0,
     setProgress: (value) => set(() => ({ progress: value })),
     setPreviousTime: (time) => set(() => ({ previousTime: time })),
+    isGameStarted: false,
+    setIsGameStarted: {
+      on: () => set(() => ({ isGameStarted: true })),
+      off: () => set(() => ({ isGameStarted: false })),
+    },
   };
 });
 

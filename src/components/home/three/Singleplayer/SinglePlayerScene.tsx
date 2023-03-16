@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame } from '@react-three/fiber';
@@ -11,22 +11,19 @@ const SinglePlayerScene: React.FC = () => {
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
   const [isMovingGhost, setIsMovingGhost] = useBoolean();
-  const { progress, previousTime } = useSinglePlayerStore((state) => state);
+  const { progress, previousTime, isGameStarted } = useSinglePlayerStore(
+    (state) => state,
+  );
   const previousZ = useSpringValue(0, {
     from: 0,
     onStart: setIsMovingGhost.on,
     onRest: setIsMovingGhost.off,
+    reset: progress === 0,
   });
-  const [{ z }] = useSpring(
+
+  const [{ z }, api] = useSpring(
     {
       z: progress * 100,
-      config: {
-        mass: 1,
-        tension: 100,
-        friction: 20,
-        precision: 0.01,
-        duration: 400,
-      },
       onStart: async () => {
         setIsMoving.on();
         await previousZ.start({
@@ -40,6 +37,15 @@ const SinglePlayerScene: React.FC = () => {
     },
     [progress],
   );
+
+  useEffect(() => {
+    if (!isGameStarted) {
+      api.stop();
+      api.set({ z: 0 });
+      previousZ.stop();
+      previousZ.set(0);
+    }
+  }, [isGameStarted]);
 
   useFrame((props, delta) => {
     if (animatedGroupRef.current) {
