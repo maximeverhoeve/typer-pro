@@ -10,9 +10,10 @@ const usePreviousStats = (
 ): UseQueryResult<LeaderboardPlayer> => {
   const { id: playerId } = usePlayerStore();
 
-  const playerDataRef = textId
-    ? doc(firestore, `leaderboard/${textId}/players/${playerId}`)
-    : undefined;
+  const playerDataRef =
+    textId != null
+      ? doc(firestore, `leaderboard/${textId}/players/${playerId}`)
+      : undefined;
 
   return useFirestoreDocumentData(
     ['player-stats', playerId, textId],

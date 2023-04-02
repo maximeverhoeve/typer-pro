@@ -84,6 +84,7 @@ const useTyper = (
         // set new progress value
         const allCharsLength = textArray.join('').length;
         const validCharsLength = newValidWords.join('').length;
+        // This setProgress call will trigger error (not fixable right now)
         setProgress(validCharsLength / allCharsLength);
         return newValidWords;
       });

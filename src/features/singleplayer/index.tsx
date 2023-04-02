@@ -16,12 +16,12 @@ const SinglePlayer: React.FC = () => {
   const setPreviousTime = useSinglePlayerStore(
     (state) => state.setPreviousTime,
   );
-  const postScore = usePostScore(textId || joke?.id);
+  const postScore = usePostScore(textId != null ? textId : joke?.id);
   const {
     isLoading: isLoadingPrevious,
     data: previousData,
     refetch,
-  } = usePreviousStats(textId || joke?.id);
+  } = usePreviousStats(textId != null ? textId : joke?.id);
   const navigate = useNavigate();
 
   const handleFinish = async (stats: Stats): Promise<void> => {

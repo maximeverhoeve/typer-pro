@@ -9,7 +9,7 @@ const usePostScore = (jokeId?: string): PostScore => {
   const { nickname, id: playerId } = usePlayerStore((state) => state);
 
   const postScore = async (stats: Stats): Promise<boolean> => {
-    if (!jokeId) return false;
+    if (jokeId == null) return false;
     const playerDocRef = doc(
       firestore,
       `leaderboard/${jokeId}/players/${playerId}`,

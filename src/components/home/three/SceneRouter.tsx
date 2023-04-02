@@ -2,8 +2,9 @@ import React from 'react';
 import { a, SpringValue, useTransition } from '@react-spring/three';
 import { useLocation } from 'react-router-dom';
 import MainScene from './MainScene';
-import SinglePlayerScene from './Singleplayer/SinglePlayerScene';
+import ThreeSingelplayer from './Singleplayer/ThreeSingleplayer';
 import { ThreePosition } from '../../../types/three';
+import ThreeLeaderboard from './Leaderboard/ThreeLeaderboard';
 
 enum SCENE {
   SINGLEPLAYER = 'SINGLEPLAYER',
@@ -50,10 +51,10 @@ const SceneGroup: React.FC<SceneGroupProps> = ({ scene, ...props }) => {
     <a.group {...props}>
       {
         {
-          SINGLEPLAYER: <SinglePlayerScene />,
+          SINGLEPLAYER: <ThreeSingelplayer />,
           MULTIPLAYER: <>multiplayer scene</>,
           MAIN: <MainScene />,
-          LEADERBOARD: <>singleplayer scene</>,
+          LEADERBOARD: <ThreeLeaderboard />,
         }[scene]
       }
     </a.group>

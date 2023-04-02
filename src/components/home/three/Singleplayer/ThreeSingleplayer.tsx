@@ -6,7 +6,7 @@ import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
 
-const SinglePlayerScene: React.FC = () => {
+const ThreeSingleplayer: React.FC = () => {
   const playerRef = useRef<Group>(null);
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
@@ -62,19 +62,17 @@ const SinglePlayerScene: React.FC = () => {
         <a.group ref={animatedGroupRef} position-z={z}>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
-        {previousTime && (
-          <a.group position-z={previousZ}>
-            <Player
-              // position={[2, 0, 0]}
-              isGhost
-              isMoving={isMovingGhost}
-              color="#00CACA"
-            />
-          </a.group>
-        )}
+        <a.group position-z={previousZ} visible={!!previousTime}>
+          <Player
+            // position={[2, 0, 0]}
+            isGhost
+            isMoving={isMovingGhost}
+            color="#00CACA"
+          />
+        </a.group>
       </group>
     </>
   );
 };
 
-export default SinglePlayerScene;
+export default ThreeSingleplayer;
