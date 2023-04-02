@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
@@ -14,12 +14,30 @@ const ThreeSingleplayer: React.FC = () => {
   const { progress, previousTime, isGameStarted } = useSinglePlayerStore(
     (state) => state,
   );
+  const { camera } = useThree();
   const previousZ = useSpringValue(0, {
     from: 0,
     onStart: setIsMovingGhost.on,
     onRest: setIsMovingGhost.off,
     reset: progress === 0,
   });
+  const useCameraMovementZ = useSpringValue(0, {
+    from: 0,
+  });
+  const useCameraMovementX = useSpringValue(0, {
+    from: 0,
+  });
+
+  const updateCamera = (): void => {
+    if (animatedGroupRef.current) {
+      camera.position.set(
+        -2,
+        camera.position.y,
+        animatedGroupRef.current.position.z + 5.5,
+      );
+      camera.lookAt(animatedGroupRef.current.position);
+    }
+  };
 
   const [{ z }, api] = useSpring(
     {
@@ -33,7 +51,13 @@ const ThreeSingleplayer: React.FC = () => {
           },
         });
       },
-      onRest: setIsMoving.off,
+      onChange: () => {
+        updateCamera();
+      },
+      onRest: () => {
+        setIsMoving.off();
+        updateCamera();
+      },
     },
     [progress],
   );
@@ -45,16 +69,8 @@ const ThreeSingleplayer: React.FC = () => {
       previousZ.stop();
       previousZ.set(0);
     }
+    console.log('test');
   }, [isGameStarted]);
-
-  useFrame((props, delta) => {
-    if (animatedGroupRef.current) {
-      props.camera.position.z = animatedGroupRef.current.position.z + 5.5;
-      props.camera.lookAt(animatedGroupRef.current.position);
-      props.camera.position.x = -2;
-      // playerRef.current.rotation.y += delta * 0.5;
-    }
-  });
 
   return (
     <>

@@ -1,8 +1,4 @@
-import {
-  ContactShadows,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei';
+import { ContactShadows, PerspectiveCamera } from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import React from 'react';
 import SceneRouter from './SceneRouter';
@@ -32,13 +28,6 @@ const ThreeEnvironment: React.FC = () => {
         height={1}
         blur={2.5}
         far={1.5}
-      />
-      <OrbitControls
-        // enablePan={false}
-        // enableRotate={false}
-        // enableZoom={false}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 2}
       />
     </Canvas>
   );

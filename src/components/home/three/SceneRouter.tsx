@@ -23,9 +23,9 @@ const SceneRouter: React.FC = () => {
     return SCENE.MAIN;
   };
   const transition = useTransition(getScene(), {
-    from: { scale: 1, position: [-20, 0, 0] as ThreePosition },
+    from: { scale: 1, position: [-30, 0, 0] as ThreePosition },
     enter: { scale: 1, position: [0, 0, 0] as ThreePosition },
-    leave: { scale: 1, position: [20, 0, 0] as ThreePosition },
+    leave: { scale: 1, position: [30, 0, 0] as ThreePosition },
     config: {
       mass: 1.5,
       tension: 350,
