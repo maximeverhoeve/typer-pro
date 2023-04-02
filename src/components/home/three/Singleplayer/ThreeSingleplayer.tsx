@@ -35,7 +35,7 @@ const ThreeSingleplayer: React.FC = () => {
 
   useEffect(() => {
     if (animatedGroupRef.current?.position.z === 0) {
-      gsap.to(camera.position, { z: 5.5 });
+      gsap.to(camera.position, { x: -2, z: 5.5 });
     }
   }, [animatedGroupRef.current?.position.z]);
 
