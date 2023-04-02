@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
+import gsap from 'gsap';
 
 const ThreeSingleplayer: React.FC = () => {
   const playerRef = useRef<Group>(null);
@@ -21,23 +22,22 @@ const ThreeSingleplayer: React.FC = () => {
     onRest: setIsMovingGhost.off,
     reset: progress === 0,
   });
-  const useCameraMovementZ = useSpringValue(0, {
-    from: 0,
-  });
-  const useCameraMovementX = useSpringValue(0, {
-    from: 0,
-  });
 
   const updateCamera = (): void => {
     if (animatedGroupRef.current) {
-      camera.position.set(
-        -2,
-        camera.position.y,
-        animatedGroupRef.current.position.z + 5.5,
-      );
+      gsap.to(camera.position, {
+        z: animatedGroupRef.current.position.z + 5.5,
+        duration: 0.1,
+      });
       camera.lookAt(animatedGroupRef.current.position);
     }
   };
+
+  useEffect(() => {
+    if (animatedGroupRef.current?.position.z === 0) {
+      gsap.to(camera.position, { z: 5.5 });
+    }
+  }, [animatedGroupRef.current?.position.z]);
 
   const [{ z }, api] = useSpring(
     {
@@ -69,7 +69,6 @@ const ThreeSingleplayer: React.FC = () => {
       previousZ.stop();
       previousZ.set(0);
     }
-    console.log('test');
   }, [isGameStarted]);
 
   return (
