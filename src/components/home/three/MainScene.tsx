@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Group } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
@@ -13,6 +13,7 @@ const MainScene: React.FC = () => {
   const sphere = useRef<Group>(null);
   const sphere2 = useRef<Group>(null);
   const { hoveredItem } = useCanvasStore((state) => state);
+  const { camera } = useThree();
 
   const [{ position2, position1, scale }] = useSpring(
     {
@@ -43,6 +44,10 @@ const MainScene: React.FC = () => {
       sphere2.current.rotation.y += delta * 0.5;
     }
   });
+
+  useEffect(() => {
+    camera.position.set(0, 0, 5);
+  }, []);
 
   return (
     <group>

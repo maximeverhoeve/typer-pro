@@ -3,17 +3,19 @@ import {
   OrbitControls,
   PerspectiveCamera,
 } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, Vector3 } from '@react-three/fiber';
 import React from 'react';
 import SceneRouter from './SceneRouter';
 import SceneLights from './SceneLights';
+
+export const DEFAULT_CAMERA_POSITION = [0, 0, 5] as Vector3;
 
 const ThreeEnvironment: React.FC = () => {
   return (
     <Canvas className="canvas" dpr={[1, 2]}>
       <PerspectiveCamera
         makeDefault
-        position={[0, 0, 5]}
+        position={DEFAULT_CAMERA_POSITION}
         fov={45}
         near={0.01}
         aspect={window.innerWidth / window.innerHeight}
