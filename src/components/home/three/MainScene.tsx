@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Group } from 'three';
+import { Group, Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
 import { ThreePosition } from '../../../types/three';
@@ -46,7 +46,8 @@ const MainScene: React.FC = () => {
   });
 
   useEffect(() => {
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 5.5);
+    camera.lookAt(new Vector3(0, 0, 0));
   }, []);
 
   return (

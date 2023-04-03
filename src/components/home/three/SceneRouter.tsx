@@ -22,6 +22,7 @@ const SceneRouter: React.FC = () => {
     if (pathname.includes('leaderboard')) return SCENE.LEADERBOARD;
     return SCENE.MAIN;
   };
+
   const transition = useTransition(getScene(), {
     from: { scale: 1, position: [-30, 0, 0] as ThreePosition },
     enter: { scale: 1, position: [0, 0, 0] as ThreePosition },
@@ -31,7 +32,7 @@ const SceneRouter: React.FC = () => {
       tension: 350,
       friction: 100,
       precision: 0.01,
-      exitBeforeEnter: false,
+      exitBeforeEnter: true,
     },
   });
 

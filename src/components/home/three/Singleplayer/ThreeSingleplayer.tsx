@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
-import { useThree } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
@@ -23,22 +23,6 @@ const ThreeSingleplayer: React.FC = () => {
     reset: progress === 0,
   });
 
-  const updateCamera = (): void => {
-    if (animatedGroupRef.current) {
-      gsap.to(camera.position, {
-        z: animatedGroupRef.current.position.z + 5.5,
-        duration: 0.1,
-      });
-      camera.lookAt(animatedGroupRef.current.position);
-    }
-  };
-
-  useEffect(() => {
-    if (animatedGroupRef.current?.position.z === 0) {
-      gsap.to(camera.position, { x: -2, z: 5.5 });
-    }
-  }, [animatedGroupRef.current?.position.z]);
-
   const [{ z }, api] = useSpring(
     {
       z: progress * 100,
@@ -51,16 +35,16 @@ const ThreeSingleplayer: React.FC = () => {
           },
         });
       },
-      onChange: () => {
-        updateCamera();
-      },
-      onRest: () => {
-        setIsMoving.off();
-        updateCamera();
-      },
+      onRest: setIsMoving.off,
     },
     [progress],
   );
+  useFrame((props) => {
+    if (animatedGroupRef.current && isMoving) {
+      props.camera.position.z = animatedGroupRef.current.position.z + 5;
+      props.camera.lookAt(animatedGroupRef.current.position);
+    }
+  });
 
   useEffect(() => {
     if (!isGameStarted) {
@@ -68,6 +52,16 @@ const ThreeSingleplayer: React.FC = () => {
       api.set({ z: 0 });
       previousZ.stop();
       previousZ.set(0);
+      gsap.to(camera.position, {
+        x: -2,
+        z: 5.5,
+        duration: 0.5,
+        onComplete: () => {
+          if (animatedGroupRef.current) {
+            camera.lookAt(animatedGroupRef.current.position);
+          }
+        },
+      });
     }
   }, [isGameStarted]);
 
@@ -78,12 +72,7 @@ const ThreeSingleplayer: React.FC = () => {
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
         <a.group position-z={previousZ} visible={!!previousTime}>
-          <Player
-            // position={[2, 0, 0]}
-            isGhost
-            isMoving={isMovingGhost}
-            color="#00CACA"
-          />
+          <Player isGhost isMoving={isMovingGhost} color="#00CACA" />
         </a.group>
       </group>
     </>
