@@ -12,9 +12,8 @@ const ThreeSingleplayer: React.FC = () => {
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
   const [isMovingGhost, setIsMovingGhost] = useBoolean();
-  const { progress, previousTime, isGameStarted } = useSinglePlayerStore(
-    (state) => state,
-  );
+  const { progress, previousTime, isGameStarted, isFinishing, setIsFinishing } =
+    useSinglePlayerStore((state) => state);
   const { camera } = useThree();
   const previousZ = useSpringValue(0, {
     from: 0,
@@ -66,13 +65,33 @@ const ThreeSingleplayer: React.FC = () => {
     }
   }, [isGameStarted]);
 
+  useEffect(() => {
+    if (isFinishing) {
+      // startfinish animation
+      if (animatedGroupRef.current) {
+        gsap.to(animatedGroupRef.current.rotation, {
+          y: Math.PI * 4,
+          onComplete: () => {
+            if (animatedGroupRef.current) {
+              animatedGroupRef.current.rotation.y = 0;
+              setIsFinishing.off();
+            }
+          },
+        });
+      }
+    }
+  }, [isFinishing]);
+
   return (
     <>
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
-        <a.group position-z={previousZ} visible={!!previousTime}>
+        <a.group
+          position-z={previousZ}
+          visible={!!previousTime && previousZ.get() !== 100}
+        >
           <Player isGhost isMoving={isMovingGhost} color="#00CACA" />
         </a.group>
       </group>

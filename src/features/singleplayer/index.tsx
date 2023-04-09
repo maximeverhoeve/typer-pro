@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Center } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
 import TypingContainer from '../../components/TypingContainer';
@@ -11,10 +11,11 @@ import usePreviousStats from '../../hooks/usePreviousStats';
 import useSinglePlayerStore from '../../store/useSinglePlayerStore';
 
 const SinglePlayer: React.FC = () => {
+  const [stats, setStats] = useState<Stats>();
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
-  const setPreviousTime = useSinglePlayerStore(
-    (state) => state.setPreviousTime,
+  const { setPreviousTime, isFinishing, setIsFinishing } = useSinglePlayerStore(
+    (state) => state,
   );
   const postScore = usePostScore(textId != null ? textId : joke?.id);
   const {
@@ -25,16 +26,10 @@ const SinglePlayer: React.FC = () => {
   const navigate = useNavigate();
 
   const handleFinish = async (stats: Stats): Promise<void> => {
+    setStats(stats);
+    setIsFinishing.on();
     if (!previousData || stats.wpm > previousData.wpm) {
       await postScore(stats);
-    }
-    if (joke) {
-      navigate(`/leaderboard/${joke.id}`, {
-        state: {
-          stats,
-          textId: joke.id,
-        },
-      });
     }
   };
 
@@ -60,6 +55,21 @@ const SinglePlayer: React.FC = () => {
     // manually refetch on mount, because query-firstore does not have that prop
     refetch();
   }, []);
+
+  useEffect(() => {
+    // When the finishing animation in the ThreeSingleplayer component is complete
+    // Navigate to the leaderboard page
+    if (!isFinishing && stats) {
+      if (joke) {
+        navigate(`/leaderboard/${joke.id}`, {
+          state: {
+            stats,
+            textId: joke.id,
+          },
+        });
+      }
+    }
+  }, [isFinishing]);
 
   return (
     <motion.div
