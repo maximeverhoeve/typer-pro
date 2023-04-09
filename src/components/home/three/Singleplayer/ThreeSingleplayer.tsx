@@ -27,6 +27,12 @@ const ThreeSingleplayer: React.FC = () => {
     {
       z: progress * 100,
       onStart: async () => {
+        // When camera position is not initially correct on page load. It should correct it
+        if (camera.position.x !== -2) {
+          if (animatedGroupRef.current) {
+            gsap.to(camera.position, { x: -2 });
+          }
+        }
         setIsMoving.on();
         await previousZ.start({
           to: 100,
@@ -40,7 +46,7 @@ const ThreeSingleplayer: React.FC = () => {
     [progress],
   );
   useFrame((props) => {
-    if (animatedGroupRef.current && isMoving) {
+    if (animatedGroupRef.current) {
       props.camera.position.z = animatedGroupRef.current.position.z + 5;
       props.camera.lookAt(animatedGroupRef.current.position);
     }
@@ -54,13 +60,8 @@ const ThreeSingleplayer: React.FC = () => {
       previousZ.set(0);
       gsap.to(camera.position, {
         x: -2,
-        z: 5.5,
+        z: 5,
         duration: 0.5,
-        onComplete: () => {
-          if (animatedGroupRef.current) {
-            camera.lookAt(animatedGroupRef.current.position);
-          }
-        },
       });
     }
   }, [isGameStarted]);
