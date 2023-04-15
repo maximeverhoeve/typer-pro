@@ -24,15 +24,24 @@ const SceneRouter: React.FC = () => {
   };
 
   const transition = useTransition(getScene(), {
-    from: { scale: 1, position: [-30, 0, 0] as ThreePosition },
+    from: { scale: 1, position: [-40, 0, 0] as ThreePosition },
     enter: { scale: 1, position: [0, 0, 0] as ThreePosition },
-    leave: { scale: 1, position: [30, 0, 0] as ThreePosition },
+    leave: { scale: 1, position: [40, 0, 0] as ThreePosition },
     config: {
       mass: 1.5,
       tension: 350,
       friction: 100,
       precision: 0.01,
       exitBeforeEnter: true,
+    },
+    onStart: () => {
+      const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
+      if (canvas) {
+        canvas.style.opacity = '0';
+        setTimeout(() => {
+          canvas.style.opacity = '1';
+        }, 500);
+      }
     },
   });
 

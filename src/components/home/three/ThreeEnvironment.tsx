@@ -8,7 +8,7 @@ export const DEFAULT_CAMERA_POSITION = [0, 0, 5] as Vector3;
 
 const ThreeEnvironment: React.FC = () => {
   return (
-    <Canvas className="canvas" dpr={[1, 2]}>
+    <Canvas className="canvas" dpr={[1, 2]} style={{ transition: '0.2s' }}>
       <PerspectiveCamera
         makeDefault
         position={DEFAULT_CAMERA_POSITION}
