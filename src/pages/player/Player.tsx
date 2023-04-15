@@ -1,19 +1,26 @@
 import { Button, Input, Text, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
 import { HiArrowRight } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
 import usePlayerStore from '../../store/usePlayerStore';
+import { useNavigate } from 'react-router-dom';
 
 const Player: React.FC = () => {
+  const navigate = useNavigate();
   const placeholdername = 'devmax';
   const nickname = usePlayerStore((state) => state.nickname);
+  const [inputValue, setInputValue] = useState<string>(nickname || '');
   const setNickname = usePlayerStore((state) => state.setNickname);
 
   const handleBlur = (): void => {
-    if (!nickname) {
-      setNickname(placeholdername);
+    if (!inputValue) {
+      setInputValue(placeholdername);
     }
+  };
+
+  const handleSubmit = (): void => {
+    setNickname(inputValue);
+    navigate('/singleplayer');
   };
 
   return (
@@ -30,11 +37,11 @@ const Player: React.FC = () => {
             autoFocus
             display="inline"
             fontSize="32px"
-            onChange={(e) => setNickname(e.currentTarget.value)}
+            onChange={(e) => setInputValue(e.currentTarget.value)}
             onBlur={handleBlur}
             color="secondary"
-            value={nickname}
-            w={`${nickname.length * 20}px`}
+            value={inputValue}
+            w={`${inputValue.length * 20}px`}
             p="0"
             fontWeight="bold"
             ml="4"
@@ -52,8 +59,7 @@ const Player: React.FC = () => {
         transition={{ delay: 0.3 }}
       >
         <Button
-          as={Link}
-          to="/singleplayer"
+          onClick={handleSubmit}
           _hover={{ bg: 'unset' }}
           bg="primary"
           color="white"
