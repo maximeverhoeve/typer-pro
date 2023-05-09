@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, IconButton, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, IconButton, SlideFade, Text } from '@chakra-ui/react';
 import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { motion } from 'framer-motion';
@@ -53,20 +53,22 @@ const Header: React.FC<Props> = ({
           />
         </Box>
         <HeaderLogo />
-        <Flex justify="flex-end" align="flex-start" p="4">
-          <Text
-            sx={{
-              span: {
-                fontSize: '12px',
-                opacity: 0.4,
-                ml: 1,
-              },
-            }}
-            dangerouslySetInnerHTML={{
-              __html: getDisplayName({ id, name: nickname }),
-            }}
-          />
-        </Flex>
+        <SlideFade in={!!nickname}>
+          <Flex justify="flex-end" align="flex-start" p="4">
+            <Text
+              sx={{
+                span: {
+                  fontSize: '12px',
+                  opacity: 0.4,
+                  ml: 1,
+                },
+              }}
+              dangerouslySetInnerHTML={{
+                __html: getDisplayName({ id, name: nickname || 'Typer Pro' }),
+              }}
+            />
+          </Flex>
+        </SlideFade>
       </Grid>
     </motion.div>
   );

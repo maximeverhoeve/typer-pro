@@ -1,4 +1,4 @@
-import { Button, Input, Text, VStack } from '@chakra-ui/react';
+import { Button, Input, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { HiArrowRight } from 'react-icons/hi';
@@ -7,10 +7,16 @@ import { useNavigate } from 'react-router-dom';
 
 const Player: React.FC = () => {
   const navigate = useNavigate();
-  const placeholdername = 'devmax';
+  const placeholdername = 'Typer Pro';
+  /** The nickname is only set when pressing the start button
+   * It's not set when changing the input
+   */
   const nickname = usePlayerStore((state) => state.nickname);
-  const [inputValue, setInputValue] = useState<string>(nickname || '');
+  const [inputValue, setInputValue] = useState<string>(
+    nickname || placeholdername,
+  );
   const setNickname = usePlayerStore((state) => state.setNickname);
+  const isButtonDisabled = !inputValue || inputValue === placeholdername;
 
   const handleBlur = (): void => {
     if (!inputValue) {
@@ -58,16 +64,22 @@ const Player: React.FC = () => {
         exit={{ scale: 0, opacity: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <Button
-          onClick={handleSubmit}
-          _hover={{ bg: 'unset' }}
-          bg="primary"
-          color="white"
-          borderRadius="none"
-          rightIcon={<HiArrowRight size="24px" color="white" />}
+        <Tooltip
+          label={`Make sure to enter a nickname not equal to "${placeholdername}"`}
+          isDisabled={!isButtonDisabled}
         >
-          Start
-        </Button>
+          <Button
+            onClick={handleSubmit}
+            _hover={{ bg: 'unset' }}
+            bg="primary"
+            color="white"
+            isDisabled={isButtonDisabled}
+            borderRadius="none"
+            rightIcon={<HiArrowRight size="24px" color="white" />}
+          >
+            Start
+          </Button>
+        </Tooltip>
       </motion.div>
     </VStack>
   );

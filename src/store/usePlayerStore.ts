@@ -5,7 +5,7 @@ import { StateCreator } from 'zustand/vanilla';
 
 interface PlayerState {
   id: string;
-  nickname: string;
+  nickname?: string;
   setNickname: (name: string) => void;
 }
 
@@ -20,7 +20,7 @@ const usePlayerStore = create<PlayerState>(
   (persist as MyPersist)(
     (set) => {
       return {
-        nickname: 'devmax',
+        nickname: undefined,
         setNickname: (name) => set(() => ({ nickname: name })),
         id,
       };

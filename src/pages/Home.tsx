@@ -1,19 +1,20 @@
 import React from 'react';
-import { Box, Center, VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import LinkBox from '../components/home/LinkBox';
 import useCanvasStore from '../store/useCanvasStore';
+import usePlayerStore from '../store/usePlayerStore';
 
 const Home: React.FC = () => {
+  const nickname = usePlayerStore((state) => state.nickname);
   const { hoveredItem, setHoveredItem } = useCanvasStore((state) => state);
 
   return (
     <Box mx="auto" h="100%" maxW="2xl" w="100%">
-      <Center></Center>
       <VStack flexGrow={1} align="stretch" justify="flex-start">
         <LinkBox
           setIsHovering={() => setHoveredItem('SINGLEPLAYER')}
           isHovering={hoveredItem === 'SINGLEPLAYER'}
-          to="/player"
+          to={nickname ? '/singleplayer' : '/player'}
           description="Practice your skills to become a typer pro!"
         >
           Singleplayer
