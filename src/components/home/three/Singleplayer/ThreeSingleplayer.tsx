@@ -9,7 +9,7 @@ import gsap from 'gsap';
 import { Sphere, Trail } from '@react-three/drei';
 
 const ThreeSingleplayer: React.FC = () => {
-  const cameraAngle = -4;
+  const cameraAngle = -6;
   const playerRef = useRef<Group>(null);
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
@@ -90,9 +90,10 @@ const ThreeSingleplayer: React.FC = () => {
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
           <Trail
-            width={5}
-            length={50}
+            width={10}
+            length={5}
             color={'#DC0077'}
+            decay={0.1}
             attenuation={(t: number) => {
               return t * t;
             }}
