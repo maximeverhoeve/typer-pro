@@ -6,8 +6,10 @@ import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
 import gsap from 'gsap';
+import { Sphere, Trail } from '@react-three/drei';
 
 const ThreeSingleplayer: React.FC = () => {
+  const cameraAngle = -4;
   const playerRef = useRef<Group>(null);
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
@@ -27,9 +29,9 @@ const ThreeSingleplayer: React.FC = () => {
       z: progress * 100,
       onStart: async () => {
         // When camera position is not initially correct on page load. It should correct it
-        if (camera.position.x !== -2) {
+        if (camera.position.x !== cameraAngle) {
           if (animatedGroupRef.current) {
-            gsap.to(camera.position, { x: -2 });
+            gsap.to(camera.position, { x: cameraAngle });
           }
         }
         setIsMoving.on();
@@ -44,6 +46,7 @@ const ThreeSingleplayer: React.FC = () => {
     },
     [progress],
   );
+
   useFrame((props) => {
     if (animatedGroupRef.current) {
       props.camera.position.z = animatedGroupRef.current.position.z + 5;
@@ -58,7 +61,7 @@ const ThreeSingleplayer: React.FC = () => {
       previousZ.stop();
       previousZ.set(0);
       gsap.to(camera.position, {
-        x: -2,
+        x: cameraAngle,
         z: 5,
         duration: 0.5,
       });
@@ -86,6 +89,18 @@ const ThreeSingleplayer: React.FC = () => {
     <>
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
+          <Trail
+            width={5}
+            length={50}
+            color={'#DC0077'}
+            attenuation={(t: number) => {
+              return t * t;
+            }}
+          >
+            <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
+              <meshNormalMaterial />
+            </Sphere>
+          </Trail>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
         <a.group
