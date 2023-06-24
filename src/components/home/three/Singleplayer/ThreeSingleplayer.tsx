@@ -92,13 +92,20 @@ const ThreeSingleplayer: React.FC = () => {
           <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
             <meshNormalMaterial />
           </Sphere>
-          <Player ref={playerRef} isMoving={isMoving} />
+          <Player
+            ref={playerRef}
+            animation={isMoving ? 'Runner' : 'Standing'}
+          />
         </a.group>
         <a.group
           position-z={previousZ}
           visible={!!previousTime && previousZ.get() !== 100}
         >
-          <Player isGhost isMoving={isMovingGhost} color="#00CACA" />
+          <Player
+            isGhost
+            animation={isMovingGhost ? 'Runner' : 'Standing'}
+            color="#00CACA"
+          />
         </a.group>
       </group>
     </>

@@ -21,6 +21,7 @@ const ThreeEnvironment: React.FC = () => {
         aspect={window.innerWidth / window.innerHeight}
       />
       <SceneLights />
+
       {/* <OrbitControls /> */}
       <SceneRouter />
       <ContactShadows

@@ -9,11 +9,12 @@ const ThreeLeaderboard: React.FC = () => {
 
   useEffect(() => {
     camera.position.set(0, 0, 5);
+    camera.rotation.set(0, 0, 0);
   }, []);
 
   return (
     <>
-      <Player ref={playerRef} />
+      <Player ref={playerRef} animation="Sad" />
     </>
   );
 };

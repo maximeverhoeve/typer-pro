@@ -1,4 +1,4 @@
-import { useMemo, forwardRef, useEffect, Ref } from 'react';
+import { useState, useMemo, forwardRef, useEffect, Ref } from 'react';
 import { Group, Object3D, SkinnedMesh } from 'three';
 import { GroupProps, useGraph } from '@react-three/fiber';
 import { useAnimations, useGLTF } from '@react-three/drei';
@@ -6,8 +6,8 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
 interface Props {
   color?: string;
-  isMoving?: boolean;
   isGhost?: boolean;
+  animation?: 'Runner' | 'Standing' | 'Sad';
 }
 
 useGLTF.preload('/player.glb');
@@ -15,29 +15,29 @@ useGLTF.preload('/player.glb');
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ isMoving, color = '#DC0077', isGhost, ...props }, ref) => {
-    const { animations, scene } = useGLTF('/player.glb');
+  ({ color = '#DC0077', isGhost, animation = 'Standing', ...props }, ref) => {
+    const [currentAnimation, setCurrentAnimation] = useState(animation);
+    const { animations, scene } = useGLTF('/player5.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
     });
+
     const cloneScene: Object3D = useMemo(
       () => clone(scene as Object3D),
       [scene],
     );
+
     const { nodes } = useGraph(cloneScene);
     nodes.mixamorigHips.traverse(function (obj) {
       obj.frustumCulled = false;
     });
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
+
     useEffect(() => {
-      if (isMoving) {
-        actions.Standing?.fadeOut(0.2);
-        actions.Runner?.reset().fadeIn(0.2).play();
-      } else {
-        actions.Runner?.fadeOut(0.2);
-        actions.Standing?.reset().fadeIn(0.2).play();
-      }
-    }, [isMoving]);
+      actions[currentAnimation]?.fadeOut(0.2);
+      actions[animation]?.reset().fadeIn(0.2).play();
+      setCurrentAnimation(animation);
+    }, [animation]);
 
     return (
       <group ref={ref} {...props}>
