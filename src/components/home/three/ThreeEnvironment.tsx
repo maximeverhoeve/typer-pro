@@ -1,4 +1,8 @@
-import { ContactShadows, PerspectiveCamera } from '@react-three/drei';
+import {
+  ContactShadows,
+  // OrbitControls,
+  PerspectiveCamera,
+} from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import React from 'react';
 import SceneRouter from './SceneRouter';
@@ -17,7 +21,7 @@ const ThreeEnvironment: React.FC = () => {
         aspect={window.innerWidth / window.innerHeight}
       />
       <SceneLights />
-
+      {/* <OrbitControls /> */}
       <SceneRouter />
       <ContactShadows
         rotation={[Math.PI / 2, 0, 0]}

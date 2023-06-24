@@ -32,15 +32,19 @@ const SceneRouter: React.FC = () => {
       tension: 350,
       friction: 100,
       precision: 0.01,
-      exitBeforeEnter: true,
+      exitBeforeEnter: false,
+      duration: 600,
     },
     onStart: () => {
       const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
       if (canvas) {
         canvas.style.opacity = '0';
-        setTimeout(() => {
-          canvas.style.opacity = '1';
-        }, 500);
+      }
+    },
+    onRest: () => {
+      const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
+      if (canvas) {
+        canvas.style.opacity = '1';
       }
     },
   });
