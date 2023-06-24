@@ -6,7 +6,7 @@ import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
 import { Group } from 'three';
 import gsap from 'gsap';
-import { Sphere, Trail } from '@react-three/drei';
+import { Sphere } from '@react-three/drei';
 
 const ThreeSingleplayer: React.FC = () => {
   const cameraAngle = -6;
@@ -89,19 +89,9 @@ const ThreeSingleplayer: React.FC = () => {
     <>
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
-          <Trail
-            width={10}
-            length={5}
-            color={'#DC0077'}
-            decay={0.1}
-            attenuation={(t: number) => {
-              return t * t;
-            }}
-          >
-            <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
-              <meshNormalMaterial />
-            </Sphere>
-          </Trail>
+          <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
+            <meshNormalMaterial />
+          </Sphere>
           <Player ref={playerRef} isMoving={isMoving} />
         </a.group>
         <a.group
