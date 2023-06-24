@@ -7,7 +7,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 interface Props {
   color?: string;
   isGhost?: boolean;
-  animation?: 'Runner' | 'Standing' | 'Sad';
+  animation?: 'Runner' | 'Standing' | 'Sad' | 'Cheering';
 }
 
 useGLTF.preload('/player.glb');
@@ -17,7 +17,7 @@ type RefMesh = Group;
 const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ color = '#DC0077', isGhost, animation = 'Standing', ...props }, ref) => {
     const [currentAnimation, setCurrentAnimation] = useState(animation);
-    const { animations, scene } = useGLTF('/player5.glb');
+    const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
     });
