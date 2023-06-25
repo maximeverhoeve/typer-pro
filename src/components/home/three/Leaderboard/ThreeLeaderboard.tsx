@@ -3,6 +3,7 @@ import Player from '../Player';
 import { Group } from 'three';
 import { useThree } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 interface LocationType {
   state?: {
@@ -20,7 +21,8 @@ const ThreeLeaderboard: React.FC = () => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 50);
+    gsap.to(camera.position, { z: 5, duration: 2 });
     camera.rotation.set(0, 0, 0);
   }, []);
 
