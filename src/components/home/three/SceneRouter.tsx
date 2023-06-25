@@ -9,7 +9,6 @@ enum SCENE {
   MULTIPLAYER = 'MULTIPLAYER',
   LEADERBOARD = 'LEADERBOARD',
   MAIN = 'MAIN',
-  NONE = 'NONE',
 }
 
 const SceneRouter: React.FC = () => {
@@ -17,7 +16,7 @@ const SceneRouter: React.FC = () => {
   const getScene = (): SCENE => {
     if (pathname.includes('singleplayer')) return SCENE.SINGLEPLAYER;
     if (pathname.includes('multiplayer')) return SCENE.MULTIPLAYER;
-    if (pathname === '/leaderboard') return SCENE.NONE;
+    if (pathname === '/leaderboard') return SCENE.MAIN;
     if (pathname.includes('leaderboard/')) return SCENE.LEADERBOARD;
     return SCENE.MAIN;
   };
@@ -30,7 +29,6 @@ const SceneRouter: React.FC = () => {
           MULTIPLAYER: <>multiplayer scene</>,
           MAIN: <MainScene />,
           LEADERBOARD: <ThreeLeaderboard />,
-          NONE: <></>,
         }[getScene()]
       }
     </>
