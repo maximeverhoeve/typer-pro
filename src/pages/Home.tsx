@@ -34,11 +34,11 @@ const Home: React.FC = () => {
         <LinkBox
           setIsHovering={() => setHoveredItem('LEADERBOARD')}
           isHovering={hoveredItem === 'LEADERBOARD'}
-          to="/"
+          to="/leaderboard"
           delay={0.4}
           hoverColor="gray.500"
           description="Check out the leaderboards of every text that's been played"
-          isUnavailable
+          // isUnavailable
         >
           Leaderboard
         </LinkBox>
