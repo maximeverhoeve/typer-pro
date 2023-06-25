@@ -2,9 +2,21 @@ import React, { useEffect, useRef } from 'react';
 import Player from '../Player';
 import { Group } from 'three';
 import { useThree } from '@react-three/fiber';
+import { useLocation } from 'react-router-dom';
+
+interface LocationType {
+  state?: {
+    stats?: {
+      wpm: number;
+    };
+    isHighScore: boolean;
+  };
+}
 
 const ThreeLeaderboard: React.FC = () => {
   const playerRef = useRef<Group>(null);
+  const location = useLocation() as LocationType;
+  const isHighScore = location?.state && location.state.isHighScore;
   const { camera } = useThree();
 
   useEffect(() => {
@@ -14,7 +26,7 @@ const ThreeLeaderboard: React.FC = () => {
 
   return (
     <>
-      <Player ref={playerRef} animation="Sad" />
+      <Player ref={playerRef} animation={isHighScore ? 'Cheering' : 'Sad'} />
     </>
   );
 };

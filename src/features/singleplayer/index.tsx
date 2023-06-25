@@ -65,6 +65,7 @@ const SinglePlayer: React.FC = () => {
           state: {
             stats,
             textId: joke.id,
+            isHighScore: stats.wpm > (previousData?.wpm || 0),
           },
         });
       }
