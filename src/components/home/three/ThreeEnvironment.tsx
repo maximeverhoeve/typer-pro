@@ -1,3 +1,5 @@
+import { Perf } from 'r3f-perf';
+import { useControls } from 'leva';
 import {
   ContactShadows,
   // OrbitControls,
@@ -11,8 +13,13 @@ import SceneLights from './SceneLights';
 export const DEFAULT_CAMERA_POSITION = [0, 0, 5] as Vector3;
 
 const ThreeEnvironment: React.FC = () => {
+  const { showPerf } = useControls({
+    showPerf: false,
+  });
+
   return (
     <Canvas className="canvas" dpr={[1, 2]} style={{ transition: '0.2s' }}>
+      {showPerf && <Perf position="bottom-left" />}
       <PerspectiveCamera
         makeDefault
         position={DEFAULT_CAMERA_POSITION}
