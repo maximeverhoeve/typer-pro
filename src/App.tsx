@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import AnimatedRoutes from './components/AnimatedRoutes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ThreeEnvironment from './components/home/three/ThreeEnvironment';
+import { Leva } from 'leva';
 
 enum THEMES {
   DARK = 'dark',
@@ -40,6 +41,7 @@ const App: React.FC = () => {
       {/* <SocketContext.Provider value={socketContextValues}>
         <GameContext.Provider value={gameContextValues}> */}
       <ChakraProvider theme={customThemeDark}>
+        <Leva collapsed />
         <Grid
           templateRows="repeat(2, 50vh)"
           bg="background"

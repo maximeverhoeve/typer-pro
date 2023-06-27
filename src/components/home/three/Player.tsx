@@ -1,4 +1,5 @@
 import { useState, useMemo, forwardRef, useEffect, Ref } from 'react';
+import { useControls } from 'leva';
 import { Group, Object3D, SkinnedMesh } from 'three';
 import { GroupProps, useGraph } from '@react-three/fiber';
 import { useAnimations, useGLTF } from '@react-three/drei';
@@ -15,7 +16,11 @@ useGLTF.preload('/player.glb');
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ color = '#DC0077', isGhost, animation = 'Standing', ...props }, ref) => {
+  ({ color, isGhost, animation = 'Standing', ...props }, ref) => {
+    const { debugColor, ghostColor } = useControls('Player', {
+      debugColor: color || '#DC0077',
+      ghostColor: color || '#00CACA',
+    });
     const [currentAnimation, setCurrentAnimation] = useState(animation);
     const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
@@ -46,14 +51,14 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           position-z={-0.8}
           intensity={100}
           distance={2}
-          color={color}
+          color={isGhost ? ghostColor : debugColor}
         />
         <pointLight
           position-y={0.5}
           position-z={0.8}
           intensity={100}
           distance={2}
-          color={color}
+          color={isGhost ? ghostColor : debugColor}
         />
         <group
           scale={0.0025}
