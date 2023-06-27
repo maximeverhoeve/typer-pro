@@ -16,10 +16,10 @@ useGLTF.preload('/player.glb');
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ color, isGhost, animation = 'Standing', ...props }, ref) => {
-    const { debugColor, ghostColor } = useControls('Player', {
-      debugColor: color || '#DC0077',
-      ghostColor: color || '#00CACA',
+  ({ color = '#dc0077', isGhost, animation = 'Standing', ...props }, ref) => {
+    const { enableCustomColor, debugColor } = useControls('Player', {
+      enableCustomColor: { value: false, label: 'Show color' },
+      debugColor: { value: color, label: 'color' },
     });
     const [currentAnimation, setCurrentAnimation] = useState(animation);
     const { animations, scene } = useGLTF('/player.glb');
@@ -51,14 +51,14 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           position-z={-0.8}
           intensity={100}
           distance={2}
-          color={isGhost ? ghostColor : debugColor}
+          color={enableCustomColor ? debugColor : color}
         />
         <pointLight
           position-y={0.5}
           position-z={0.8}
           intensity={100}
           distance={2}
-          color={isGhost ? ghostColor : debugColor}
+          color={enableCustomColor ? debugColor : color}
         />
         <group
           scale={0.0025}
