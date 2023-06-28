@@ -1,14 +1,11 @@
+import React from 'react';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
-import {
-  ContactShadows,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
-import React from 'react';
 import SceneRouter from './SceneRouter';
 import SceneLights from './SceneLights';
+import SceneShadows from './environment/SceneShadows';
 
 export const DEFAULT_CAMERA_POSITION = [0, 0, 5] as Vector3;
 
@@ -32,16 +29,7 @@ const ThreeEnvironment: React.FC = () => {
 
       {showOrbit && <OrbitControls />}
       <SceneRouter />
-      <ContactShadows
-        rotation={[Math.PI / 2, 0, 0]}
-        color="#999"
-        position={[0, -1.5, 0]}
-        opacity={0.5}
-        width={1}
-        height={1}
-        blur={2.5}
-        far={1.5}
-      />
+      <SceneShadows />
     </Canvas>
   );
 };
