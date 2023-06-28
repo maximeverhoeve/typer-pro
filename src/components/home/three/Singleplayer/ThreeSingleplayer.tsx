@@ -87,6 +87,7 @@ const ThreeSingleplayer: React.FC = () => {
 
   return (
     <>
+      <directionalLight position={[3, 1, 8]} intensity={0.3} />
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
           <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
@@ -104,7 +105,7 @@ const ThreeSingleplayer: React.FC = () => {
           <Player
             isGhost
             animation={isMovingGhost ? 'Runner' : 'Standing'}
-            color="#00CACA"
+            color="#008585"
           />
         </a.group>
       </group>

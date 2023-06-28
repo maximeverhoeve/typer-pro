@@ -16,7 +16,7 @@ useGLTF.preload('/player.glb');
 type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ color = '#dc0077', isGhost, animation = 'Standing', ...props }, ref) => {
+  ({ color = '#ac005c', isGhost, animation = 'Standing', ...props }, ref) => {
     const { enableCustomColor, debugColor } = useControls('Player', {
       enableCustomColor: { value: false, label: 'Show color' },
       debugColor: { value: color, label: 'color' },
@@ -46,20 +46,17 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
 
     return (
       <group ref={ref} {...props}>
-        <pointLight
-          position-y={0.5}
-          position-z={-0.8}
-          intensity={100}
-          distance={2}
-          color={enableCustomColor ? debugColor : color}
-        />
-        <pointLight
-          position-y={0.5}
-          position-z={0.8}
-          intensity={100}
-          distance={2}
-          color={enableCustomColor ? debugColor : color}
-        />
+        {isGhost && (
+          <>
+            <pointLight
+              position-y={0.5}
+              position-z={-0.8}
+              intensity={100}
+              distance={2}
+              color="#999"
+            />
+          </>
+        )}
         <group
           scale={0.0025}
           position={[0, -1.45, 0]}
@@ -74,7 +71,7 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
             skeleton={(nodes.Cube001 as SkinnedMesh).clone().skeleton}
           >
             <meshStandardMaterial
-              color="#222"
+              color={enableCustomColor ? debugColor : color}
               roughness={isGhost ? 0 : 0.3}
               metalness={isGhost ? 0 : 0.65}
               wireframe={isGhost}
