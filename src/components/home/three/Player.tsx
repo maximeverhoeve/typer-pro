@@ -1,4 +1,4 @@
-import { useState, useMemo, forwardRef, useEffect, Ref } from 'react';
+import { useMemo, forwardRef, useEffect, Ref } from 'react';
 import { useControls } from 'leva';
 import { Group, Object3D, SkinnedMesh } from 'three';
 import { GroupProps, useGraph } from '@react-three/fiber';
@@ -21,7 +21,6 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
       enableCustomColor: { value: false, label: 'Show color' },
       debugColor: { value: color, label: 'color' },
     });
-    const [currentAnimation, setCurrentAnimation] = useState(animation);
     const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
@@ -39,9 +38,11 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
     useEffect(() => {
-      actions[currentAnimation]?.fadeOut(0.2);
       actions[animation]?.reset().fadeIn(0.2).play();
-      setCurrentAnimation(animation);
+
+      return () => {
+        actions[animation]?.fadeOut(0.2);
+      };
     }, [animation]);
 
     return (

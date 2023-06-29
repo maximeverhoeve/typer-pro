@@ -1,7 +1,7 @@
 import React from 'react';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import SceneRouter from './SceneRouter';
 import SceneLights from './SceneLights';
@@ -16,19 +16,32 @@ const ThreeEnvironment: React.FC = () => {
   });
 
   return (
-    <Canvas className="canvas" dpr={[1, 2]} style={{ transition: '0.2s' }}>
+    <Canvas
+      shadows
+      className="canvas"
+      dpr={[1, 2]}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: [-4, 3, 3],
+      }}
+      style={{ transition: '0.2s' }}
+    >
       {showPerf && <Perf position="bottom-left" />}
-      <PerspectiveCamera
+      {/* <PerspectiveCamera
         makeDefault
         position={DEFAULT_CAMERA_POSITION}
         fov={45}
         near={0.01}
         aspect={window.innerWidth / window.innerHeight}
-      />
+      /> */}
+
       <SceneLights />
 
       {showOrbit && <OrbitControls />}
       <SceneRouter />
+
       <SceneShadows />
     </Canvas>
   );
