@@ -4,16 +4,17 @@ import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame, useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
 import Player from '../Player';
-import { Group } from 'three';
+import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
-import { Sphere } from '@react-three/drei';
 import SinglePlayerEnvironment from './SinglePlayerEnvironment';
 
 const ThreeSingleplayer: React.FC = () => {
   const cameraAngle = -6;
   const playerRef = useRef<Group>(null);
+  const light = useRef<DirectionalLight>(null);
   const animatedGroupRef = useRef<Group>(null);
   const [isMoving, setIsMoving] = useBoolean();
+
   const [isMovingGhost, setIsMovingGhost] = useBoolean();
   const { progress, previousTime, isGameStarted, isFinishing, setIsFinishing } =
     useSinglePlayerStore((state) => state);
@@ -51,6 +52,12 @@ const ThreeSingleplayer: React.FC = () => {
   useFrame((props) => {
     if (animatedGroupRef.current) {
       props.camera.position.z = animatedGroupRef.current.position.z + 5;
+      if (light.current) {
+        light.current.position.z = animatedGroupRef.current.position.z;
+        light.current.target.position.z =
+          animatedGroupRef.current.position.z - 4;
+        light.current.target.updateMatrixWorld();
+      }
       props.camera.lookAt(animatedGroupRef.current.position);
     }
   });
@@ -88,13 +95,23 @@ const ThreeSingleplayer: React.FC = () => {
 
   return (
     <>
-      <directionalLight position={[3, 1, 8]} intensity={0.3} />
+      <directionalLight position={[-3, 2, 8]} intensity={0.3} />
+      <directionalLight
+        ref={light}
+        position={[0, 10, 0.4]}
+        intensity={0.3}
+        castShadow
+        shadow-mapSize={[512, 512]}
+        shadow-camera-near={1}
+        shadow-camera-far={20}
+        shadow-camera-top={20}
+        shadow-camera-right={20}
+        shadow-camera-bottom={-20}
+        shadow-camera-left={-20}
+      />
       <SinglePlayerEnvironment />
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
-          <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>
-            <meshNormalMaterial />
-          </Sphere>
           <Player
             ref={playerRef}
             animation={isMoving ? 'Runner' : 'Standing'}
