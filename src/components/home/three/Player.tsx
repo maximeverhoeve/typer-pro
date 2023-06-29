@@ -17,10 +17,14 @@ type RefMesh = Group;
 
 const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ color = '#ac005c', isGhost, animation = 'Standing', ...props }, ref) => {
-    const { enableCustomColor, debugColor } = useControls('Player', {
-      enableCustomColor: { value: false, label: 'Show color' },
-      debugColor: { value: color, label: 'color' },
-    });
+    const { enableCustomColor, debugColor } = useControls(
+      'Player',
+      {
+        enableCustomColor: { value: false, label: 'Show color' },
+        debugColor: { value: color, label: 'color' },
+      },
+      { collapsed: true },
+    );
     const { animations, scene } = useGLTF('/player.glb');
     scene.traverse(function (obj) {
       obj.frustumCulled = false;
@@ -32,9 +36,9 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
     );
 
     const { nodes } = useGraph(cloneScene);
-    nodes.mixamorigHips.traverse(function (obj) {
-      obj.frustumCulled = false;
-    });
+    // nodes.mixamorigHips.traverse(function (obj) {
+    //   obj.frustumCulled = false;
+    // });
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
     useEffect(() => {

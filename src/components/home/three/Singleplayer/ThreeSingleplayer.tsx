@@ -7,6 +7,7 @@ import Player from '../Player';
 import { Group } from 'three';
 import gsap from 'gsap';
 import { Sphere } from '@react-three/drei';
+import SinglePlayerEnvironment from './SinglePlayerEnvironment';
 
 const ThreeSingleplayer: React.FC = () => {
   const cameraAngle = -6;
@@ -88,6 +89,7 @@ const ThreeSingleplayer: React.FC = () => {
   return (
     <>
       <directionalLight position={[3, 1, 8]} intensity={0.3} />
+      <SinglePlayerEnvironment />
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
           <Sphere visible={false} args={[0.1, 32, 32]} position-x={0}>

@@ -3,11 +3,15 @@ import { ContactShadows } from '@react-three/drei';
 import { useControls } from 'leva';
 
 const SceneShadows: React.FC = () => {
-  const { color, opacity, blur } = useControls('Shadows', {
-    color: '#000000',
-    opacity: { value: 1, min: 0, max: 1 },
-    blur: { value: 1.6, min: 0, max: 10 },
-  });
+  const { color, opacity, blur } = useControls(
+    'Shadows',
+    {
+      color: '#000000',
+      opacity: { value: 1, min: 0, max: 1 },
+      blur: { value: 1.6, min: 0, max: 10 },
+    },
+    { collapsed: true },
+  );
 
   return (
     <>
