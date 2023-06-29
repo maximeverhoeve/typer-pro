@@ -6,7 +6,7 @@ const SceneLights: React.FC = () => {
     'Lights',
     {
       position: {
-        value: [0.6, 0.4, 8],
+        value: [-12, 0.4, 8],
         step: 0.1,
       },
       intensity: { value: 0.7, step: 0.1, min: 0, max: 8 },

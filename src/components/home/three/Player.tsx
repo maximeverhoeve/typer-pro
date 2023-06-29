@@ -36,16 +36,13 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
     );
 
     const { nodes } = useGraph(cloneScene);
-    // nodes.mixamorigHips.traverse(function (obj) {
-    //   obj.frustumCulled = false;
-    // });
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
     useEffect(() => {
-      actions[animation]?.reset().fadeIn(0.2).play();
+      actions[animation]?.reset().fadeIn(0.1).play();
 
       return () => {
-        actions[animation]?.fadeOut(0.2);
+        actions[animation]?.fadeOut(0.1);
       };
     }, [animation]);
 

@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
-import Fence from './Fence';
+import Fence from './objects/Fence';
+import Sign from './objects/Sign';
 
 const SinglePlayerEnvironment: React.FC = () => {
   return (
     <>
+      <Sign
+        direction="right"
+        position={[2, -1, 2.85]}
+        rotation={[0, -Math.PI / 2, 0]}
+      />
       <Fence position={[-1.2, -1.5, -2.9]} rotation={[0, 0, 0]} />
       {[...Array(18)].map((_, i) => (
         <Fence

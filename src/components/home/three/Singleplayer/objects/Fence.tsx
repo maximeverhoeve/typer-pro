@@ -10,7 +10,7 @@ const Fence: React.FC<GroupProps> = (props) => {
   const { color } = useControls(
     'Fences',
     {
-      color: '#00d4ff',
+      color: '#232323',
     },
     { collapsed: true },
   );
@@ -29,3 +29,5 @@ const Fence: React.FC<GroupProps> = (props) => {
 };
 
 export default Fence;
+
+useGLTF.preload('/objects/fence.glb');
