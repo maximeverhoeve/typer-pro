@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Player from '../Player';
 import { Group } from 'three';
-import { GroupProps, useThree } from '@react-three/fiber';
+import { GroupProps, useFrame, useThree } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Float, Text } from '@react-three/drei';
@@ -23,10 +23,16 @@ const ThreeLeaderboard: React.FC = () => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(0, 0, 50);
-    gsap.to(camera.position, { z: 5, duration: 2 });
+    camera.position.set(-10, 10, 20);
+    gsap.to(camera.position, { z: 7, x: 0, y: 0, duration: 2.5 });
     camera.rotation.set(0, 0, 0);
   }, []);
+
+  useFrame(({ camera }) => {
+    if (playerRef.current) {
+      camera.lookAt(playerRef.current.position);
+    }
+  });
 
   return (
     <>

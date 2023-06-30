@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -44,6 +44,9 @@ const ThreeSingleplayer: React.FC = () => {
           },
         });
       },
+      config: {
+        duration: 300,
+      },
       onRest: setIsMoving.off,
     },
     [progress],
@@ -61,6 +64,19 @@ const ThreeSingleplayer: React.FC = () => {
       props.camera.lookAt(animatedGroupRef.current.position);
     }
   });
+
+  useLayoutEffect(() => {
+    api.stop();
+    api.set({ z: 0 });
+    previousZ.stop();
+    previousZ.set(0);
+    gsap.to(camera.position, {
+      x: cameraAngle,
+      z: 5,
+      y: 1,
+      duration: 0.5,
+    });
+  }, []);
 
   useEffect(() => {
     if (!isGameStarted) {
