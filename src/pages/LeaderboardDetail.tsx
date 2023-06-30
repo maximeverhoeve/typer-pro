@@ -7,7 +7,7 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react';
-import CountUp from 'react-countup';
+import CountUp, { useCountUp } from 'react-countup';
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';

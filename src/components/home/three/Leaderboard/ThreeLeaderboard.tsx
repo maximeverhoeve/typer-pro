@@ -4,7 +4,7 @@ import { Group } from 'three';
 import { GroupProps, useThree } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { Float, Text, Text3D } from '@react-three/drei';
+import { Float, Text } from '@react-three/drei';
 
 interface LocationType {
   state?: {
@@ -28,8 +28,6 @@ const ThreeLeaderboard: React.FC = () => {
     camera.rotation.set(0, 0, 0);
   }, []);
 
-  console.log('highscore: ', location.state || 'no highscore');
-
   return (
     <>
       <directionalLight
@@ -49,13 +47,17 @@ const ThreeLeaderboard: React.FC = () => {
           label="BEST"
           score={location.state?.highScore || 0}
           position-x={2}
+          color="#009da5"
         />
       )}
-      <FloatText
-        label="CURRENT"
-        score={location.state?.stats?.wpm || 0}
-        position-x={-2}
-      />
+      {location.state?.stats && (
+        <FloatText
+          label="CURRENT"
+          score={location.state?.stats?.wpm || 0}
+          position-x={-2}
+          color="#ac005c"
+        />
+      )}
 
       <Player ref={playerRef} animation={isHighScore ? 'Cheering' : 'Sad'} />
     </>
@@ -86,7 +88,7 @@ const FloatText: React.FC<FloatTextProps & GroupProps> = ({
         fillOpacity={1}
       >
         {label}
-        <meshStandardMaterial color={color || '#656565'} />
+        <meshStandardMaterial color={'#656565'} />
       </Text>
       <Text
         font="/fonts/roboto-mono-medium.woff"
