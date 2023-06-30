@@ -52,6 +52,18 @@ const MainScene: React.FC = () => {
 
   return (
     <group>
+      <directionalLight
+        position={[0, 10, 0.4]}
+        intensity={0.3}
+        castShadow
+        shadow-mapSize={[150, 150]}
+        shadow-camera-near={1}
+        shadow-camera-far={20}
+        shadow-camera-top={20}
+        shadow-camera-right={20}
+        shadow-camera-bottom={-20}
+        shadow-camera-left={-20}
+      />
       <a.group position={position1}>
         <Player />
       </a.group>

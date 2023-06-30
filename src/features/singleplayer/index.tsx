@@ -66,6 +66,7 @@ const SinglePlayer: React.FC = () => {
             stats,
             textId: joke.id,
             isHighScore: stats.wpm > (previousData?.wpm || 0),
+            highScore: previousData?.wpm || 0,
           },
         });
       }

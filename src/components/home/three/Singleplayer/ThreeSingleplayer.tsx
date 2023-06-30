@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -33,7 +33,7 @@ const ThreeSingleplayer: React.FC = () => {
         // When camera position is not initially correct on page load. It should correct it
         if (camera.position.x !== cameraAngle) {
           if (animatedGroupRef.current) {
-            gsap.to(camera.position, { x: cameraAngle });
+            gsap.to(camera.position, { x: cameraAngle, y: 1 });
           }
         }
         setIsMoving.on();
@@ -71,6 +71,7 @@ const ThreeSingleplayer: React.FC = () => {
       gsap.to(camera.position, {
         x: cameraAngle,
         z: 5,
+        y: 1,
         duration: 0.5,
       });
     }
@@ -94,8 +95,7 @@ const ThreeSingleplayer: React.FC = () => {
   }, [isFinishing]);
 
   return (
-    <>
-      <directionalLight position={[-3, 2, 8]} intensity={0.3} />
+    <Suspense>
       <directionalLight
         ref={light}
         position={[0, 10, 0.4]}
@@ -128,7 +128,7 @@ const ThreeSingleplayer: React.FC = () => {
           />
         </a.group>
       </group>
-    </>
+    </Suspense>
   );
 };
 

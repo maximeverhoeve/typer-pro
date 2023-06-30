@@ -40,7 +40,6 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
 
     useEffect(() => {
       actions[animation]?.reset().fadeIn(0.1).play();
-
       return () => {
         actions[animation]?.fadeOut(0.1);
       };

@@ -9,7 +9,7 @@ const SceneLights: React.FC = () => {
         value: [-12, 0.4, 8],
         step: 0.1,
       },
-      intensity: { value: 0.7, step: 0.1, min: 0, max: 8 },
+      intensity: { value: 1.3, step: 0.1, min: 0, max: 8 },
     },
     { collapsed: true },
   );
@@ -17,17 +17,7 @@ const SceneLights: React.FC = () => {
   return (
     <>
       <ambientLight intensity={0.15} />
-      <directionalLight
-        position={position}
-        intensity={intensity}
-        castShadow
-        shadow-camera-near={1}
-        shadow-camera-far={10}
-        shadow-camera-top={10}
-        shadow-camera-right={10}
-        shadow-camera-bottom={-10}
-        shadow-camera-left={-10}
-      />
+      <directionalLight position={position} intensity={intensity} />
     </>
   );
 };
