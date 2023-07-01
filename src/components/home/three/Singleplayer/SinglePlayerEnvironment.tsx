@@ -6,11 +6,6 @@ import { Text } from '@react-three/drei';
 const SinglePlayerEnvironment: React.FC = () => {
   return (
     <>
-      {/* <Sign
-        direction="right"
-        position={[2, -1, 2.85]}
-        rotation={[0, -Math.PI / 2, 0]}
-      /> */}
       <Fence position={[-1.2, -1.5, -2.9]} rotation={[0, 0, 0]} />
       {[...Array(18)].map((_, i) => (
         <Fence
@@ -38,23 +33,23 @@ const SinglePlayerEnvironment: React.FC = () => {
       <Text
         font="/fonts/roboto-mono-medium.woff"
         rotation={[-Math.PI / 2, 0, 0]}
-        fontSize={1.4}
-        position={[-0.5, -1.5, 99]}
+        fontSize={1}
+        position={[-0.5, -1.49, 99]}
         fillOpacity={0.2}
       >
         FINISH
       </Text>
 
-      {/* <mesh
+      <mesh
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -1.51, 0]}
-        scale-y={50}
-        scale-x={20}
+        position={[-0.5, -1.49, 100]}
+        scale-y={0.2}
+        scale-x={5}
         receiveShadow
       >
         <planeGeometry />
-        <meshStandardMaterial color="#303030" />
-      </mesh> */}
+        <meshStandardMaterial color="#717171" />
+      </mesh>
     </>
   );
 };

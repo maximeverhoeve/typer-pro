@@ -1,9 +1,15 @@
-import React, { Suspense, useEffect, useLayoutEffect, useRef } from 'react';
+import React, {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame, useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
-import Player from '../Player';
+import Player, { PlayerAnimation } from '../Player';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
 import SinglePlayerEnvironment from './SinglePlayerEnvironment';
@@ -13,7 +19,7 @@ const ThreeSingleplayer: React.FC = () => {
   const playerRef = useRef<Group>(null);
   const light = useRef<DirectionalLight>(null);
   const animatedGroupRef = useRef<Group>(null);
-  const [isMoving, setIsMoving] = useBoolean();
+  const [animation, setAnimation] = useState<PlayerAnimation>('Standing');
 
   const [isMovingGhost, setIsMovingGhost] = useBoolean();
   const { progress, previousTime, isGameStarted, isFinishing, setIsFinishing } =
@@ -36,7 +42,7 @@ const ThreeSingleplayer: React.FC = () => {
             gsap.to(camera.position, { x: cameraAngle, y: 1 });
           }
         }
-        setIsMoving.on();
+        if (!isFinishing) setAnimation('Runner');
         await previousZ.start({
           to: 100,
           config: {
@@ -47,7 +53,7 @@ const ThreeSingleplayer: React.FC = () => {
       config: {
         duration: 300,
       },
-      onRest: setIsMoving.off,
+      onRest: () => !isFinishing && setAnimation('Standing'),
     },
     [progress],
   );
@@ -97,21 +103,16 @@ const ThreeSingleplayer: React.FC = () => {
     if (isFinishing) {
       // startfinish animation
       if (animatedGroupRef.current) {
-        gsap.to(animatedGroupRef.current.rotation, {
-          y: Math.PI * 4,
-          onComplete: () => {
-            if (animatedGroupRef.current) {
-              animatedGroupRef.current.rotation.y = 0;
-              setIsFinishing.off();
-            }
-          },
-        });
+        setAnimation('wall_flip');
+        setTimeout(() => {
+          setIsFinishing.off();
+        }, 1500);
       }
     }
   }, [isFinishing]);
 
   return (
-    <Suspense>
+    <>
       <directionalLight
         ref={light}
         position={[0, 10, 0.4]}
@@ -128,23 +129,24 @@ const ThreeSingleplayer: React.FC = () => {
       <SinglePlayerEnvironment />
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
-          <Player
-            ref={playerRef}
-            animation={isMoving ? 'Runner' : 'Standing'}
-          />
+          <Suspense fallback={null}>
+            <Player ref={playerRef} animation={animation} />
+          </Suspense>
         </a.group>
         <a.group
           position-z={previousZ}
           visible={!!previousTime && previousZ.get() !== 100}
         >
-          <Player
-            isGhost
-            animation={isMovingGhost ? 'Runner' : 'Standing'}
-            color="#008585"
-          />
+          <Suspense fallback={null}>
+            <Player
+              isGhost
+              animation={isMovingGhost ? 'Runner' : 'Standing'}
+              color="#008585"
+            />
+          </Suspense>
         </a.group>
       </group>
-    </Suspense>
+    </>
   );
 };
 

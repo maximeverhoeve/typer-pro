@@ -6,6 +6,7 @@ import { Group, Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './Player';
 import { ThreePosition } from '../../../types/three';
+import Fence from './Singleplayer/objects/Fence';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -52,11 +53,14 @@ const MainScene: React.FC = () => {
 
   return (
     <group>
+      <Fence position={[0, -1.5, -5.8]} rotation={[0, 0, 0]} />
+      <Fence position={[3, -1.5, -3]} rotation={[0, Math.PI / 2, 0]} />
+      <Fence position={[-3, -1.5, -3]} rotation={[0, Math.PI / 2, 0]} />
       <directionalLight
         position={[0, 10, 0.4]}
         intensity={0.3}
         castShadow
-        shadow-mapSize={[150, 150]}
+        shadow-mapSize={[512, 512]}
         shadow-camera-near={1}
         shadow-camera-far={20}
         shadow-camera-top={20}

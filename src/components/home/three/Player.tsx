@@ -5,13 +5,19 @@ import { GroupProps, useGraph } from '@react-three/fiber';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
+export type PlayerAnimation =
+  | 'Runner'
+  | 'Standing'
+  | 'Sad'
+  | 'Cheering'
+  | 'wall_flip'
+  | 'flip_kick';
+
 interface Props {
   color?: string;
   isGhost?: boolean;
-  animation?: 'Runner' | 'Standing' | 'Sad' | 'Cheering';
+  animation?: PlayerAnimation;
 }
-
-useGLTF.preload('/player.glb');
 
 type RefMesh = Group;
 
@@ -26,15 +32,14 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
       { collapsed: true },
     );
     const { animations, scene } = useGLTF('/player.glb');
-    scene.traverse(function (obj) {
-      obj.frustumCulled = false;
-    });
 
     const cloneScene: Object3D = useMemo(
       () => clone(scene as Object3D),
       [scene],
     );
-
+    cloneScene.traverse(function (obj) {
+      obj.frustumCulled = false;
+    });
     const { nodes } = useGraph(cloneScene);
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
@@ -86,3 +91,4 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
 );
 
 export default Player;
+useGLTF.preload('/player.glb');
