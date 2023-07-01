@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import Fence from './objects/Fence';
-import { Text } from '@react-three/drei';
+import { Text, useMatcapTexture } from '@react-three/drei';
 import { useControls } from 'leva';
 
 const SinglePlayerEnvironment: React.FC = () => {
+  const [Texture] = useMatcapTexture('64686F_BDC0C4_161718_A4A7AB', 256);
   const { color } = useControls('Text', {
     color: '#636363',
   });
 
   return (
     <>
-      <Fence position={[-1.2, -1.5, -2.9]} rotation={[0, 0, 0]} />
+      <Fence
+        texture={Texture}
+        position={[-1.2, -1.5, -2.9]}
+        rotation={[0, 0, 0]}
+      />
       {[...Array(18)].map((_, i) => (
         <Fence
+          texture={Texture}
           key={i}
           scale={1}
           position={[2, -1.5, 5.8 * i]}

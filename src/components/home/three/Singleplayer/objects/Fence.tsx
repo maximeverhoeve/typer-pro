@@ -1,19 +1,15 @@
 import { useGLTF } from '@react-three/drei';
 import { GroupProps, useGraph } from '@react-three/fiber';
-import { useControls } from 'leva';
 import React from 'react';
-import { Mesh } from 'three';
+import { Mesh, Texture } from 'three';
 
-const Fence: React.FC<GroupProps> = (props) => {
+interface Props {
+  texture: Texture;
+}
+
+const Fence: React.FC<GroupProps & Props> = ({ texture, ...props }) => {
   const { scene } = useGLTF('/objects/fence.glb');
   const { nodes } = useGraph(scene);
-  const { color } = useControls(
-    'Fences',
-    {
-      color: '#2c2c2c',
-    },
-    { collapsed: true },
-  );
 
   return (
     <group {...props} dispose={null}>
@@ -22,7 +18,7 @@ const Fence: React.FC<GroupProps> = (props) => {
         receiveShadow
         geometry={(nodes.Fence_Cube057 as Mesh).clone().geometry}
       >
-        <meshStandardMaterial color={color} />
+        <meshMatcapMaterial matcap={texture} />
       </mesh>
     </group>
   );
