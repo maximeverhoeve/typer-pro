@@ -11,11 +11,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
 
-enum THEMES {
-  DARK = 'dark',
-  LIGHT = 'light',
-}
-
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
