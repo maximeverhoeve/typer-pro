@@ -6,7 +6,7 @@ import './App.css';
 import { customThemeDark } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AnimatedRoutes from './Router';
+import Router from './Router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
@@ -42,7 +42,7 @@ const App: React.FC = () => {
             transition="0.2s"
             w="100%"
           >
-            {transitionEnded && <AnimatedRoutes />}
+            {transitionEnded && <Router />}
             <Footer />
           </Box>
         </Grid>

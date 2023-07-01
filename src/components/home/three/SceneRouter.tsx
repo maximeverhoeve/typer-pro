@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import MainScene from './MainScene';
 import ThreeSingelplayer from './Singleplayer/ThreeSingleplayer';
 import ThreeLeaderboard from './Leaderboard/ThreeLeaderboard';
+import { useDebounce } from 'usehooks-ts';
 
 enum SCENE {
   SINGLEPLAYER = 'SINGLEPLAYER',
@@ -13,11 +14,13 @@ enum SCENE {
 
 const SceneRouter: React.FC = () => {
   const { pathname } = useLocation();
+  const debouncedPath = useDebounce<string>(pathname, 500);
+
   const getScene = (): SCENE => {
-    if (pathname.includes('singleplayer')) return SCENE.SINGLEPLAYER;
-    if (pathname.includes('multiplayer')) return SCENE.MULTIPLAYER;
-    if (pathname === '/leaderboard') return SCENE.MAIN;
-    if (pathname.includes('leaderboard/')) return SCENE.LEADERBOARD;
+    if (debouncedPath.includes('singleplayer')) return SCENE.SINGLEPLAYER;
+    if (debouncedPath.includes('multiplayer')) return SCENE.MULTIPLAYER;
+    if (debouncedPath === '/leaderboard') return SCENE.MAIN;
+    if (debouncedPath.includes('leaderboard/')) return SCENE.LEADERBOARD;
     return SCENE.MAIN;
   };
 

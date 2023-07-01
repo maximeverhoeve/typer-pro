@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 import Player from '../components/Player';
 import { Group } from 'three';
 import { GroupProps, useFrame, useThree } from '@react-three/fiber';
@@ -19,7 +19,11 @@ interface LocationType {
 const ThreeLeaderboard: React.FC = () => {
   const playerRef = useRef<Group>(null);
   const location = useLocation() as LocationType;
-  const isHighScore = location?.state && location.state.isHighScore;
+  /** Adding useMemo because the state changes before the transition between pages is done  */
+  const isHighScore = useMemo(
+    () => location?.state && location.state.isHighScore,
+    [],
+  );
   const { camera } = useThree();
 
   useEffect(() => {
