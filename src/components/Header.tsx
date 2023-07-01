@@ -32,8 +32,8 @@ const Header: React.FC<Props> = ({ onTransitionEnd }) => {
         left: 0,
         zIndex: 1,
       }}
-      initial={{ height: '100vh', background: '#121212' }}
-      animate={{ height: 'unset', background: 'unset' }}
+      initial={{ height: '100vh', background: 'rgba(18, 18, 18, 1)' }}
+      animate={{ height: 'unset', background: 'rgba(18, 18, 18, 0)' }}
       transition={{
         delay: 2.6,
         duration: 0.3,

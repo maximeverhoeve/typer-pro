@@ -6,15 +6,12 @@ import { Group, Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './components/Player';
 import { ThreePosition } from '../../../types/three';
-import Fence from './components/Fence';
-import { useMatcapTexture } from '@react-three/drei';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
 const MainScene: React.FC = () => {
   const sphere = useRef<Group>(null);
   const sphere2 = useRef<Group>(null);
-  const [Texture] = useMatcapTexture('64686F_BDC0C4_161718_A4A7AB', 256);
   const { hoveredItem } = useCanvasStore((state) => state);
   const { camera } = useThree();
 
@@ -55,21 +52,6 @@ const MainScene: React.FC = () => {
 
   return (
     <group>
-      <Fence
-        texture={Texture}
-        position={[0, -1.5, -5.8]}
-        rotation={[0, 0, 0]}
-      />
-      <Fence
-        texture={Texture}
-        position={[3, -1.5, -3]}
-        rotation={[0, Math.PI / 2, 0]}
-      />
-      <Fence
-        texture={Texture}
-        position={[-3, -1.5, -3]}
-        rotation={[0, Math.PI / 2, 0]}
-      />
       <directionalLight
         position={[0, 10, 0.4]}
         intensity={0.3}
