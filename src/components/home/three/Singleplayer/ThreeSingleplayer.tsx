@@ -126,7 +126,9 @@ const ThreeSingleplayer: React.FC = () => {
         shadow-camera-bottom={-20}
         shadow-camera-left={-20}
       />
-      <SinglePlayerEnvironment />
+      <Suspense fallback={null}>
+        <SinglePlayerEnvironment />
+      </Suspense>
       <group>
         <a.group ref={animatedGroupRef} position-z={z}>
           <Suspense fallback={null}>
