@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
-import Fence from './objects/Fence';
+import Fence from '../components/Fence';
 import { Text, useMatcapTexture } from '@react-three/drei';
 import { useControls } from 'leva';
 

@@ -9,7 +9,7 @@ import { useBoolean } from '@chakra-ui/react';
 import { useSpring, a, useSpringValue } from '@react-spring/three';
 import { useFrame, useThree } from '@react-three/fiber';
 import useSinglePlayerStore from '../../../../store/useSinglePlayerStore';
-import Player, { PlayerAnimation } from '../Player';
+import Player, { PlayerAnimation } from '../components/Player';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
 import SinglePlayerEnvironment from './SinglePlayerEnvironment';

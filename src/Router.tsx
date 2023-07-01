@@ -1,14 +1,14 @@
 import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Home from '../pages/Home';
-import Player from '../pages/player/Player';
-import SinglePlayer from '../features/singleplayer';
-import MultiplayerSetup from './socket_chat/MultiplayerSetup';
-import LeaderBoardDetail from '../pages/LeaderboardDetail';
-import LeaderBoard from '../pages/Leaderboard';
+import Home from './pages/Home';
+import Player from './pages/player/PlayerPage';
+import SinglePlayer from './features/singleplayer';
+import MultiplayerSetup from './components/socket_chat/MultiplayerSetup';
+import LeaderBoardDetail from './pages/LeaderboardDetail';
+import LeaderBoard from './pages/Leaderboard';
 
-const AnimatedRoutes: React.FC = () => {
+const Router: React.FC = () => {
   const location = useLocation();
 
   const getKeyForAnimationChange = (): string => {
@@ -34,4 +34,4 @@ const AnimatedRoutes: React.FC = () => {
   );
 };
 
-export default AnimatedRoutes;
+export default Router;

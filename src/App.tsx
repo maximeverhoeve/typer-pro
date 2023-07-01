@@ -6,9 +6,9 @@ import './App.css';
 import { customThemeDark } from './theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AnimatedRoutes from './components/AnimatedRoutes';
+import AnimatedRoutes from './Router';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ThreeEnvironment from './components/home/three/ThreeEnvironment';
+import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
 
 enum THEMES {
@@ -23,18 +23,7 @@ const App: React.FC = () => {
   // const socketContextValues =  useSocketInit();
   // const gameContextValues = useGameInit();
 
-  const getInitialTheme = (): boolean => {
-    const storageTheme = localStorage.getItem('theme');
-    return storageTheme === THEMES.DARK;
-  };
-  const [isDarkTheme, setIsDarkTheme] = useBoolean(getInitialTheme());
   const [transitionEnded, setTransitionEnded] = useBoolean();
-
-  const handleThemeChange = (): void => {
-    if (isDarkTheme) localStorage.setItem('theme', THEMES.LIGHT);
-    else localStorage.setItem('theme', THEMES.DARK);
-    setIsDarkTheme.toggle();
-  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -52,11 +41,7 @@ const App: React.FC = () => {
           color="text"
         >
           <ThreeEnvironment />
-          <Header
-            isDarkTheme={isDarkTheme}
-            onThemeChange={handleThemeChange}
-            onTransitionEnd={setTransitionEnded.on}
-          />
+          <Header onTransitionEnd={setTransitionEnded.on} />
           <Box
             // templateRows="30vh auto 30vh"
             transition="0.2s"

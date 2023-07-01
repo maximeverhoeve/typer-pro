@@ -1,3 +1,7 @@
+/**
+ * @deprecated
+ */
+
 import { Flex, Input, VStack } from '@chakra-ui/react';
 import React from 'react';
 import PlayersProgressView from '../components/game/PlayersProgressView';

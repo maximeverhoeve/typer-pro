@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Player from '../Player';
+import Player from '../components/Player';
 import { Group } from 'three';
 import { GroupProps, useFrame, useThree } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';

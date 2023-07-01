@@ -4,9 +4,9 @@ import { useSpring } from '@react-spring/core';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
-import Player from './Player';
+import Player from './components/Player';
 import { ThreePosition } from '../../../types/three';
-import Fence from './Singleplayer/objects/Fence';
+import Fence from './components/Fence';
 import { useMatcapTexture } from '@react-three/drei';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call

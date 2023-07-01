@@ -16,16 +16,10 @@ import { getDisplayName } from '../features/singleplayer/utils/playerUtils';
 import usePlayerStore from '../store/usePlayerStore';
 
 interface Props {
-  isDarkTheme: boolean;
-  onThemeChange: () => void;
   onTransitionEnd: () => void;
 }
 
-const Header: React.FC<Props> = ({
-  isDarkTheme,
-  onThemeChange,
-  onTransitionEnd,
-}) => {
+const Header: React.FC<Props> = ({ onTransitionEnd }) => {
   const navigate = useNavigate();
   const { id, nickname } = usePlayerStore((state) => state);
 
@@ -38,8 +32,8 @@ const Header: React.FC<Props> = ({
         left: 0,
         zIndex: 1,
       }}
-      initial={{ height: '100vh' }}
-      animate={{ height: 'unset' }}
+      initial={{ height: '100vh', background: '#121212' }}
+      animate={{ height: 'unset', background: 'unset' }}
       transition={{
         delay: 2.6,
         duration: 0.3,
