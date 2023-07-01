@@ -10,7 +10,7 @@ const Fence: React.FC<GroupProps> = (props) => {
   const { color } = useControls(
     'Fences',
     {
-      color: '#232323',
+      color: '#2c2c2c',
     },
     { collapsed: true },
   );

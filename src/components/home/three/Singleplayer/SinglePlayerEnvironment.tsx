@@ -2,8 +2,13 @@
 import React from 'react';
 import Fence from './objects/Fence';
 import { Text } from '@react-three/drei';
+import { useControls } from 'leva';
 
 const SinglePlayerEnvironment: React.FC = () => {
+  const { color } = useControls('Text', {
+    color: '#636363',
+  });
+
   return (
     <>
       <Fence position={[-1.2, -1.5, -2.9]} rotation={[0, 0, 0]} />
@@ -18,7 +23,7 @@ const SinglePlayerEnvironment: React.FC = () => {
       <Text
         font="/fonts/roboto-mono-medium.woff"
         position={[2, 0.2, 1.5]}
-        fillOpacity={0.2}
+        color={color}
         rotation={[0, -Math.PI / 2, 0]}
       >
         TYPING
@@ -26,7 +31,7 @@ const SinglePlayerEnvironment: React.FC = () => {
       <Text
         font="/fonts/roboto-mono-medium.woff"
         position={[-1.2, 0.2, -2.9]}
-        fillOpacity={0.2}
+        color={color}
       >
         START
       </Text>
@@ -35,7 +40,7 @@ const SinglePlayerEnvironment: React.FC = () => {
         rotation={[-Math.PI / 2, 0, 0]}
         fontSize={1}
         position={[-0.5, -1.49, 99]}
-        fillOpacity={0.2}
+        color={color}
       >
         FINISH
       </Text>
