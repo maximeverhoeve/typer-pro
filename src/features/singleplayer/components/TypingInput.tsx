@@ -56,6 +56,10 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
     };
   }, []);
 
+  useEffect(() => {
+    // setProgress(correctChar / length || 0);
+  }, [currIndex]);
+
   return (
     <Box fontSize="lg" _focus={{ border: 'none', outline: 'none' }}>
       <Box

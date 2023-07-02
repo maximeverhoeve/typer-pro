@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect, useState } from 'react';
-import { Center } from '@chakra-ui/react';
+import { Center, Text } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
 import TypingContainer from '../../components/TypingContainer';
 import { motion } from 'framer-motion';
@@ -14,9 +14,11 @@ const SinglePlayer: React.FC = () => {
   const [stats, setStats] = useState<PlayerStats>();
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
-  const { setPreviousTime, isFinishing, setIsFinishing } = useSinglePlayerStore(
-    (state) => state,
+  const setPreviousTime = useSinglePlayerStore(
+    (state) => state.setPreviousTime,
   );
+  const setIsFinishing = useSinglePlayerStore((state) => state.setIsFinishing);
+  const isFinishing = useSinglePlayerStore((state) => state.isFinishing);
   const postScore = usePostScore(textId != null ? textId : joke?.id);
   const {
     isLoading: isLoadingPrevious,
@@ -91,6 +93,13 @@ const SinglePlayer: React.FC = () => {
           }}
         />
       </Center>
+      <Text align="center" mt="5" fontSize="xs" color="gray.500">
+        Press{' '}
+        <Text as="span" color="primary">
+          Esc
+        </Text>{' '}
+        to restart
+      </Text>
     </motion.div>
   );
 };

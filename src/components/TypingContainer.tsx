@@ -30,9 +30,10 @@ const TypingContainer: React.FC<Props> = ({
 }) => {
   const text = joke?.joke || '';
   const navigate = useNavigate();
-  const { setProgress, setIsGameStarted } = useSinglePlayerStore(
-    (state) => state,
+  const setIsGameStarted = useSinglePlayerStore(
+    (state) => state.setIsGameStarted,
   );
+  const setProgress = useSinglePlayerStore((state) => state.setProgress);
   const typerProps = useTyping(text, {
     skipCurrentWordOnSpace: false,
     pauseOnError: true,
@@ -82,7 +83,10 @@ const TypingContainer: React.FC<Props> = ({
   }, [phase]);
 
   useEffect(() => {
+    // console.log('test');
+    // if (currChar === ' ') {
     setProgress(correctChar / length || 0);
+    // }
   }, [currIndex]);
 
   return (
