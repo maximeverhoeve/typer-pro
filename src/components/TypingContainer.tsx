@@ -8,18 +8,18 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { Joke } from '../hooks/useJoke';
-import useTyper, { Stats } from '../hooks/useTyper';
-import ShowedText from './ShowedText';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import SinglePlayerTypingInput from '../features/singleplayer/components/SinglePlayerTypingInput';
+import TypingInput from '../features/singleplayer/components/TypingInput';
+import useTyping, { PhaseType } from 'react-typing-game-hook';
+import useSinglePlayerStore from '../store/useSinglePlayerStore';
 
 interface Props {
   joke?: Joke;
   isLoading?: boolean;
   onRestart?: () => void;
-  onFinish: (stats: Stats) => void;
+  onFinish: (stats: { wpm: number; acc: number }) => void;
 }
 
 const TypingContainer: React.FC<Props> = ({
@@ -30,25 +30,60 @@ const TypingContainer: React.FC<Props> = ({
 }) => {
   const text = joke?.joke || '';
   const navigate = useNavigate();
+  const { setProgress, setIsGameStarted } = useSinglePlayerStore(
+    (state) => state,
+  );
+  const typerProps = useTyping(text, {
+    skipCurrentWordOnSpace: false,
+    pauseOnError: true,
+    countErrors: 'everytime',
+  });
 
   const {
-    textToType,
-    validText,
-    wordToType,
-    inputValue,
-    handleChange,
-    hasError,
-    onReset,
-  } = useTyper(text, onFinish);
+    states: {
+      currIndex,
+      length,
+      correctChar,
+      errorChar,
+      phase,
+      endTime,
+      startTime,
+    },
+  } = typerProps;
 
   const handleRestartClick = (): void => {
     onRestart?.();
-    onReset();
+    typerProps.actions.resetTyping();
+    setIsGameStarted.off();
   };
 
   useEffect(() => {
-    onReset();
+    typerProps.actions.resetTyping();
   }, [text]);
+
+  const getWPM = (): number => {
+    if (endTime && startTime) {
+      const duration = Math.floor((endTime - startTime) / 1000);
+      return Math.round(((60 / duration) * correctChar) / 5);
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    if (phase === PhaseType.Started) {
+      setIsGameStarted.on();
+    }
+    if (phase === PhaseType.Ended) {
+      onFinish({
+        wpm: getWPM(),
+        acc: ((correctChar - errorChar) / text.length) * 100,
+      });
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    setProgress(correctChar / length || 0);
+  }, [currIndex]);
 
   return (
     <VStack spacing="8" height="100%" justify="flex-end" flexGrow={1}>
@@ -58,18 +93,25 @@ const TypingContainer: React.FC<Props> = ({
             <Spinner size="xl" color="secondary" />
           </Box>
         ) : (
-          <ShowedText
-            validText={validText}
-            currentWord={wordToType}
-            text={textToType}
-          />
+          <>
+            {/* <ShowedText
+              validText={validText}
+              currentWord={wordToType}
+              text={textToType}
+            /> */}
+            <TypingInput
+              {...typerProps}
+              text={text}
+              onRestart={handleRestartClick}
+            />
+          </>
         )}
       </Box>
-      <SinglePlayerTypingInput
+      {/* <SinglePlayerTypingInput
         value={inputValue}
         hasError={hasError}
         onChange={handleChange}
-      />
+      /> */}
       <HStack>
         <Tooltip label="Try again" placement="top" hasArrow>
           <IconButton

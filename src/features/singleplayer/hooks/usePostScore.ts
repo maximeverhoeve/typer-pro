@@ -1,14 +1,14 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { firestore } from '../../../firebase';
-import { Stats } from '../../../hooks/useTyper';
 import usePlayerStore from '../../../store/usePlayerStore';
+import { PlayerStats } from '../types/GameTypes';
 
-type PostScore = (stats: Stats) => Promise<boolean>;
+type PostScore = (stats: PlayerStats) => Promise<boolean>;
 
 const usePostScore = (jokeId?: string): PostScore => {
   const { nickname, id: playerId } = usePlayerStore((state) => state);
 
-  const postScore = async (stats: Stats): Promise<boolean> => {
+  const postScore = async (stats: PlayerStats): Promise<boolean> => {
     if (jokeId == null) return false;
     const playerDocRef = doc(
       firestore,
@@ -18,6 +18,7 @@ const usePostScore = (jokeId?: string): PostScore => {
       await setDoc(playerDocRef, {
         name: nickname,
         wpm: stats.wpm,
+        acc: stats.acc,
         id: playerId,
       });
       return true;

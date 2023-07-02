@@ -4,14 +4,14 @@ import { Center } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
 import TypingContainer from '../../components/TypingContainer';
 import { motion } from 'framer-motion';
-import { Stats } from '../../hooks/useTyper';
 import usePostScore from './hooks/usePostScore';
 import { useNavigate, useParams } from 'react-router-dom';
 import usePreviousStats from '../../hooks/usePreviousStats';
 import useSinglePlayerStore from '../../store/useSinglePlayerStore';
+import { PlayerStats } from './types/GameTypes';
 
 const SinglePlayer: React.FC = () => {
-  const [stats, setStats] = useState<Stats>();
+  const [stats, setStats] = useState<PlayerStats>();
   const { textId } = useParams<{ textId: string }>();
   const { joke, isLoading, onRestart } = useJoke(textId);
   const { setPreviousTime, isFinishing, setIsFinishing } = useSinglePlayerStore(
@@ -25,7 +25,7 @@ const SinglePlayer: React.FC = () => {
   } = usePreviousStats(textId != null ? textId : joke?.id);
   const navigate = useNavigate();
 
-  const handleFinish = async (stats: Stats): Promise<void> => {
+  const handleFinish = async (stats: PlayerStats): Promise<void> => {
     setStats(stats);
     setIsFinishing.on();
     if (!previousData || stats.wpm > previousData.wpm) {
