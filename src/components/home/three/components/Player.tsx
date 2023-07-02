@@ -1,7 +1,7 @@
 import { useMemo, forwardRef, useEffect, Ref } from 'react';
 import { useControls } from 'leva';
 import { Group, Object3D, SkinnedMesh } from 'three';
-import { GroupProps, useGraph } from '@react-three/fiber';
+import { GroupProps, dispose, useGraph } from '@react-three/fiber';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
@@ -50,6 +50,12 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
       };
     }, [animation]);
 
+    useEffect(() => {
+      return () => {
+        dispose(cloneScene);
+      };
+    }, []);
+
     return (
       <group ref={ref} {...props}>
         {isGhost && (
@@ -73,8 +79,8 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           <skinnedMesh
             castShadow
             receiveShadow
-            geometry={(nodes.Cube001 as SkinnedMesh).clone().geometry}
-            skeleton={(nodes.Cube001 as SkinnedMesh).clone().skeleton}
+            geometry={(nodes.Cube001 as SkinnedMesh).geometry}
+            skeleton={(nodes.Cube001 as SkinnedMesh).skeleton}
           >
             <meshStandardMaterial
               color={enableCustomColor ? debugColor : color}
