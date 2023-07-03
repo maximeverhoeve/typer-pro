@@ -61,8 +61,6 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
   const validText = text.substring(0, currIndex + 1);
   const textToType = text.substring(currIndex + 3);
 
-  console.log(text[currIndex], currIndex);
-
   return (
     <Box fontSize="lg" _focus={{ border: 'none', outline: 'none' }}>
       <Box

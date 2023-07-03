@@ -45,9 +45,12 @@ const SinglePlayer: React.FC = () => {
   useEffect(() => {
     if (previousData?.wpm && joke) {
       // get the amount of words to calculate duration of the wpm
-      const numWords = joke.joke.split(' ').length;
-      const previousTime = (60 / previousData.wpm) * numWords;
-      setPreviousTime(previousTime);
+      const wordCount = joke.joke.split(' ').length; // Number of words
+      const typingSpeed = previousData.wpm; // WPM
+
+      // Calculate the duration in seconds
+      const durationInSeconds = (60 / typingSpeed) * wordCount;
+      setPreviousTime(durationInSeconds);
     } else {
       setPreviousTime(undefined);
     }
