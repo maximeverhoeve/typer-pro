@@ -48,32 +48,49 @@ const LeaderBoardDetail: React.FC = () => {
         maxH="268px"
       >
         {stats && (
-          <VStack fontSize="2xl" align="stretch" justify="space-between">
+          <VStack
+            fontSize="2xl"
+            textAlign="right"
+            align="flex-end"
+            justify="space-between"
+          >
             <Box>
-              <Text>wpm</Text>
+              <Text color="secondary" fontSize="lg">
+                wpm
+              </Text>
               <Text>
                 <CountUp end={stats?.wpm} duration={0.6} />
               </Text>
             </Box>
+            <Box>
+              <Text color="secondary" fontSize="lg">
+                acc
+              </Text>
+              <Text>
+                <CountUp end={stats?.acc} duration={0.6} />%
+              </Text>
+            </Box>
             <Spacer />
-            <Tooltip label="Try again" placement="top" hasArrow>
-              <IconButton
-                variant="outline"
-                size="lg"
-                aria-label="Try again"
-                onClick={() => navigate(`/singleplayer/${textId}`)}
-                icon={<VscDebugRestart />}
-              />
-            </Tooltip>
-            <Tooltip label="Start a new game" placement="top" hasArrow>
-              <IconButton
-                variant="outline"
-                size="lg"
-                aria-label="New game"
-                onClick={() => navigate('/singleplayer')}
-                icon={<AiFillCaretRight />}
-              />
-            </Tooltip>
+            <VStack align="flex-end">
+              <Tooltip label="Try again" placement="top" hasArrow>
+                <IconButton
+                  variant="outline"
+                  size="lg"
+                  aria-label="Try again"
+                  onClick={() => navigate(`/singleplayer/${textId}`)}
+                  icon={<VscDebugRestart />}
+                />
+              </Tooltip>
+              <Tooltip label="Start a new game" placement="top" hasArrow>
+                <IconButton
+                  variant="outline"
+                  size="lg"
+                  aria-label="New game"
+                  onClick={() => navigate('/singleplayer')}
+                  icon={<AiFillCaretRight />}
+                />
+              </Tooltip>
+            </VStack>
           </VStack>
         )}
         <Box flexGrow={1}>

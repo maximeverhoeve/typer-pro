@@ -22,7 +22,7 @@ interface ReturnProps {
 const defaultTimer = { start: 0, end: 0 };
 
 export interface Stats {
-  cpm: number;
+  acc: number;
   wpm: number;
 }
 
@@ -57,7 +57,7 @@ const useTyper = (
     const wpm = textWordLength * (oneMinInMs / totalTime);
     return {
       wpm: Math.round(wpm),
-      cpm: Math.round(cpm),
+      acc: Math.round(cpm),
     };
   };
 
