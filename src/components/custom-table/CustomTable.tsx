@@ -57,8 +57,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
             {/* Adding invisible number for spacing purpose */}
             <Th></Th>
             <Th w="100%">Player</Th>
-            {/* Disabling accuracy for now (not supported) */}
-            {/* <Th>acc[%]</Th> */}
+            <Th>accuracy</Th>
             <Th>wpm</Th>
           </Tr>
         </Thead>
@@ -70,7 +69,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
               </Td>
             </Tr>
           )}
-          {data.map(({ id, name, wpm }, index) => {
+          {data.map(({ id, name, wpm, acc }, index) => {
             const isActiveRow = id === playerId;
             return (
               <Tr
@@ -91,7 +90,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
                     __html: getDisplayName({ id, name }),
                   }}
                 />
-                {/* <Td>{acc}</Td> */}
+                <Td textAlign="right">{acc ? `${acc.toFixed(1)}%` : '-'}</Td>
                 <Td>{wpm}</Td>
               </Tr>
             );

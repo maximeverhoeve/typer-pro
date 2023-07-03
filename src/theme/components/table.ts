@@ -12,7 +12,7 @@ const table: ComponentStyleConfig = {
     },
     th: {
       py: '3',
-      px: '3',
+      px: '4',
       borderBottom: '1px solid',
       borderColor: 'border',
       textTransform: 'unset',
@@ -21,7 +21,7 @@ const table: ComponentStyleConfig = {
     },
     td: {
       py: '2',
-      px: '3',
+      px: '4',
     },
   },
   // styles for different sizes ("sm", "md", "lg")

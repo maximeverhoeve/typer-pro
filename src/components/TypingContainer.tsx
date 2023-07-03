@@ -65,7 +65,8 @@ const TypingContainer: React.FC<Props> = ({
   const getWPM = (): number => {
     if (endTime && startTime) {
       const duration = Math.floor((endTime - startTime) / 1000);
-      return Math.round(((60 / duration) * correctChar) / 5);
+      const totalWords = text.split(' ').length;
+      return Math.round((totalWords / duration) * 60);
     }
     return 0;
   };
