@@ -23,7 +23,7 @@ const MovingGhost: React.FC = () => {
       previousZ.start({
         to: 100,
         config: {
-          duration: previousTime || 0,
+          duration: (previousTime || 0) * 1000,
         },
       });
     } else {
