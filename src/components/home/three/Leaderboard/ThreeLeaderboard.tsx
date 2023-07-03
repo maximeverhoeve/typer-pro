@@ -28,8 +28,17 @@ const ThreeLeaderboard: React.FC = () => {
 
   useEffect(() => {
     camera.position.set(-10, 10, 20);
-    gsap.to(camera.position, { z: 7, x: 0, y: 0, duration: 2.5 });
+    const cameraAnimation = gsap.to(camera.position, {
+      z: 7,
+      x: 0,
+      y: 0,
+      duration: 2.5,
+    });
     camera.rotation.set(0, 0, 0);
+
+    return () => {
+      cameraAnimation.kill();
+    };
   }, []);
 
   useFrame(({ camera }) => {

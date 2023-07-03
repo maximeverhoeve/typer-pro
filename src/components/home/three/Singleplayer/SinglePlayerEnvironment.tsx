@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Fence from '../components/Fence';
 import { Text, useMatcapTexture } from '@react-three/drei';
 import { useControls } from 'leva';
@@ -8,6 +8,12 @@ const SinglePlayerEnvironment: React.FC = () => {
   const [Texture] = useMatcapTexture('64686F_BDC0C4_161718_A4A7AB', 256);
   const { color } = useControls('Text', {
     color: '#636363',
+  });
+
+  useEffect(() => {
+    return () => {
+      Texture.dispose();
+    };
   });
 
   return (
@@ -64,5 +70,4 @@ const SinglePlayerEnvironment: React.FC = () => {
     </>
   );
 };
-
 export default SinglePlayerEnvironment;

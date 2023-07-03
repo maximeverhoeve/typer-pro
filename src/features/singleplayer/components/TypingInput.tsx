@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useSpring, animated } from '@react-spring/web';
 import React, { FC, useEffect, useRef } from 'react';
 import {
   CharStateType,
@@ -16,13 +17,22 @@ interface Props {
 
 const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
   const letterElements = useRef<HTMLDivElement>(null);
-  useClickAnyWhere(() => {
-    letterElements.current?.focus();
-  });
+  const nextCharRef = useRef<HTMLParagraphElement>(null);
+
   const {
     states: { charsState, currIndex },
     actions: { insertTyping },
   } = props;
+  const [{ left, top }] = useSpring<{ left: number; top: number }>(
+    {
+      left: nextCharRef.current?.offsetLeft || 0,
+      top: (nextCharRef.current?.offsetTop || 0) + 2,
+      config: {
+        duration: 100,
+      },
+    },
+    [currIndex],
+  );
 
   // handle key presses
   const handleKeyDown = (letter: string, control: boolean): void => {
@@ -34,14 +44,6 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
     } else if (letter.length === 1) {
       insertTyping(letter);
     }
-  };
-
-  const getCharColor = (index: number): string => {
-    const state = charsState[index];
-    if (currIndex + 1 === index) return 'secondary';
-    if (state === CharStateType.Incomplete) return 'gray.500';
-    if (state === CharStateType.Correct) return 'text';
-    return 'red.70';
   };
 
   useEffect(() => {
@@ -56,9 +58,10 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
     };
   }, []);
 
-  useEffect(() => {
-    // setProgress(correctChar / length || 0);
-  }, [currIndex]);
+  const validText = text.substring(0, currIndex + 1);
+  const textToType = text.substring(currIndex + 3);
+
+  console.log(text[currIndex], currIndex);
 
   return (
     <Box fontSize="lg" _focus={{ border: 'none', outline: 'none' }}>
@@ -71,46 +74,27 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
           letterElements.current?.focus();
         }}
       >
+        <animated.p style={{ position: 'absolute', left, top }}>_</animated.p>
         <Box
           ref={letterElements}
           tabIndex={0}
           _focus={{ border: 'none', outline: 'none' }}
         >
-          {text.split('').map((letter, index) => {
-            return (
-              <Box as="span" key={`${letter}_${index}`} position="relative">
-                <Text
-                  as="span"
-                  color={getCharColor(index)}
-                  fontWeight={index === currIndex + 1 ? 'bold' : 'normal'}
-                >
-                  {letter}
-                </Text>
-                {index === currIndex + 1 && (
-                  <Text position="absolute" color="white" left="0" top="1">
-                    _
-                  </Text>
-                )}
-              </Box>
-            );
-          })}
+          <Text as="span" color="text">
+            {validText}
+          </Text>
+          <Text as="span" color="secondary" fontWeight="bold">
+            {text[currIndex + 1]}
+          </Text>
+          {/* To get correct value for the indicator we also render the next char here */}
+          <Text ref={nextCharRef} as="span" color="gray.500">
+            {text[currIndex + 2]}
+          </Text>
+          <Text as="span" color="gray.500">
+            {textToType}
+          </Text>
         </Box>
       </Box>
-      {/* <p>
-        {phase === PhaseType.Ended && startTime && endTime ? (
-          <>
-            <span>WPM: {Math.round(((60 / duration) * correctChar) / 5)}</span>
-            <span>
-              Accuracy:{' '}
-              {(((correctChar - errorChar) / text.length) * 100).toFixed(2)}%
-            </span>
-            <span>Duration: {duration}s</span>
-          </>
-        ) : null}
-        <span> Current Index: {currIndex}</span>
-        <span> Correct Characters: {correctChar}</span>
-        <span> Error Characters: {errorChar}</span>
-      </p> */}
     </Box>
   );
 };

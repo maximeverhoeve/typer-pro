@@ -13,12 +13,16 @@ const ThreeSingleplayer: React.FC = () => {
   const { camera } = useThree();
 
   useLayoutEffect(() => {
-    gsap.to(camera.position, {
+    const cameraAnimation = gsap.to(camera.position, {
       x: cameraAngle,
       z: 5,
       y: 1,
       duration: 0.5,
     });
+
+    return () => {
+      cameraAnimation.kill();
+    };
   }, []);
 
   useFrame((props) => {

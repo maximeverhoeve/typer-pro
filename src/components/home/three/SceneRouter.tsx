@@ -14,7 +14,13 @@ enum SCENE {
 
 const SceneRouter: React.FC = () => {
   const { pathname } = useLocation();
-  const debouncedPath = useDebounce<string>(pathname, 500);
+  const getPathnameWithConvertion = (): string => {
+    if (pathname.includes('/singleplayer/')) {
+      return '/singleplayer';
+    }
+    return pathname;
+  };
+  const debouncedPath = useDebounce<string>(getPathnameWithConvertion(), 500);
 
   const getScene = (): SCENE => {
     if (debouncedPath.includes('singleplayer')) return SCENE.SINGLEPLAYER;

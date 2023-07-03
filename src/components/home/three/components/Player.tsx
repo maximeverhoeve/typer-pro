@@ -41,6 +41,8 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
       obj.frustumCulled = false;
     });
     const { nodes } = useGraph(cloneScene);
+    const geometry = (nodes.Cube001 as SkinnedMesh).geometry;
+    const skeleton = (nodes.Cube001 as SkinnedMesh).skeleton;
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
     useEffect(() => {
@@ -52,7 +54,10 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
 
     useEffect(() => {
       return () => {
+        /** Dispose everything to prevent loading a lot of textures when the user switches pages alot */
         dispose(cloneScene);
+        geometry.dispose();
+        skeleton.dispose();
       };
     }, []);
 
@@ -79,8 +84,8 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
           <skinnedMesh
             castShadow
             receiveShadow
-            geometry={(nodes.Cube001 as SkinnedMesh).geometry}
-            skeleton={(nodes.Cube001 as SkinnedMesh).skeleton}
+            geometry={geometry}
+            skeleton={skeleton}
           >
             <meshStandardMaterial
               color={enableCustomColor ? debugColor : color}
