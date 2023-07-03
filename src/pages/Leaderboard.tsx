@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import useLeaderBoardJokes from '../api/getLeaderboardJokes';
 
 const LeaderBoard: React.FC = () => {
+  useLeaderBoardJokes();
+
   return (
     <motion.div
       style={{

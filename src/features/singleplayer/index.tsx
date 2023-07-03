@@ -31,7 +31,7 @@ const SinglePlayer: React.FC = () => {
     setStats(stats);
     setIsFinishing.on();
     if (!previousData || stats.wpm > previousData.wpm) {
-      await postScore(stats);
+      await postScore(stats, joke?.joke || '');
     }
   };
 
