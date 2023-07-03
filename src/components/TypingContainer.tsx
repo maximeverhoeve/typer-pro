@@ -84,10 +84,7 @@ const TypingContainer: React.FC<Props> = ({
   }, [phase]);
 
   useEffect(() => {
-    // console.log('test');
-    // if (currChar === ' ') {
     setProgress(correctChar / length || 0);
-    // }
   }, [currIndex]);
 
   return (
@@ -99,11 +96,6 @@ const TypingContainer: React.FC<Props> = ({
           </Box>
         ) : (
           <>
-            {/* <ShowedText
-              validText={validText}
-              currentWord={wordToType}
-              text={textToType}
-            /> */}
             <TypingInput
               {...typerProps}
               text={text}
@@ -112,11 +104,6 @@ const TypingContainer: React.FC<Props> = ({
           </>
         )}
       </Box>
-      {/* <SinglePlayerTypingInput
-        value={inputValue}
-        hasError={hasError}
-        onChange={handleChange}
-      /> */}
       <HStack>
         <Tooltip label="Try again" placement="top" hasArrow>
           <IconButton
