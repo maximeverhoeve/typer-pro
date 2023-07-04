@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
@@ -7,17 +7,17 @@ import MovingPlayer from '../../../../features/singleplayer/components/MovingPla
 import MovingGhost from '../../../../features/singleplayer/components/MovingGhost';
 
 const ThreeSingleplayer: React.FC = () => {
-  const cameraAngle = -6;
   const light = useRef<DirectionalLight>(null);
   const animatedGroupRef = useRef<Group>(null);
   const { camera } = useThree();
 
-  useLayoutEffect(() => {
-    const cameraAnimation = gsap.to(camera.position, {
-      x: cameraAngle,
-      z: 5,
+  useEffect(() => {
+    gsap?.set(camera.position, { x: -15, z: 0, y: 10 });
+    const cameraAnimation = gsap?.to(camera.position, {
+      x: -7,
+      z: 0,
       y: 1,
-      duration: 0.5,
+      duration: 3,
     });
 
     return () => {
@@ -27,7 +27,7 @@ const ThreeSingleplayer: React.FC = () => {
 
   useFrame((props) => {
     if (animatedGroupRef.current) {
-      props.camera.position.z = animatedGroupRef.current.position.z + 5;
+      props.camera.position.z = animatedGroupRef.current.position.z;
       if (light.current) {
         light.current.position.z = animatedGroupRef.current.position.z;
         light.current.target.position.z =

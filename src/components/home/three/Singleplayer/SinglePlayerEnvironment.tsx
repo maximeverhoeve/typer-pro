@@ -16,29 +16,24 @@ const SinglePlayerEnvironment: React.FC = () => {
 
   return (
     <>
-      <Fence
-        texture={Texture}
-        position={[-1.2, -1.5, -2.9]}
-        rotation={[0, 0, 0]}
-      />
-      {[...Array(18)].map((_, i) => (
+      {[...Array(17)].map((_, i) => (
         <Fence
           texture={Texture}
           key={i}
           scale={1}
-          position={[2, -1.5, 5.8 * i]}
+          position={[2, -1.5, 5.8 * i + 4]}
           rotation={[0, Math.PI / 2, 0]}
         />
       ))}
       <Text
         font="/fonts/roboto-mono-medium.woff"
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[-0.5, -1.49, 1.6]}
+        rotation={[0, -Math.PI / 2, 0]}
+        position={[2, 0.2, 2.5]}
         color={color}
         outlineColor={'black'}
         outlineWidth={0.02}
       >
-        START
+        Start
       </Text>
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
@@ -52,14 +47,15 @@ const SinglePlayerEnvironment: React.FC = () => {
       </mesh>
       <Text
         font="/fonts/roboto-mono-medium.woff"
-        rotation={[-Math.PI / 2, 0, 0]}
+        rotation={[0, -Math.PI / 2, 0]}
+        position={[2, 0.2, 98]}
         fontSize={1}
-        position={[-0.5, -1.49, 99]}
         color={color}
-        outlineColor={'black'}
-        outlineWidth={0.02}
+        fillOpacity={0.3}
+        // outlineColor={'black'}
+        // outlineWidth={0.02}
       >
-        FINISH
+        Finish!
       </Text>
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
