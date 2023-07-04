@@ -56,17 +56,6 @@ const SinglePlayerEnvironment: React.FC = () => {
       >
         FINISH
       </Text>
-
-      <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[-0.5, -1.49, 100]}
-        scale-y={0.2}
-        scale-x={5}
-        receiveShadow
-      >
-        <planeGeometry />
-        <meshStandardMaterial color="#717171" />
-      </mesh>
     </>
   );
 };
