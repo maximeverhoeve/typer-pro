@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
@@ -11,9 +11,9 @@ const ThreeSingleplayer: React.FC = () => {
   const animatedGroupRef = useRef<Group>(null);
   const { camera } = useThree();
 
-  useEffect(() => {
-    gsap?.set(camera.position, { x: -15, z: 0, y: 10 });
-    const cameraAnimation = gsap?.to(camera.position, {
+  useLayoutEffect(() => {
+    gsap.set(camera.position, { x: -15, z: 0, y: 10 });
+    const cameraAnimation = gsap.to(camera.position, {
       x: -7,
       z: 0,
       y: 1,
