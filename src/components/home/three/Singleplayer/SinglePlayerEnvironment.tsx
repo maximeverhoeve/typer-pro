@@ -56,7 +56,6 @@ const SinglePlayerEnvironment: React.FC = () => {
       >
         FINISH
       </Text>
-
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[-0.5, -1.49, 100]}
