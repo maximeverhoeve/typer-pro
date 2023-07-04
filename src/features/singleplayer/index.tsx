@@ -18,6 +18,7 @@ const SinglePlayer: React.FC = () => {
     (state) => state.setPreviousTime,
   );
   const setIsFinishing = useSinglePlayerStore((state) => state.setIsFinishing);
+  const setProgress = useSinglePlayerStore((state) => state.setProgress);
   const isFinishing = useSinglePlayerStore((state) => state.isFinishing);
   const postScore = usePostScore(textId != null ? textId : joke?.id);
   const {
@@ -59,6 +60,12 @@ const SinglePlayer: React.FC = () => {
   useEffect(() => {
     // manually refetch on mount, because query-firstore does not have that prop
     refetch();
+    return () => {
+      /** Because the threejs scene has a transition of 500ms, change the progress after */
+      setTimeout(() => {
+        setProgress(0);
+      }, 500);
+    };
   }, []);
 
   useEffect(() => {
@@ -91,6 +98,7 @@ const SinglePlayer: React.FC = () => {
           joke={joke}
           isLoading={isLoading || isLoadingPrevious}
           onRestart={onRestart}
+          isDisabled={isFinishing}
           onFinish={(stats) => {
             handleFinish(stats);
           }}

@@ -18,6 +18,7 @@ import useSinglePlayerStore from '../store/useSinglePlayerStore';
 interface Props {
   joke?: Joke;
   isLoading?: boolean;
+  isDisabled?: boolean;
   onRestart?: () => void;
   onFinish: (stats: { wpm: number; acc: number }) => void;
 }
@@ -26,6 +27,7 @@ const TypingContainer: React.FC<Props> = ({
   joke,
   onRestart,
   isLoading,
+  isDisabled,
   onFinish,
 }) => {
   const text = joke?.joke || '';
@@ -108,6 +110,7 @@ const TypingContainer: React.FC<Props> = ({
       <HStack>
         <Tooltip label="Try again" placement="top" hasArrow>
           <IconButton
+            isDisabled={isDisabled}
             variant="outline"
             size="lg"
             aria-label="Try again"
@@ -117,6 +120,7 @@ const TypingContainer: React.FC<Props> = ({
         </Tooltip>
         <Tooltip label="Start a new game" placement="top" hasArrow>
           <IconButton
+            isDisabled={isDisabled}
             variant="outline"
             size="lg"
             aria-label="New game"

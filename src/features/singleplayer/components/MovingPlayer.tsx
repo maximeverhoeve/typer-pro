@@ -1,9 +1,8 @@
-import { a, useSpring } from '@react-spring/three';
 import React, {
+  MutableRefObject,
   Suspense,
   forwardRef,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -12,6 +11,7 @@ import { Group } from 'three';
 import Player, {
   PlayerAnimation,
 } from '../../../components/home/three/components/Player';
+import { gsap } from 'gsap';
 
 const MovingPlayer = forwardRef<Group>((_, ref) => {
   const playerRef = useRef<Group>(null);
@@ -19,37 +19,27 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
   const progress = useSinglePlayerStore((state) => state.progress);
   const isFinishing = useSinglePlayerStore((state) => state.isFinishing);
   const setIsFinishing = useSinglePlayerStore((state) => state.setIsFinishing);
-  const isGameStarted = useSinglePlayerStore((state) => state.isGameStarted);
-
-  const [{ z }, api] = useSpring(
-    {
-      z: progress * 100,
-      onStart: () => {
-        // When camera position is not initially correct on page load. It should correct it
-        // if (camera.position.x !== -6) {
-        //   if (ref) {
-        //     gsap.to(camera.position, { x: -6, y: 1 });
-        //   }
-        // }
-        if (!isFinishing) setAnimation('Runner');
-      },
-      config: {
-        duration: 300,
-      },
-      onRest: () => !isFinishing && setAnimation('Standing'),
-    },
-    [progress],
-  );
-
-  useLayoutEffect(() => {
-    api.stop();
-    api.set({ z: 0 });
-  }, []);
 
   useEffect(() => {
-    api.stop();
-    api.set({ z: 0 });
-  }, [isGameStarted]);
+    let animation: gsap.core.Tween;
+    const refPos = (ref as MutableRefObject<Group | null>).current?.position;
+    if (ref && refPos) {
+      animation = gsap.to(refPos, {
+        z: progress * 100,
+        duration: 0.5,
+        onStart: () => {
+          if (!isFinishing && progress !== 0) setAnimation('Runner');
+        },
+        onComplete: () => {
+          !isFinishing && setAnimation('Standing');
+        },
+      });
+    }
+
+    return () => {
+      animation?.kill();
+    };
+  }, [progress]);
 
   useEffect(() => {
     if (isFinishing) {
@@ -64,11 +54,11 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
   }, [isFinishing]);
 
   return (
-    <a.group ref={ref} position-z={z}>
+    <group ref={ref}>
       <Suspense fallback={null}>
         <Player ref={playerRef} animation={animation} />
       </Suspense>
-    </a.group>
+    </group>
   );
 });
 
