@@ -2,7 +2,7 @@ import { useMemo, forwardRef, useEffect, Ref } from 'react';
 import { useControls } from 'leva';
 import { Group, Object3D, SkinnedMesh } from 'three';
 import { GroupProps, dispose, useGraph } from '@react-three/fiber';
-import { useAnimations, useGLTF } from '@react-three/drei';
+import { useAnimations, useGLTF, useMatcapTexture } from '@react-three/drei';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
 export type PlayerAnimation =
@@ -21,8 +21,17 @@ interface Props {
 
 type RefMesh = Group;
 
+// good maps
+// 161B1F_C7E0EC_90A5B3_7B8C9B
+// 1B1B1B_999999_575757_747474
+// 8D8D8D_DDDDDD_CCCCCC_B7B7B7
+// 9B9B9B_1E1E1E_5C5C5C_444444
+// 9D9D9D_4E4E4E_646464_6C6C6C
+// 555555_C8C8C8_8B8B8B_A4A4A4 -> very good
+
 const Player = forwardRef<RefMesh, Props & GroupProps>(
-  ({ color = '#ac005c', isGhost, animation = 'Standing', ...props }, ref) => {
+  ({ color = '#e70087', isGhost, animation = 'Standing', ...props }, ref) => {
+    const [Texture] = useMatcapTexture('9B9B9B_1E1E1E_5C5C5C_444444', 256);
     const { enableCustomColor, debugColor } = useControls(
       'Player',
       {
@@ -87,13 +96,14 @@ const Player = forwardRef<RefMesh, Props & GroupProps>(
             geometry={geometry}
             skeleton={skeleton}
           >
-            <meshStandardMaterial
-              color={enableCustomColor ? debugColor : color}
-              roughness={isGhost ? 0 : 0.3}
-              metalness={isGhost ? 0 : 0.65}
-              wireframe={isGhost}
-              flatShading={!isGhost}
-            />
+            {isGhost ? (
+              <meshBasicMaterial color={color} wireframe={isGhost} />
+            ) : (
+              <meshMatcapMaterial
+                color={enableCustomColor ? debugColor : color}
+                matcap={Texture}
+              />
+            )}
           </skinnedMesh>
         </group>
       </group>

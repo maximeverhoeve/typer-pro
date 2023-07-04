@@ -22,7 +22,7 @@ const Fence: React.FC<GroupProps & Props> = ({ texture, ...props }) => {
   return (
     <group {...props}>
       <mesh castShadow receiveShadow geometry={clonedMesh.geometry}>
-        <meshMatcapMaterial matcap={texture} />
+        <meshMatcapMaterial color="#959595" matcap={texture} />
       </mesh>
     </group>
   );

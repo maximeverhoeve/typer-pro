@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { a } from '@react-spring/three';
 import { useSpring } from '@react-spring/core';
-import { useFrame, useThree } from '@react-three/fiber';
-import { Group, Vector3 } from 'three';
+import { useThree } from '@react-three/fiber';
+import { Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './components/Player';
 import { ThreePosition } from '../../../types/three';
@@ -10,8 +10,6 @@ import { ThreePosition } from '../../../types/three';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
 const MainScene: React.FC = () => {
-  const sphere = useRef<Group>(null);
-  const sphere2 = useRef<Group>(null);
   const { hoveredItem } = useCanvasStore((state) => state);
   const { camera } = useThree();
 
@@ -37,13 +35,6 @@ const MainScene: React.FC = () => {
     },
     [hoveredItem],
   );
-
-  useFrame((props, delta) => {
-    if (sphere.current && sphere2.current) {
-      sphere.current.rotation.y += delta * 0.5;
-      sphere2.current.rotation.y += delta * 0.5;
-    }
-  });
 
   useEffect(() => {
     camera.position.set(0, 0, 5.5);

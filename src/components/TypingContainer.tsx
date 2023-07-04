@@ -84,6 +84,7 @@ const TypingContainer: React.FC<Props> = ({
   }, [phase]);
 
   useEffect(() => {
+    /** Sadly I have to listen to the currIndexd to set the progress because I can't put it in the onChange function of the typerHook */
     setProgress(correctChar / length || 0);
   }, [currIndex]);
 

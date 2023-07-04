@@ -37,6 +37,7 @@ const ThreeEnvironment: React.FC = () => {
             width: '100%',
             height: '100%',
             zIndex: 1,
+            pointerEvents: 'none',
           }}
           initial={{ background: 'rgba(18, 18, 18, 1)' }}
           animate={{ background: 'rgba(18, 18, 18, 0)' }}
@@ -49,7 +50,7 @@ const ThreeEnvironment: React.FC = () => {
         />
       </AnimatePresence>
       <Canvas
-        // shadows
+        shadows
         className="canvas"
         dpr={[1, 2]}
         camera={{
@@ -57,6 +58,7 @@ const ThreeEnvironment: React.FC = () => {
           near: 0.1,
           far: 200,
           position: [-4, 3, 3],
+          aspect: window.innerWidth / window.innerHeight,
         }}
         style={{ transition: '0.2s' }}
       >
@@ -71,7 +73,7 @@ const ThreeEnvironment: React.FC = () => {
 
         <SceneLights />
 
-        {showOrbit && <OrbitControls />}
+        <OrbitControls enabled={showOrbit} />
         <SceneRouter />
 
         <SceneShadows />

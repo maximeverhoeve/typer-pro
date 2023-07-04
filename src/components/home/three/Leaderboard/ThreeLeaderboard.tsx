@@ -105,9 +105,10 @@ const FloatText: React.FC<FloatTextProps & GroupProps> = ({
         castShadow
         position={[0, 0.4, -0.5]}
         fillOpacity={1}
+        outlineColor={'black'}
+        outlineWidth={0.03}
       >
         {label}
-        <meshStandardMaterial color={'#656565'} />
       </Text>
       <Text
         font="/fonts/roboto-mono-medium.woff"
@@ -115,9 +116,11 @@ const FloatText: React.FC<FloatTextProps & GroupProps> = ({
         castShadow
         position={[0, -0.5, -0.5]}
         fillOpacity={1}
+        outlineColor={'black'}
+        outlineWidth={0.03}
+        color={color}
       >
         {score}
-        <meshStandardMaterial color={color || '#656565'} />
       </Text>
     </Float>
   );

@@ -5,10 +5,8 @@ import { Text, useMatcapTexture } from '@react-three/drei';
 import { useControls } from 'leva';
 
 const SinglePlayerEnvironment: React.FC = () => {
-  const [Texture] = useMatcapTexture('64686F_BDC0C4_161718_A4A7AB', 256);
-  const { color } = useControls('Text', {
-    color: '#636363',
-  });
+  const [Texture] = useMatcapTexture('9D9D9D_4E4E4E_646464_6C6C6C', 256);
+  const { color } = useControls('Text', { color: '#7e7e7e' });
 
   useEffect(() => {
     return () => {
@@ -34,37 +32,44 @@ const SinglePlayerEnvironment: React.FC = () => {
       ))}
       <Text
         font="/fonts/roboto-mono-medium.woff"
-        position={[2, 0.2, 1.5]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[-0.5, -1.49, 1.6]}
         color={color}
-        rotation={[0, -Math.PI / 2, 0]}
-      >
-        TYPING
-      </Text>
-      <Text
-        font="/fonts/roboto-mono-medium.woff"
-        position={[-1.2, 0.2, -2.9]}
-        color={color}
+        outlineColor={'black'}
+        outlineWidth={0.02}
       >
         START
       </Text>
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[-0.5, -1.49, 0.8]}
+        scale-y={0.1}
+        scale-x={3.5}
+        receiveShadow
+      >
+        <planeGeometry />
+        <meshBasicMaterial color={color} />
+      </mesh>
       <Text
         font="/fonts/roboto-mono-medium.woff"
         rotation={[-Math.PI / 2, 0, 0]}
         fontSize={1}
         position={[-0.5, -1.49, 99]}
         color={color}
+        outlineColor={'black'}
+        outlineWidth={0.02}
       >
         FINISH
       </Text>
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[-0.5, -1.49, 100]}
-        scale-y={0.2}
-        scale-x={5}
+        scale-y={0.1}
+        scale-x={3.5}
         receiveShadow
       >
         <planeGeometry />
-        <meshStandardMaterial color="#717171" />
+        <meshBasicMaterial color={color} />
       </mesh>
     </>
   );

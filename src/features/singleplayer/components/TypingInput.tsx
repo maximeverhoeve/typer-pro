@@ -1,12 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import { useSpring, animated } from '@react-spring/web';
 import React, { FC, useEffect, useRef } from 'react';
-import {
-  CharStateType,
-  TypingActionType,
-  TypingStateType,
-} from 'react-typing-game-hook';
-import { useClickAnyWhere } from 'usehooks-ts';
+import { TypingActionType, TypingStateType } from 'react-typing-game-hook';
 
 interface Props {
   states: TypingStateType;
@@ -20,7 +15,7 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
   const nextCharRef = useRef<HTMLParagraphElement>(null);
 
   const {
-    states: { charsState, currIndex },
+    states: { currIndex },
     actions: { insertTyping },
   } = props;
   const [{ left, top }] = useSpring<{ left: number; top: number }>(
