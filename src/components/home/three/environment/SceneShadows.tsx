@@ -20,7 +20,7 @@ const SceneShadows: React.FC = () => {
       >
         <planeGeometry />
         {/* <meshBasicMaterial color="green" wireframe /> */}
-        <shadowMaterial color="black" />
+        <shadowMaterial color="black" opacity={0.8} />
       </mesh>
     </>
   );

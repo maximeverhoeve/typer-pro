@@ -63,13 +63,6 @@ const ThreeEnvironment: React.FC = () => {
         style={{ transition: '0.2s' }}
       >
         {showPerf && <Perf position="bottom-left" />}
-        {/* <PerspectiveCamera
-        makeDefault
-        position={DEFAULT_CAMERA_POSITION}
-        fov={45}
-        near={0.01}
-        aspect={window.innerWidth / window.innerHeight}
-      /> */}
 
         <SceneLights />
 
