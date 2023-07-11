@@ -28,7 +28,7 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
         z: progress * 100,
         duration: 0.5,
         onStart: () => {
-          if (!isFinishing && progress !== 0) setAnimation('Runner');
+          if (!isFinishing && progress !== 0) setAnimation('Running');
         },
         onComplete: () => {
           !isFinishing && setAnimation('Standing');

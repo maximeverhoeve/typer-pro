@@ -45,7 +45,7 @@ const MovingGhost: React.FC = () => {
       <Suspense fallback={null}>
         <Player
           isGhost
-          animation={isMovingGhost ? 'Runner' : 'Standing'}
+          animation={isMovingGhost ? 'Running' : 'Standing'}
           color="#008585"
         />
       </Suspense>

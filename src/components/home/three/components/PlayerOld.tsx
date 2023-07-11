@@ -6,7 +6,7 @@ import { useAnimations, useGLTF, useMatcapTexture } from '@react-three/drei';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
 export type PlayerAnimation =
-  | 'Running'
+  | 'Runner'
   | 'Standing'
   | 'Sad'
   | 'Cheering'
@@ -29,7 +29,7 @@ type RefMesh = Group;
 // 9D9D9D_4E4E4E_646464_6C6C6C
 // 555555_C8C8C8_8B8B8B_A4A4A4 -> very good
 
-const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
+const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ color = '#e70087', isGhost, animation = 'Standing', ...props }, ref) => {
     const [Texture] = useMatcapTexture('9B9B9B_1E1E1E_5C5C5C_444444', 256);
     const { enableCustomColor, debugColor } = useControls(
@@ -40,7 +40,7 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
       },
       { collapsed: true },
     );
-    const { animations, scene } = useGLTF('/player-2.glb');
+    const { animations, scene } = useGLTF('/player.glb');
 
     const cloneScene: Object3D = useMemo(
       () => clone(scene as Object3D),
@@ -50,8 +50,8 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
       obj.frustumCulled = false;
     });
     const { nodes } = useGraph(cloneScene);
-    const geometry = (nodes.player as SkinnedMesh).geometry;
-    const skeleton = (nodes.player as SkinnedMesh).skeleton;
+    const geometry = (nodes.Cube001 as SkinnedMesh).geometry;
+    const skeleton = (nodes.Cube001 as SkinnedMesh).skeleton;
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
 
     useEffect(() => {
@@ -84,13 +84,12 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
           </>
         )}
         <group
-          scale={0.002}
+          scale={0.0025}
           position={[0, -1.45, 0]}
           rotation={[Math.PI / 2, 0, 0]}
           ref={_ref as Ref<Group>}
         >
           <primitive object={nodes.mixamorigHips} />
-          {/* test */}
           <skinnedMesh
             castShadow
             receiveShadow
@@ -112,5 +111,5 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
   },
 );
 
-export default PlayerTwo;
-useGLTF.preload('/player-2.glb');
+export default Player;
+// useGLTF.preload('/player.glb');
