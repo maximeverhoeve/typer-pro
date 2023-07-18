@@ -45,7 +45,7 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
     if (isFinishing) {
       // startfinish animation
       if (ref) {
-        setAnimation('wall_flip');
+        setAnimation('WallFlip');
         setTimeout(() => {
           setIsFinishing.off();
         }, 1500);

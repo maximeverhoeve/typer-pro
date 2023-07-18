@@ -10,8 +10,7 @@ export type PlayerAnimation =
   | 'Standing'
   | 'Sad'
   | 'Cheering'
-  | 'wall_flip'
-  | 'flip_kick';
+  | 'WallFlip';
 
 interface Props {
   color?: string;
@@ -40,7 +39,7 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
       },
       { collapsed: true },
     );
-    const { animations, scene } = useGLTF('/player-2.glb');
+    const { animations, scene } = useGLTF('/TypiePro.glb');
 
     const cloneScene: Object3D = useMemo(
       () => clone(scene as Object3D),
@@ -50,10 +49,9 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
       obj.frustumCulled = false;
     });
     const { nodes } = useGraph(cloneScene);
-    const geometry = (nodes.player as SkinnedMesh).geometry;
-    const skeleton = (nodes.player as SkinnedMesh).skeleton;
+    const geometry = (nodes.PlayerMesh as SkinnedMesh).geometry;
+    const skeleton = (nodes.PlayerMesh as SkinnedMesh).skeleton;
     const { ref: _ref, actions } = useAnimations(animations, cloneScene);
-
     useEffect(() => {
       actions[animation]?.reset().fadeIn(0.2).play();
       return () => {
@@ -86,11 +84,11 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
         <group
           scale={0.002}
           position={[0, -1.45, 0]}
-          rotation={[Math.PI / 2, 0, 0]}
+          rotation={[Math.PI / 2, 0, (Math.PI / 2) * 2]}
           ref={_ref as Ref<Group>}
         >
           <primitive object={nodes.mixamorigHips} />
-          {/* test */}
+
           <skinnedMesh
             castShadow
             receiveShadow
