@@ -30,7 +30,7 @@ type RefMesh = Group;
 
 const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
   ({ color = '#e70087', isGhost, animation = 'Standing', ...props }, ref) => {
-    const [Texture] = useMatcapTexture('9B9B9B_1E1E1E_5C5C5C_444444', 256);
+    const [Texture] = useMatcapTexture('9D9D9D_4E4E4E_646464_6C6C6C', 256);
     const { enableCustomColor, debugColor } = useControls(
       'Player',
       {
