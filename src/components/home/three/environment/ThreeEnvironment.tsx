@@ -50,7 +50,7 @@ const ThreeEnvironment: React.FC = () => {
         />
       </AnimatePresence>
       <Canvas
-        // shadows
+        shadows
         flat
         className="canvas"
         dpr={[1, 2]}

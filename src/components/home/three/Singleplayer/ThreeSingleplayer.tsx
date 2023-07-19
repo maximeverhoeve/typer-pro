@@ -14,7 +14,7 @@ const ThreeSingleplayer: React.FC = () => {
   useLayoutEffect(() => {
     gsap.set(camera.position, { x: -15, z: 0, y: 10 });
     const cameraAnimation = gsap.to(camera.position, {
-      x: -7,
+      x: -10,
       z: 0,
       y: 1,
       duration: 3,
@@ -45,13 +45,13 @@ const ThreeSingleplayer: React.FC = () => {
         position={[0, 10, 0]}
         intensity={0.3}
         castShadow
-        shadow-mapSize={[128, 128]}
+        shadow-mapSize={[512, 512]}
         shadow-camera-near={1}
-        shadow-camera-far={15}
-        shadow-camera-top={15}
-        shadow-camera-right={15}
-        shadow-camera-bottom={-15}
-        shadow-camera-left={-15}
+        shadow-camera-far={20}
+        shadow-camera-top={20}
+        shadow-camera-right={20}
+        shadow-camera-bottom={-20}
+        shadow-camera-left={-20}
       />
       <Suspense fallback={null}>
         <SinglePlayerEnvironment />

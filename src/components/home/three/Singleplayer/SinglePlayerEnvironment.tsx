@@ -13,8 +13,15 @@ const SinglePlayerEnvironment: React.FC = () => {
   return (
     <>
       <mesh
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[0, 0.1, 100]}
+        rotation={[(Math.PI / 2) * 2, 0, 0]}
+        position={[0, -1.5, -3.8]}
+        scale={[2.8, -2.8, 2.8]}
+        geometry={(nodes.baked as SkinnedMesh).geometry}
+      >
+        <meshBasicMaterial map={bakedTexture} />
+      </mesh>
+      <mesh
+        position={[0, -1.5, 95]}
         scale={2.8}
         geometry={(nodes.baked as SkinnedMesh).geometry}
       >
