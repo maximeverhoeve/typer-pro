@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import useLeaderBoardJokes from '../api/getLeaderboardJokes';
+import getLeaderBoardJokes from '../api/getLeaderboardJokes';
+import { useBoolean } from '@chakra-ui/react';
 
 const LeaderBoard: React.FC = () => {
-  useLeaderBoardJokes();
+  const [isLoading, setIsLoading] = useBoolean();
+
+  const loadData = async (): Promise<void> => {
+    setIsLoading.on();
+    const data = await getLeaderBoardJokes();
+    console.log(data);
+    setIsLoading.off();
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <motion.div
@@ -14,7 +26,7 @@ const LeaderBoard: React.FC = () => {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
     >
-      <p>Leaderboard</p>
+      {isLoading ? <p>Loading...</p> : <p>Leaderboard</p>}
     </motion.div>
   );
 };

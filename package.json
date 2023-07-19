@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@firebase/firestore-types": "^3.0.0",
     "@react-query-firebase/firestore": "^1.0.0-dev.7",
     "@react-spring/core": "^9.6.1",
     "@react-spring/three": "^9.6.1",
