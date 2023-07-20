@@ -12,21 +12,50 @@ const SinglePlayerEnvironment: React.FC = () => {
 
   return (
     <>
-      <mesh
+      <group
         rotation={[(Math.PI / 2) * 2, 0, 0]}
-        position={[0, -1.5, -3.8]}
+        position={[0, -1.5, -2]}
         scale={[2.8, -2.8, 2.8]}
-        geometry={(nodes.baked as SkinnedMesh).geometry}
       >
-        <meshBasicMaterial map={bakedTexture} />
-      </mesh>
-      <mesh
-        position={[0, -1.5, 95]}
-        scale={2.8}
-        geometry={(nodes.baked as SkinnedMesh).geometry}
-      >
-        <meshBasicMaterial map={bakedTexture} />
-      </mesh>
+        <mesh
+          geometry={(nodes.baked as SkinnedMesh).geometry}
+          position={(nodes.baked as SkinnedMesh).position}
+        >
+          <meshBasicMaterial map={bakedTexture} />
+        </mesh>
+        <mesh
+          geometry={(nodes.poleLights as SkinnedMesh).geometry}
+          position={(nodes.poleLights as SkinnedMesh).position}
+        >
+          <meshBasicMaterial color="#ffffe5" />
+        </mesh>
+        <mesh
+          geometry={(nodes.portalLight as SkinnedMesh).geometry}
+          position={(nodes.portalLight as SkinnedMesh).position}
+        >
+          <meshBasicMaterial color="#edf9ff" />
+        </mesh>
+      </group>
+      <group position={[0, -1.5, 95]} scale={2.8}>
+        <mesh
+          geometry={(nodes.baked as SkinnedMesh).geometry}
+          position={(nodes.baked as SkinnedMesh).position}
+        >
+          <meshBasicMaterial map={bakedTexture} />
+        </mesh>
+        <mesh
+          geometry={(nodes.poleLights as SkinnedMesh).geometry}
+          position={(nodes.poleLights as SkinnedMesh).position}
+        >
+          <meshBasicMaterial color="#ffffe5" />
+        </mesh>
+        <mesh
+          geometry={(nodes.portalLight as SkinnedMesh).geometry}
+          position={(nodes.portalLight as SkinnedMesh).position}
+        >
+          <meshBasicMaterial color="#edf9ff" />
+        </mesh>
+      </group>
     </>
   );
 };
