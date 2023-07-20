@@ -15,7 +15,7 @@ const ThreeSingleplayer: React.FC = () => {
     gsap.set(camera.position, { x: -15, z: 0, y: 10 });
     const cameraAnimation = gsap.to(camera.position, {
       x: -8,
-      z: 0,
+      z: 5,
       y: 1.5,
       duration: 3,
     });
@@ -27,7 +27,12 @@ const ThreeSingleplayer: React.FC = () => {
 
   useFrame((props) => {
     if (animatedGroupRef.current) {
-      props.camera.position.z = animatedGroupRef.current.position.z;
+      if (
+        animatedGroupRef.current.position.z > 5 &&
+        animatedGroupRef.current.position.z < 95
+      ) {
+        props.camera.position.z = animatedGroupRef.current.position.z;
+      }
       if (light.current) {
         light.current.position.z = animatedGroupRef.current.position.z;
         light.current.target.position.z =
