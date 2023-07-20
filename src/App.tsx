@@ -27,7 +27,7 @@ const App: React.FC = () => {
       <ChakraProvider theme={customThemeDark}>
         <Leva collapsed />
         <Grid
-          templateRows="repeat(2, 50vh)"
+          templateRows="55vh 45vh"
           bg="background"
           h="100vh"
           overflow="hidden"
@@ -41,6 +41,17 @@ const App: React.FC = () => {
             // templateRows="30vh auto 30vh"
             transition="0.2s"
             w="100%"
+            position="relative"
+            _before={{
+              content: '""',
+              h: '10vh',
+              w: '100%',
+              bg: 'linear-gradient(0deg, #121212 3%, rgba(0,0,0, 0) 100%);',
+              position: 'absolute',
+              bottom: '100%',
+              zIndex: '1',
+            }}
+            pt="4"
           >
             {transitionEnded && <Router />}
             <Footer />
