@@ -64,7 +64,7 @@ const ThreeEnvironment: React.FC = () => {
         style={{ transition: '0.2s' }}
       >
         {showPerf && <Perf position="bottom-left" />}
-
+        <fog attach="fog" args={['#121212', 10, 20]} />
         <SceneLights />
 
         <OrbitControls enabled={showOrbit} />

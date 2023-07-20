@@ -14,9 +14,9 @@ const ThreeSingleplayer: React.FC = () => {
   useLayoutEffect(() => {
     gsap.set(camera.position, { x: -15, z: 0, y: 10 });
     const cameraAnimation = gsap.to(camera.position, {
-      x: -10,
+      x: -8,
       z: 0,
-      y: 1,
+      y: 1.5,
       duration: 3,
     });
 
