@@ -86,7 +86,7 @@ const SinglePlayer: React.FC = () => {
       <Center>
         <VStack>
           <Spinner size="lg" color="secondary" />
-          <Text>Loading singelplayer</Text>
+          <Text>Loading singleplayer</Text>
         </VStack>
       </Center>
     );
