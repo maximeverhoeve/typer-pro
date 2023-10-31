@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
 import { MittProvider } from './hooks/useMitt';
+import { useLocation } from 'react-router-dom';
+import { useDebounce } from 'usehooks-ts';
 
 const queryClient = new QueryClient();
 
@@ -17,8 +19,16 @@ const App: React.FC = () => {
   // TEMP DISABLING WHILE CODING STYLING
   // const socketContextValues =  useSocketInit();
   // const gameContextValues = useGameInit();
-
+  const { pathname } = useLocation();
   const [transitionEnded, setTransitionEnded] = useBoolean();
+  /** Debounced because of animations */
+  const debouncedPath = useDebounce<string>(pathname, 500);
+
+  const getSceneHeight = (): string => {
+    if (debouncedPath.includes('multiplayer')) return '20%';
+    if (debouncedPath === '/leaderboard') return '40%';
+    return '55%';
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -28,7 +38,7 @@ const App: React.FC = () => {
         <ChakraProvider theme={customThemeDark}>
           <Leva collapsed />
           <Grid
-            templateRows="55% auto"
+            templateRows={`${getSceneHeight()} auto`}
             bg="background"
             h="100vh"
             w="100%"

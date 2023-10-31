@@ -4,10 +4,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import PlayerSettings from './features/player-settings';
 import SinglePlayer from './features/singleplayer';
-import MultiplayerSetup from './components/socket_chat/MultiplayerSetup';
 import LeaderBoardDetail from './pages/LeaderboardDetail';
 import LeaderBoard from './features/leaderboard';
 import GameRoute from './components/GameRoute';
+import Multiplayer from './features/multiplayer';
 
 const Router: React.FC = () => {
   const location = useLocation();
@@ -43,7 +43,7 @@ const Router: React.FC = () => {
         </Route>
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/leaderboard/:textId" element={<LeaderBoardDetail />} />
-        <Route path="/multiplayer" element={<MultiplayerSetup />} />
+        <Route path="/multiplayer" element={<Multiplayer />} />
       </Routes>
     </AnimatePresence>
   );

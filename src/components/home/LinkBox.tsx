@@ -30,7 +30,7 @@ const LinkBox: React.FC<PropsWithChildren & LinkBoxProps> = ({
       initial={{ opacity: 0, translateX: 100, width: '100%' }}
       animate={{ opacity: 1, translateX: 0 }}
       exit={{ opacity: 0, translateX: 100 }}
-      transition={{ delay, duration: 0.3 }}
+      transition={{ delay, duration: 0.2 }}
     >
       <Link to={to} onMouseEnter={setIsHovering}>
         <LinkBoxContainer hoverColor={hoverColor} isHovering={isHovering}>

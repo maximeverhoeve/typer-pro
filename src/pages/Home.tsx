@@ -22,12 +22,10 @@ const Home: React.FC = () => {
         <LinkBox
           setIsHovering={() => setHoveredItem('MULTIPLAYER')}
           isHovering={hoveredItem === 'MULTIPLAYER'}
-          // to="/multiplayer"
-          to="/"
+          to="/multiplayer"
           delay={0.2}
           hoverColor="secondary"
           description="Play against friends and see who is the typer pro"
-          isUnavailable
         >
           Multiplayer
         </LinkBox>
