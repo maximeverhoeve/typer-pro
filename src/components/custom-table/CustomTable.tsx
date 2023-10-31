@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { getDisplayName } from '../../features/singleplayer/utils/playerUtils';
+import { FaMedal } from 'react-icons/fa';
 
 export interface LeaderboardData {
   id: string;
@@ -71,6 +72,7 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
           )}
           {data.map(({ id, name, wpm, acc }, index) => {
             const isActiveRow = id === playerId;
+            const isFirst = index === 0;
             return (
               <Tr
                 key={id}
@@ -78,18 +80,21 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
                 color={isActiveRow ? 'white' : undefined}
               >
                 <Td>{index + 1}</Td>
-                <Td
-                  sx={{
-                    span: {
-                      fontSize: '12px',
-                      opacity: 0.4,
-                      ml: 1,
-                    },
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: getDisplayName({ id, name }),
-                  }}
-                />
+                <Td display="flex" alignItems="center" gap="2">
+                  <Text
+                    sx={{
+                      span: {
+                        fontSize: '12px',
+                        opacity: 0.4,
+                        ml: 1,
+                      },
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: getDisplayName({ id, name }),
+                    }}
+                  />
+                  {isFirst && <FaMedal color="white" />}
+                </Td>
                 <Td textAlign="right">{acc ? `${acc.toFixed(1)}%` : '-'}</Td>
                 <Td>{wpm}</Td>
               </Tr>

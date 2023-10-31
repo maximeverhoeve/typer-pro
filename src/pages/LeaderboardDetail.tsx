@@ -1,10 +1,11 @@
-import { Box, HStack } from '@chakra-ui/react';
+import { HStack, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
 import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
 import LeaderBoardDetailStateStats from '../features/leaderboard/components/LeaderBoardDetailStateStats';
+import LeaderBoardDetailActions from '../features/leaderboard/components/LeaderBoardDetailActions';
 
 interface LocationType {
   state?: {
@@ -37,9 +38,11 @@ const LeaderBoardDetail: React.FC = () => {
         maxH="268px"
       >
         {stats && <LeaderBoardDetailStateStats textId={textId} stats={stats} />}
-        <Box flexGrow={1}>
+        <VStack align="stretch" spacing="3" flexGrow={1}>
           <SinglePlayerLeaderboard id={textId} />
-        </Box>
+
+          {!stats && <LeaderBoardDetailActions textId={textId} />}
+        </VStack>
       </HStack>
     </motion.div>
   );
