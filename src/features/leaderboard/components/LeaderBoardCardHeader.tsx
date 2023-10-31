@@ -9,7 +9,7 @@ interface Props {
 
 const LeaderBoardCardHeader: React.FC<Props> = ({ data }) => {
   return (
-    <HStack p="3" bg="background" spacing="4">
+    <HStack p="3" spacing="4">
       <FaMedal color="white" />
       <Text fontWeight="500" color="white" flexGrow="1">
         {data.topPlayer.name}
