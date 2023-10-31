@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Center, SimpleGrid, Spinner } from '@chakra-ui/react';
-import useLeaderboard from '../api/getLeaderboard';
-import LeaderBoardCard from '../features/leaderboard/components/LeaderBoardCard';
+import useLeaderboard from '../../api/getLeaderboard';
+import LeaderBoardCard from './components/LeaderBoardCard';
 
 const LeaderBoard: React.FC = () => {
   const { data, isLoading } = useLeaderboard();

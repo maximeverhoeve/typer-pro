@@ -6,7 +6,7 @@ import Player from './pages/player/PlayerPage';
 import SinglePlayer from './features/singleplayer';
 import MultiplayerSetup from './components/socket_chat/MultiplayerSetup';
 import LeaderBoardDetail from './pages/LeaderboardDetail';
-import LeaderBoard from './pages/Leaderboard';
+import LeaderBoard from './features/leaderboard';
 import GameRoute from './components/GameRoute';
 
 const Router: React.FC = () => {
