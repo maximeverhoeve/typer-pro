@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect, useState } from 'react';
-import { Center, Text } from '@chakra-ui/react';
+import { Center, Spinner, Text, VStack } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
 import TypingContainer from '../../components/TypingContainer';
 import { motion } from 'framer-motion';
@@ -13,7 +13,11 @@ import { PlayerStats } from './types/GameTypes';
 const SinglePlayer: React.FC = () => {
   const [stats, setStats] = useState<PlayerStats>();
   const { textId } = useParams<{ textId: string }>();
+
   const { joke, isLoading, onRestart } = useJoke(textId);
+  const isLoadingEnvironment = useSinglePlayerStore(
+    (state) => state.isLoadingEnvironment,
+  );
   const setPreviousTime = useSinglePlayerStore(
     (state) => state.setPreviousTime,
   );
@@ -84,6 +88,17 @@ const SinglePlayer: React.FC = () => {
       }
     }
   }, [isFinishing]);
+
+  if (isLoadingEnvironment) {
+    return (
+      <Center>
+        <VStack>
+          <Spinner size="lg" color="secondary" />
+          <Text>Loading singelplayer</Text>
+        </VStack>
+      </Center>
+    );
+  }
 
   return (
     <motion.div

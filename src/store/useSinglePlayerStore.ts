@@ -13,6 +13,12 @@ interface SinglePlayerState {
     on: () => void;
     off: () => void;
   };
+  // Loading environment
+  isLoadingEnvironment: boolean;
+  setIsLoadingEnvironment: {
+    on: () => void;
+    off: () => void;
+  };
   // Game started state
   isGameStarted: boolean;
   setIsGameStarted: {
@@ -26,6 +32,11 @@ const useSinglePlayerStore = create<SinglePlayerState>((set) => {
     progress: 0,
     setProgress: (value) => set(() => ({ progress: value })),
     setPreviousTime: (time) => set(() => ({ previousTime: time })),
+    isLoadingEnvironment: false,
+    setIsLoadingEnvironment: {
+      on: () => set(() => ({ isLoadingEnvironment: true })),
+      off: () => set(() => ({ isLoadingEnvironment: false })),
+    },
     isGameStarted: false,
     setIsGameStarted: {
       on: () => set(() => ({ isGameStarted: true })),
