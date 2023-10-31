@@ -9,22 +9,16 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import React from 'react';
-import { getDisplayName } from '../../features/singleplayer/utils/playerUtils';
+import { getDisplayName } from '../../../singleplayer/utils/playerUtils';
 import { FaMedal } from 'react-icons/fa';
-
-export interface LeaderboardData {
-  id: string;
-  name: string;
-  acc: number;
-  wpm: number;
-}
+import { LeaderboardData } from '../../types/LeaderBoardTypes';
 
 interface Props {
   data: LeaderboardData[];
   playerId?: string;
 }
 
-const CustomTable: React.FC<Props> = ({ data, playerId }) => {
+const LeaderBoardTable: React.FC<Props> = ({ data, playerId }) => {
   return (
     <TableContainer
       h="100%"
@@ -106,4 +100,4 @@ const CustomTable: React.FC<Props> = ({ data, playerId }) => {
   );
 };
 
-export default CustomTable;
+export default LeaderBoardTable;

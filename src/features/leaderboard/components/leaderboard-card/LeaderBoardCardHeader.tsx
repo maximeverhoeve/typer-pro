@@ -1,7 +1,7 @@
 import React from 'react';
-import { LeaderBoardObject } from '../../../api/getLeaderboardJokes';
 import { HStack, Text } from '@chakra-ui/react';
 import { FaMedal } from 'react-icons/fa';
+import { LeaderBoardObject } from '../../types/LeaderBoardTypes';
 
 interface Props {
   data: LeaderBoardObject;

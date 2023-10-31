@@ -1,7 +1,7 @@
 import { HStack, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
+import SinglePlayerLeaderboard from '../features/leaderboard/detail';
 import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
 import LeaderBoardDetailStateStats from '../features/leaderboard/components/LeaderBoardDetailStateStats';

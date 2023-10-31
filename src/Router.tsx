@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
-import Player from './pages/player/PlayerPage';
+import PlayerSettings from './features/player-settings';
 import SinglePlayer from './features/singleplayer';
 import MultiplayerSetup from './components/socket_chat/MultiplayerSetup';
 import LeaderBoardDetail from './pages/LeaderboardDetail';
@@ -23,7 +23,7 @@ const Router: React.FC = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={getKeyForAnimationChange()}>
         <Route path="/" element={<Home />} />
-        <Route path="/player" element={<Player />} />
+        <Route path="/player" element={<PlayerSettings />} />
         <Route
           path="/singleplayer"
           element={

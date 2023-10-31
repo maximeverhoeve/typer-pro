@@ -5,7 +5,7 @@ import { HiArrowRight } from 'react-icons/hi';
 import usePlayerStore from '../../store/usePlayerStore';
 import { useNavigate } from 'react-router-dom';
 
-const PlayerPage: React.FC = () => {
+const PlayerSettings: React.FC = () => {
   const navigate = useNavigate();
   const placeholdername = 'Typer Pro';
   /** The nickname is only set when pressing the start button
@@ -85,4 +85,4 @@ const PlayerPage: React.FC = () => {
   );
 };
 
-export default PlayerPage;
+export default PlayerSettings;

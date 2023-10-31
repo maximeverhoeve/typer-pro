@@ -1,6 +1,6 @@
 import { HStack, Text } from '@chakra-ui/react';
 import React from 'react';
-import { LeaderboardData } from './CustomTable';
+import { LeaderboardData } from '../../types/LeaderBoardTypes';
 
 interface Props {
   data: LeaderboardData;
@@ -8,7 +8,7 @@ interface Props {
   activeId?: string;
 }
 
-const CustomtableRow: React.FC<Props> = ({ data, nr, activeId }) => {
+const LeaderBoardTableRow: React.FC<Props> = ({ data, nr, activeId }) => {
   const { name, acc, wpm, id } = data;
   const isActiveRow = id === activeId;
 
@@ -22,4 +22,4 @@ const CustomtableRow: React.FC<Props> = ({ data, nr, activeId }) => {
   );
 };
 
-export default CustomtableRow;
+export default LeaderBoardTableRow;

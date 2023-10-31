@@ -1,8 +1,8 @@
 import React from 'react';
-import { LeaderBoardObject } from '../../../api/getLeaderboardJokes';
 import { Divider, Text, VStack } from '@chakra-ui/react';
 import LeaderBoardCardHeader from './LeaderBoardCardHeader';
 import LeaderBoardCardFooter from './LeaderBoardCardFooter';
+import { LeaderBoardObject } from '../../types/LeaderBoardTypes';
 
 interface Props {
   data: LeaderBoardObject;

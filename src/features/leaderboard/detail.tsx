@@ -4,13 +4,14 @@ import { collection, orderBy, query } from 'firebase/firestore';
 import React from 'react';
 import { firestore } from '../../firebase';
 import usePlayerStore from '../../store/usePlayerStore';
-import CustomTable, { LeaderboardData } from '../custom-table/CustomTable';
+import CustomTable from './components/leaderboard-table/LeaderBoardTable';
+import { LeaderboardData } from './types/LeaderBoardTypes';
 
 interface Props {
   id: string;
 }
 
-const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {
+const LeaderBoardDetail: React.FC<Props> = ({ id }) => {
   const { id: playerId } = usePlayerStore((state) => state);
   const collectionRef = collection(firestore, `leaderboard/${id}/players`);
   const ref = query(collectionRef, orderBy('wpm', 'desc'));
@@ -34,4 +35,4 @@ const SinglePlayerLeaderboard: React.FC<Props> = ({ id }) => {
   );
 };
 
-export default SinglePlayerLeaderboard;
+export default LeaderBoardDetail;

@@ -1,12 +1,6 @@
 import { collection, limit, orderBy, query, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebase';
-import { LeaderboardData } from '../components/custom-table/CustomTable';
-
-export interface LeaderBoardObject {
-  id: string;
-  data: { text: string; last_updated?: string };
-  topPlayer: LeaderboardData;
-}
+import { firestore } from '../../../firebase';
+import { LeaderBoardObject, LeaderboardData } from '../types/LeaderBoardTypes';
 
 const getLeaderBoardJokes = async (): Promise<LeaderBoardObject[]> => {
   const jokesQuery = query(
