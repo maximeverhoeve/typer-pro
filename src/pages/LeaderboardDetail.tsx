@@ -1,20 +1,10 @@
-import {
-  Box,
-  HStack,
-  IconButton,
-  Spacer,
-  Text,
-  Tooltip,
-  VStack,
-} from '@chakra-ui/react';
-import CountUp from 'react-countup';
+import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../components/leaderboard/SinglePlayerLeaderboard';
 import { motion } from 'framer-motion';
 import { Stats } from '../hooks/useTyper';
-import { VscDebugRestart } from 'react-icons/vsc';
-import { AiFillCaretRight } from 'react-icons/ai';
+import LeaderBoardDetailStateStats from '../features/leaderboard/components/LeaderBoardDetailStateStats';
 
 interface LocationType {
   state?: {
@@ -23,7 +13,6 @@ interface LocationType {
 }
 
 const LeaderBoardDetail: React.FC = () => {
-  const navigate = useNavigate();
   const location = useLocation() as LocationType;
   const stats = location?.state?.stats;
   const { textId } = useParams<{ textId: string }>();
@@ -47,52 +36,7 @@ const LeaderBoardDetail: React.FC = () => {
         align="stretch"
         maxH="268px"
       >
-        {stats && (
-          <VStack
-            fontSize="2xl"
-            textAlign="right"
-            align="flex-end"
-            justify="space-between"
-          >
-            <Box>
-              <Text color="secondary" fontSize="lg">
-                wpm
-              </Text>
-              <Text>
-                <CountUp end={stats?.wpm} duration={0.6} />
-              </Text>
-            </Box>
-            <Box>
-              <Text color="secondary" fontSize="lg">
-                acc
-              </Text>
-              <Text>
-                <CountUp end={stats?.acc} duration={0.6} />%
-              </Text>
-            </Box>
-            <Spacer />
-            <VStack align="flex-end">
-              <Tooltip label="Try again" placement="top" hasArrow>
-                <IconButton
-                  variant="outline"
-                  size="lg"
-                  aria-label="Try again"
-                  onClick={() => navigate(`/singleplayer/${textId}`)}
-                  icon={<VscDebugRestart />}
-                />
-              </Tooltip>
-              <Tooltip label="Start a new game" placement="top" hasArrow>
-                <IconButton
-                  variant="outline"
-                  size="lg"
-                  aria-label="New game"
-                  onClick={() => navigate('/singleplayer')}
-                  icon={<AiFillCaretRight />}
-                />
-              </Tooltip>
-            </VStack>
-          </VStack>
-        )}
+        {stats && <LeaderBoardDetailStateStats textId={textId} stats={stats} />}
         <Box flexGrow={1}>
           <SinglePlayerLeaderboard id={textId} />
         </Box>
