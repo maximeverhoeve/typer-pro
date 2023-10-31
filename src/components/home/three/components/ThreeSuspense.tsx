@@ -19,9 +19,7 @@ const ThreeSuspense: React.FC<Props & PropsWithChildren> = ({
 const ThreeSuspenseFallback: React.FC<Props> = ({ onLoading, onFinish }) => {
   useEffect(() => {
     onLoading();
-    console.log('devmax component started loading');
     return () => {
-      console.log('devmax component stopt loading');
       onFinish();
     };
   }, []);
