@@ -12,13 +12,17 @@ import Player, {
   PlayerAnimation,
 } from '../../../components/home/three/components/Player';
 import { gsap } from 'gsap';
+import { useMitt } from '../../../hooks/useMitt';
+import { useNavigate } from 'react-router-dom';
 
 const MovingPlayer = forwardRef<Group>((_, ref) => {
   const playerRef = useRef<Group>(null);
   const [animation, setAnimation] = useState<PlayerAnimation>('Standing');
   const progress = useSinglePlayerStore((state) => state.progress);
+  const navigate = useNavigate();
   const isFinishing = useSinglePlayerStore((state) => state.isFinishing);
   const setIsFinishing = useSinglePlayerStore((state) => state.setIsFinishing);
+  const { emitter } = useMitt();
 
   useEffect(() => {
     let animation: gsap.core.Tween;
@@ -42,16 +46,20 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
   }, [progress]);
 
   useEffect(() => {
-    if (isFinishing) {
-      // startfinish animation
+    // startfinish animation
+    emitter.on('sp_finish_animation', (stateObj) => {
       if (ref) {
-        setAnimation('WallFlip');
+        setAnimation('Cheering');
         setTimeout(() => {
+          emitter.emit('sp_navigate_to_leaderboard');
           setIsFinishing.off();
-        }, 1500);
+          navigate(`/leaderboard/${stateObj.textId}`, {
+            state: stateObj,
+          });
+        }, 1400);
       }
-    }
-  }, [isFinishing]);
+    });
+  }, []);
 
   return (
     <group ref={ref}>

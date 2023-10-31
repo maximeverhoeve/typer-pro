@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Center, Spinner, Text, VStack } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
 import TypingContainer from '../../components/TypingContainer';
@@ -9,11 +9,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import usePreviousStats from '../../hooks/usePreviousStats';
 import useSinglePlayerStore from '../../store/useSinglePlayerStore';
 import { PlayerStats } from './types/GameTypes';
+import { useMitt } from '../../hooks/useMitt';
 
 const SinglePlayer: React.FC = () => {
-  const [stats, setStats] = useState<PlayerStats>();
   const { textId } = useParams<{ textId: string }>();
-
+  const { emitter } = useMitt();
   const { joke, isLoading, onRestart } = useJoke(textId);
   const isLoadingEnvironment = useSinglePlayerStore(
     (state) => state.isLoadingEnvironment,
@@ -33,11 +33,19 @@ const SinglePlayer: React.FC = () => {
   const navigate = useNavigate();
 
   const handleFinish = async (stats: PlayerStats): Promise<void> => {
-    setStats(stats);
     setIsFinishing.on();
+
     if (!previousData || stats.wpm > previousData.wpm) {
       await postScore(stats, joke?.joke || '');
     }
+    /** Sent event to the threejs component to handle the finish */
+    emitter.emit('sp_finish_animation', {
+      stats,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      textId: joke!.id,
+      isHighScore: stats.wpm > (previousData?.wpm || 0),
+      highScore: previousData?.wpm || 0,
+    });
   };
 
   useEffect(() => {
@@ -64,6 +72,7 @@ const SinglePlayer: React.FC = () => {
   useEffect(() => {
     // manually refetch on mount, because query-firstore does not have that prop
     refetch();
+
     return () => {
       /** Because the threejs scene has a transition of 500ms, change the progress after */
       setTimeout(() => {
@@ -71,23 +80,6 @@ const SinglePlayer: React.FC = () => {
       }, 500);
     };
   }, []);
-
-  useEffect(() => {
-    // When the finishing animation in the ThreeSingleplayer component is complete
-    // Navigate to the leaderboard page
-    if (!isFinishing && stats) {
-      if (joke) {
-        navigate(`/leaderboard/${joke.id}`, {
-          state: {
-            stats,
-            textId: joke.id,
-            isHighScore: stats.wpm > (previousData?.wpm || 0),
-            highScore: previousData?.wpm || 0,
-          },
-        });
-      }
-    }
-  }, [isFinishing]);
 
   if (isLoadingEnvironment) {
     return (
