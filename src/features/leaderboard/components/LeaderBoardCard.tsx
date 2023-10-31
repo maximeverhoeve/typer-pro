@@ -22,7 +22,7 @@ const LeaderBoardCard: React.FC<Props> = ({ data }) => {
       <Text px="3" py="6" fontStyle="italic" flexGrow="1" fontWeight="300">
         {data.data.text}
       </Text>
-      <LeaderBoardCardFooter id={data.id} />
+      <LeaderBoardCardFooter id={data.id} updateDate={data.data.last_updated} />
     </VStack>
   );
 };

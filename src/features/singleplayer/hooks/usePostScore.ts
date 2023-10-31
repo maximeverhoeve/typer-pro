@@ -27,6 +27,7 @@ const usePostScore = (jokeId?: string): PostScore => {
       });
       await setDoc(jokeDocRef, {
         text,
+        last_updated: Date.now(),
       });
       return true;
     } catch (err) {

@@ -33,6 +33,10 @@ const App: React.FC = () => {
             h="100vh"
             w="100%"
             overflowX="hidden"
+            sx={{
+              /** Making scrollbar absolute position */
+              overflowY: 'overlay',
+            }}
             transition="0.2s"
             color="text"
           >

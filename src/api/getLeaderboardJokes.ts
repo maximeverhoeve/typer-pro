@@ -4,7 +4,7 @@ import { LeaderboardData } from '../components/custom-table/CustomTable';
 
 export interface LeaderBoardObject {
   id: string;
-  data: { text: string };
+  data: { text: string; last_updated?: string };
   topPlayer: LeaderboardData;
 }
 
@@ -12,7 +12,7 @@ const getLeaderBoardJokes = async (): Promise<LeaderBoardObject[]> => {
   const jokesQuery = query(
     collection(firestore, 'leaderboard'),
     limit(10),
-    // orderBy('updatedAt', 'desc'),
+    orderBy('last_updated', 'asc'),
   );
 
   const querySnapshot = await getDocs(jokesQuery);
