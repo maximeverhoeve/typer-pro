@@ -2,7 +2,7 @@ import { collection, limit, orderBy, query, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import { LeaderboardData } from '../components/custom-table/CustomTable';
 
-interface LeaderBoardObject {
+export interface LeaderBoardObject {
   id: string;
   data: { text: string };
   topPlayer: LeaderboardData;

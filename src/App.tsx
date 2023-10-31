@@ -5,7 +5,6 @@ import './App.css';
 // import useGameInit, { GameContext } from './hooks/useGameInit';
 import { customThemeDark } from './theme';
 import Header from './components/Header';
-import Footer from './components/Footer';
 import Router from './Router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
@@ -29,11 +28,11 @@ const App: React.FC = () => {
         <ChakraProvider theme={customThemeDark}>
           <Leva collapsed />
           <Grid
-            templateRows="55vh 45vh"
+            templateRows="55% auto"
             bg="background"
             h="100vh"
-            overflow="hidden"
             w="100%"
+            overflowX="hidden"
             transition="0.2s"
             color="text"
           >
@@ -56,7 +55,7 @@ const App: React.FC = () => {
               pt="4"
             >
               {transitionEnded && <Router />}
-              <Footer />
+              {/* <Footer /> */}
             </Box>
           </Grid>
         </ChakraProvider>

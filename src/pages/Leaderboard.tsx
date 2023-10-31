@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Center, Spinner } from '@chakra-ui/react';
+import { Center, SimpleGrid, Spinner } from '@chakra-ui/react';
 import useLeaderboard from '../api/getLeaderboard';
+import LeaderBoardCard from '../features/leaderboard/components/LeaderBoardCard';
 
 const LeaderBoard: React.FC = () => {
   const { data, isLoading } = useLeaderboard();
 
-  console.log('devmax', data);
   if (isLoading) {
     return (
       <Center>
@@ -20,12 +20,16 @@ const LeaderBoard: React.FC = () => {
       style={{
         width: '100%',
       }}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0, opacity: 0 }}
+      initial={{ translateY: 100, opacity: 0 }}
+      animate={{ translateY: 0, opacity: 1 }}
+      exit={{ translateY: 0, opacity: 0 }}
     >
       <Center>
-        <p>Leaderboard</p>
+        <SimpleGrid maxW="2xl" columns={1} gridGap="10">
+          {data?.map((item) => (
+            <LeaderBoardCard key={item.id} data={item} />
+          ))}
+        </SimpleGrid>
       </Center>
     </motion.div>
   );
