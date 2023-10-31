@@ -49,7 +49,8 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
     // startfinish animation
     emitter.on('sp_finish_animation', (stateObj) => {
       if (ref) {
-        setAnimation('Cheering');
+        if (stateObj.isHighScore) setAnimation('Cheering');
+        else setAnimation('Sad');
         setTimeout(() => {
           emitter.emit('sp_navigate_to_leaderboard');
           setIsFinishing.off();
