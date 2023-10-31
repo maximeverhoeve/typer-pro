@@ -1,21 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import getLeaderBoardJokes from '../api/getLeaderboardJokes';
-import { useBoolean } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
+import useLeaderboard from '../api/getLeaderboard';
 
 const LeaderBoard: React.FC = () => {
-  const [isLoading, setIsLoading] = useBoolean();
+  const { data, isLoading } = useLeaderboard();
 
-  const loadData = async (): Promise<void> => {
-    setIsLoading.on();
-    const data = await getLeaderBoardJokes();
-    console.log(data);
-    setIsLoading.off();
-  };
-
-  useEffect(() => {
-    loadData();
-  }, []);
+  console.log('devmax', data);
+  if (isLoading) {
+    return (
+      <Center>
+        <Spinner size="lg" color="secondary" />
+      </Center>
+    );
+  }
 
   return (
     <motion.div
@@ -26,7 +24,9 @@ const LeaderBoard: React.FC = () => {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
     >
-      {isLoading ? <p>Loading...</p> : <p>Leaderboard</p>}
+      <Center>
+        <p>Leaderboard</p>
+      </Center>
     </motion.div>
   );
 };

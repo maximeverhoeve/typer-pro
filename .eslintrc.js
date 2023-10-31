@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: ['plugin:react/recommended', 'standard-with-typescript'],
   overrides: [
@@ -13,16 +13,16 @@ module.exports = {
       // If you don't want to extend any rules, you don't need an `extends` attribute.
       extends: [
         'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking'
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
       ],
       parserOptions: {
-        project: ['./tsconfig.json'] // Specify it only for TypeScript files
-      }
-    }
+        project: ['./tsconfig.json'], // Specify it only for TypeScript files
+      },
+    },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['react'],
   rules: {
@@ -66,7 +66,7 @@ module.exports = {
     'arrow-spacing': 'warn',
     'no-empty-function': 'warn',
     'multiline-ternary': 'off',
-    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
@@ -75,9 +75,11 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': [
       'warn',
       {
-        allowSingleExtends: true
-      }
+        allowSingleExtends: true,
+      },
     ],
-    'no-empty': 'warn'
-  }
-}
+    'no-empty': 'warn',
+    'comma-dangle': 'off',
+    semi: 'off',
+  },
+};
