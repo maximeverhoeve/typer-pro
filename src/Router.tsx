@@ -7,6 +7,7 @@ import SinglePlayer from './features/singleplayer';
 import MultiplayerSetup from './components/socket_chat/MultiplayerSetup';
 import LeaderBoardDetail from './pages/LeaderboardDetail';
 import LeaderBoard from './pages/Leaderboard';
+import GameRoute from './components/GameRoute';
 
 const Router: React.FC = () => {
   const location = useLocation();
@@ -23,8 +24,22 @@ const Router: React.FC = () => {
       <Routes location={location} key={getKeyForAnimationChange()}>
         <Route path="/" element={<Home />} />
         <Route path="/player" element={<Player />} />
-        <Route path="/singleplayer" element={<SinglePlayer />}>
-          <Route path=":textId" element={<SinglePlayer />} />
+        <Route
+          path="/singleplayer"
+          element={
+            <GameRoute>
+              <SinglePlayer />
+            </GameRoute>
+          }
+        >
+          <Route
+            path=":textId"
+            element={
+              <GameRoute>
+                <SinglePlayer />
+              </GameRoute>
+            }
+          />
         </Route>
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/leaderboard/:textId" element={<LeaderBoardDetail />} />
