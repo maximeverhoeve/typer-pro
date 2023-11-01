@@ -6,7 +6,7 @@ const getLeaderBoardJokes = async (): Promise<LeaderBoardObject[]> => {
   const jokesQuery = query(
     collection(firestore, 'leaderboard'),
     limit(10),
-    orderBy('last_updated', 'asc'),
+    orderBy('last_updated', 'desc'),
   );
 
   const querySnapshot = await getDocs(jokesQuery);

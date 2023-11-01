@@ -27,7 +27,7 @@ const ThreeEnvironment: React.FC = () => {
   };
 
   return (
-    <Box position="relative">
+    <Box position="relative" w="100vw">
       <AnimatePresence mode="wait">
         <motion.div
           style={{
@@ -54,6 +54,7 @@ const ThreeEnvironment: React.FC = () => {
         flat
         className="canvas"
         dpr={[1, 2]}
+        resize={{ debounce: 0 }}
         camera={{
           fov: 45,
           near: 0.1,

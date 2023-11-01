@@ -1,8 +1,8 @@
 import React, { useEffect, Suspense, PropsWithChildren } from 'react';
 
 interface Props {
-  onLoading: () => void;
-  onFinish: () => void;
+  onLoading?: () => void;
+  onFinish?: () => void;
 }
 
 const ThreeSuspense: React.FC<Props & PropsWithChildren> = ({
@@ -18,9 +18,9 @@ const ThreeSuspense: React.FC<Props & PropsWithChildren> = ({
 
 const ThreeSuspenseFallback: React.FC<Props> = ({ onLoading, onFinish }) => {
   useEffect(() => {
-    onLoading();
+    onLoading?.();
     return () => {
-      onFinish();
+      onFinish?.();
     };
   }, []);
   return null;

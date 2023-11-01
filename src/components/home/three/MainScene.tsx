@@ -6,6 +6,7 @@ import { Vector3 } from 'three';
 import useCanvasStore from '../../../store/useCanvasStore';
 import Player from './components/Player';
 import { ThreePosition } from '../../../types/three';
+import ThreeSuspense from './components/ThreeSuspense';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -42,26 +43,28 @@ const MainScene: React.FC = () => {
   }, []);
 
   return (
-    <group>
-      <directionalLight
-        position={[0, 10, 0.4]}
-        intensity={0.3}
-        castShadow
-        shadow-mapSize={[512, 512]}
-        shadow-camera-near={1}
-        shadow-camera-far={20}
-        shadow-camera-top={20}
-        shadow-camera-right={20}
-        shadow-camera-bottom={-20}
-        shadow-camera-left={-20}
-      />
-      <a.group position={position1}>
-        <Player />
-      </a.group>
-      <a.group position={position2} scale={scale}>
-        <Player color="#00CACA" />
-      </a.group>
-    </group>
+    <ThreeSuspense>
+      <group>
+        <directionalLight
+          position={[0, 10, 0.4]}
+          intensity={0.3}
+          castShadow
+          shadow-mapSize={[512, 512]}
+          shadow-camera-near={1}
+          shadow-camera-far={20}
+          shadow-camera-top={20}
+          shadow-camera-right={20}
+          shadow-camera-bottom={-20}
+          shadow-camera-left={-20}
+        />
+        <a.group position={position1}>
+          <Player />
+        </a.group>
+        <a.group position={position2} scale={scale}>
+          <Player color="#00CACA" />
+        </a.group>
+      </group>
+    </ThreeSuspense>
   );
 };
 
