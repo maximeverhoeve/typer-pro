@@ -1,16 +1,68 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import MultiplayerRoomTable from './components/room-table/MultiplayerRoomTable';
+import { Room } from './types/RoomTypes';
+import { Box, Center } from '@chakra-ui/react';
 
 const Multiplayer: React.FC = () => {
+  // Check if socket server is connecting, show loading
+  const rooms: Room[] = [
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+    { name: 'room 1', count: 3 },
+  ];
+
   return (
     <motion.div
-      style={{ flexGrow: 1 }}
-      initial={{ transform: 'scale(0.1)' }}
-      animate={{ transform: 'scale(1)' }}
-      exit={{ transform: 'scale(0.1)', opacity: 0 }}
-      transition={{ duration: 0.6 }}
+      style={{
+        width: '100%',
+      }}
+      initial={{ translateY: 100, opacity: 0 }}
+      animate={{ translateY: 0, opacity: 1 }}
+      exit={{ translateY: 0, opacity: 0 }}
     >
-      <p>Multiplayer</p>
+      <Center>
+        <Box maxW="2xl" w="100%">
+          <MultiplayerRoomTable rooms={rooms} onAddRoom={() => null} />
+        </Box>
+      </Center>
     </motion.div>
   );
 };
