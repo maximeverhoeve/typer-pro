@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MultiplayerRoomTable from './components/room-table/MultiplayerRoomTable';
 import { Room } from './types/RoomTypes';
 import { Center, Text, VStack, useDisclosure } from '@chakra-ui/react';
 import MultiPlayerRoomHeader from './components/MultiPlayerRoomHeader';
 import MultiplayerRoomAddModal from './components/add-room-modal/MultiplayerRoomAddModal';
+import { useSocket } from '../../hooks/useSocket';
 
 const rooms: Room[] = [
   { name: 'room 1', count: 3 },
@@ -25,7 +26,13 @@ const rooms: Room[] = [
 
 const Multiplayer: React.FC = () => {
   // Check if socket server is connecting, show loading
+  // const { socket } = useSocket();
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  useEffect(() => {
+    // emmit event to get all rooms
+    // socket.emit('')
+  }, []);
 
   return (
     <motion.div
