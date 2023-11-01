@@ -15,7 +15,7 @@ const MultiPlayerRoomHeader: React.FC<Props> = ({ onAddRoom }) => {
       <Button
         size="md"
         variant="outline"
-        onClick={() => null}
+        onClick={onAddRoom}
         leftIcon={<HiPlus />}
       >
         Add room
