@@ -8,6 +8,7 @@ import LeaderBoardDetail from './pages/LeaderboardDetail';
 import LeaderBoard from './features/leaderboard';
 import GameRoute from './components/GameRoute';
 import Multiplayer from './features/multiplayer';
+import MultiplayerLobby from './features/multiplayer/components/lobby/MultiplayerLobby';
 
 const Router: React.FC = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const Router: React.FC = () => {
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/leaderboard/:textId" element={<LeaderBoardDetail />} />
         <Route path="/multiplayer" element={<Multiplayer />} />
+        <Route path="/multiplayer/:room" element={<MultiplayerLobby />} />
       </Routes>
     </AnimatePresence>
   );
