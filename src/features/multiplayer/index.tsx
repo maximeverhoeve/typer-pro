@@ -9,19 +9,19 @@ const Multiplayer: React.FC = () => {
   // Check if socket server is connecting, show loading
   const rooms: Room[] = [
     { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
-    { name: 'room 1', count: 3 },
+    { name: 'room 2', count: 3 },
+    { name: 'room 3', count: 3 },
+    { name: 'room 4', count: 3 },
+    { name: 'room 5', count: 3 },
+    { name: 'room 6', count: 3 },
+    { name: 'room 7', count: 3 },
+    { name: 'room 8', count: 3 },
+    { name: 'room 9', count: 3 },
+    { name: 'room 10', count: 3 },
+    { name: 'room 11', count: 3 },
+    { name: 'room 12', count: 3 },
+    { name: 'room 13', count: 3 },
+    { name: 'room 14', count: 3 },
   ];
 
   return (

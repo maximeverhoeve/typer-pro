@@ -35,7 +35,7 @@ const SceneRouter: React.FC = () => {
       {
         {
           SINGLEPLAYER: <ThreeSingelplayer />,
-          MULTIPLAYER: <>multiplayer scene</>,
+          MULTIPLAYER: <></>,
           MAIN: <MainScene />,
           LEADERBOARD: <ThreeLeaderboard />,
         }[getScene()]
