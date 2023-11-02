@@ -26,7 +26,7 @@ const App: React.FC = () => {
   const debouncedPath = useDebounce<string>(pathname, 500);
 
   const getSceneHeight = (): string => {
-    if (debouncedPath.includes('multiplayer')) return '20%';
+    if (debouncedPath === '/multiplayer') return '20%';
     if (debouncedPath === '/leaderboard') return '40%';
     return '55%';
   };

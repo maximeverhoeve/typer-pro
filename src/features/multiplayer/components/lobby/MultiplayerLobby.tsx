@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
 import { Player } from '../../../../types/socketTypes';
 import MultiplayerRoomJoinModal from '../join-room-modal/MultiplayerRoomJoinModal';
+import PreGameLobby from '../../../../pages/PreGameLobby';
 
 /** Checking room validation */
 const MultiplayerLobby: React.FC = () => {
@@ -40,18 +41,7 @@ const MultiplayerLobby: React.FC = () => {
     return <MultiplayerRoomJoinModal room={room} isOpen />;
   }
 
-  return (
-    <Center>
-      <VStack>
-        <p>Welcome to room: {room}</p>
-        {players.map(({ nickname, id }) => (
-          <Text key={id} color={id === socket.id ? 'secondary' : 'white'}>
-            {nickname}
-          </Text>
-        ))}
-      </VStack>
-    </Center>
-  );
+  return <PreGameLobby players={players} />;
 };
 
 export default MultiplayerLobby;
