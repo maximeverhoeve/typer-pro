@@ -12,19 +12,12 @@ const MultiplayerRoomJoinForm: React.FC = () => {
   return (
     <VStack align="stretch" spacing="4">
       <VStack align="stretch">
-        <Text
-          sx={{
-            span: {
-              color: 'red',
-            },
-          }}
-        >
-          Nickname <span>*</span>
-        </Text>
+        <Text>Nickname</Text>
         <Input
           {...register('nickname')}
+          borderColor={errors.nickname ? 'red' : 'border'}
           _focus={{
-            borderColor: errors.nickname ? 'red' : undefined,
+            borderColor: errors.nickname ? 'red' : 'border',
             outline: 'none',
             boxShadow: 'none',
           }}

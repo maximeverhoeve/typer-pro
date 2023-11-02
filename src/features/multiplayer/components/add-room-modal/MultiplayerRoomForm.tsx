@@ -12,39 +12,24 @@ const MultiplayerRoomModalForm: React.FC = () => {
   return (
     <VStack align="stretch" spacing="4">
       <VStack align="stretch">
-        <Text
-          sx={{
-            span: {
-              color: 'red',
-            },
-          }}
-        >
-          Room name <span>*</span>
-        </Text>
+        <Text>Room name</Text>
         <Input
           {...register('room')}
-          borderColor={errors.room ? 'red' : undefined}
+          borderColor={errors.room ? 'red' : 'border'}
           _focus={{
-            borderColor: errors.room ? 'red' : undefined,
+            borderColor: errors.room ? 'red' : 'border',
             outline: 'none',
             boxShadow: 'none',
           }}
         />
       </VStack>
       <VStack align="stretch">
-        <Text
-          sx={{
-            span: {
-              color: 'red',
-            },
-          }}
-        >
-          Nickname <span>*</span>
-        </Text>
+        <Text>Nickname</Text>
         <Input
           {...register('nickname')}
+          borderColor={errors.room ? 'red' : 'border'}
           _focus={{
-            borderColor: errors.nickname ? 'red' : undefined,
+            borderColor: errors.nickname ? 'red' : 'border',
             outline: 'none',
             boxShadow: 'none',
           }}

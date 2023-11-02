@@ -1,13 +1,12 @@
-import { Button, HStack, IconButton, Text } from '@chakra-ui/react';
+import { Button, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
-import { HiPlus, HiRefresh } from 'react-icons/hi';
+import { HiPlus } from 'react-icons/hi';
 
 interface Props {
   onAddRoom: () => void;
-  onRefresh: () => void;
 }
 
-const MultiPlayerRoomHeader: React.FC<Props> = ({ onAddRoom, onRefresh }) => {
+const MultiPlayerRoomHeader: React.FC<Props> = ({ onAddRoom }) => {
   return (
     <HStack spacing="2" justify="space-between">
       <Text fontSize="2xl" fontWeight="600" flexGrow="1">
@@ -21,13 +20,6 @@ const MultiPlayerRoomHeader: React.FC<Props> = ({ onAddRoom, onRefresh }) => {
       >
         Add room
       </Button>
-      <IconButton
-        size="md"
-        variant="outline"
-        onClick={onRefresh}
-        aria-label="refresh"
-        icon={<HiRefresh />}
-      />
     </HStack>
   );
 };

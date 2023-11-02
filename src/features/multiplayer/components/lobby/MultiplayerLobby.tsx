@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Center } from '@chakra-ui/react';
+import { Center, Text, VStack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
 import { Player } from '../../../../types/socketTypes';
@@ -42,7 +42,14 @@ const MultiplayerLobby: React.FC = () => {
 
   return (
     <Center>
-      <p>Welcome to room: {room}</p>
+      <VStack>
+        <p>Welcome to room: {room}</p>
+        {players.map(({ nickname, id }) => (
+          <Text key={id} color={id === socket.id ? 'secondary' : 'white'}>
+            {nickname}
+          </Text>
+        ))}
+      </VStack>
     </Center>
   );
 };

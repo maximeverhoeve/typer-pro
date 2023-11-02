@@ -17,10 +17,6 @@ const Multiplayer: React.FC = () => {
     setRooms(rooms);
   };
 
-  const handleRefresh = (): void => {
-    socket.emit('rooms:request');
-  };
-
   useEffect(() => {
     // emmit event to get all rooms
     socket.emit('rooms:request');
@@ -52,7 +48,7 @@ const Multiplayer: React.FC = () => {
       <MultiplayerRoomAddModal isOpen={isOpen} onClose={onClose} />
       <Center>
         <VStack spacing="4" align="stretch" maxW="2xl" w="100%">
-          <MultiPlayerRoomHeader onAddRoom={onOpen} onRefresh={handleRefresh} />
+          <MultiPlayerRoomHeader onAddRoom={onOpen} />
           <MultiplayerRoomTable rooms={rooms} onAddRoom={onOpen} />
           {rooms.length && (
             <Text align="center">{rooms.length} rooms online</Text>
