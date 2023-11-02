@@ -7,7 +7,7 @@ import {
 import { useBoolean } from '@chakra-ui/react';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  process.env.VITE_SERVER_URL || '',
+  import.meta.env.VITE_SERVER_URL || '',
   { transports: ['websocket'] },
 );
 
