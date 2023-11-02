@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Tbody, Td, Text, Tr, VStack } from '@chakra-ui/react';
 import { Room } from '../../types/RoomTypes';
 import { HiPlus } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 interface Props {
   rooms: Room[];
@@ -42,7 +43,13 @@ const MultiplayerRoomTableBody: React.FC<Props> = ({ rooms, onAdd }) => {
             </Td>
             <Td>{count} / 4</Td>
             <Td textAlign="end">
-              <Button size="sm" variant="outline" isDisabled={isDisabled}>
+              <Button
+                as={isDisabled ? undefined : Link}
+                to={`/multiplayer/${name}`}
+                size="sm"
+                variant="outline"
+                isDisabled={isDisabled}
+              >
                 Join
               </Button>
             </Td>

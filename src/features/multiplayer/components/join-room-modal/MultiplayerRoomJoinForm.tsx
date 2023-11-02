@@ -1,9 +1,9 @@
 import React from 'react';
 import { VStack, Text, Input } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
-import { RoomInputs } from './MultiplayerRoomAddModal';
+import { RoomInputs } from './MultiplayerRoomJoinModal';
 
-const MultiplayerRoomModalForm: React.FC = () => {
+const MultiplayerRoomJoinForm: React.FC = () => {
   const {
     register,
     formState: { errors },
@@ -11,26 +11,6 @@ const MultiplayerRoomModalForm: React.FC = () => {
 
   return (
     <VStack align="stretch" spacing="4">
-      <VStack align="stretch">
-        <Text
-          sx={{
-            span: {
-              color: 'red',
-            },
-          }}
-        >
-          Room name <span>*</span>
-        </Text>
-        <Input
-          {...register('room')}
-          borderColor={errors.room ? 'red' : undefined}
-          _focus={{
-            borderColor: errors.room ? 'red' : undefined,
-            outline: 'none',
-            boxShadow: 'none',
-          }}
-        />
-      </VStack>
       <VStack align="stretch">
         <Text
           sx={{
@@ -54,4 +34,4 @@ const MultiplayerRoomModalForm: React.FC = () => {
   );
 };
 
-export default MultiplayerRoomModalForm;
+export default MultiplayerRoomJoinForm;
