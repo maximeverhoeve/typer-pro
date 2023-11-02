@@ -9,6 +9,7 @@ export default defineConfig(() => {
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
     define: {
       __APP_ENV__: process.env.VITE_VERCEL_ENV,
+      VITE_SERVER_URL: process.env.VITE_SERVER_URL,
     },
   };
 });
