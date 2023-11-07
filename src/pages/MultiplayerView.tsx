@@ -1,6 +1,5 @@
 import React from 'react';
 // import useGameContext from '../hooks/useGameContext';
-import Game from './Game';
 import PreGameLobby from './PreGameLobby';
 
 const MultiplayerView: React.FC = () => {
@@ -10,7 +9,7 @@ const MultiplayerView: React.FC = () => {
   //   return <Game />;
   // }
 
-  return <PreGameLobby />;
+  return <PreGameLobby players={[]} />;
 };
 
 export default MultiplayerView;
