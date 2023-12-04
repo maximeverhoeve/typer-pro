@@ -2,6 +2,7 @@ import { Room } from '../features/multiplayer/types/RoomTypes';
 
 export interface Player {
   nickname: string;
+  isLoaded: boolean;
   isReady: boolean;
   progress: number; // percentage
   id: string;

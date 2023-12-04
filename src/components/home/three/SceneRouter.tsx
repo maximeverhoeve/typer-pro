@@ -6,6 +6,7 @@ import ThreeLeaderboard from './Leaderboard/ThreeLeaderboard';
 import { useDebounce } from 'usehooks-ts';
 import { Text } from '@react-three/drei';
 import ThreePreGameLobby from './multiplayer/ThreePreGameLobby';
+import ThreeMultiplayerGame from './multiplayer/ThreeMultiplayerGame';
 
 enum SCENE {
   SINGLEPLAYER = 'SINGLEPLAYER',
@@ -47,7 +48,7 @@ const SceneRouter: React.FC = () => {
           SINGLEPLAYER: <ThreeSingelplayer />,
           MULTIPLAYER_FINISH: <Text>Finish</Text>,
           PREGAME_LOBBY: <ThreePreGameLobby />,
-          MULTIPLAYER: <Text>GAME</Text>,
+          MULTIPLAYER: <ThreeMultiplayerGame />,
           MAIN: <MainScene />,
           LEADERBOARD: <ThreeLeaderboard />,
           EMPTY: <></>,
