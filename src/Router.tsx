@@ -9,6 +9,8 @@ import LeaderBoard from './features/leaderboard';
 import GameRoute from './components/GameRoute';
 import Multiplayer from './features/multiplayer';
 import MultiplayerLobby from './features/multiplayer/components/lobby/MultiplayerLobby';
+import MultiplayerGame from './pages/MultiplayerGame';
+import PreGameLobby from './pages/PreGameLobby';
 
 const Router: React.FC = () => {
   const location = useLocation();
@@ -16,6 +18,9 @@ const Router: React.FC = () => {
   const getKeyForAnimationChange = (): string => {
     if (location.pathname.includes('/singleplayer/')) {
       return '/singleplayer';
+    }
+    if (location.pathname.includes('/multiplayer/')) {
+      return '/multiplayer';
     }
     return location.pathname;
   };
@@ -45,7 +50,10 @@ const Router: React.FC = () => {
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/leaderboard/:textId" element={<LeaderBoardDetail />} />
         <Route path="/multiplayer" element={<Multiplayer />} />
-        <Route path="/multiplayer/:room" element={<MultiplayerLobby />} />
+        <Route path="/multiplayer/:room" element={<MultiplayerLobby />}>
+          <Route path="" element={<PreGameLobby />} />
+          <Route path="game" element={<MultiplayerGame />} />
+        </Route>
       </Routes>
     </AnimatePresence>
   );

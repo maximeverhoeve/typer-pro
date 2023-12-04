@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Center } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
 import MultiplayerRoomJoinModal from '../join-room-modal/MultiplayerRoomJoinModal';
-import PreGameLobby from '../../../../pages/PreGameLobby';
 import useMultiplayerStore from '../../../../store/useMultiplayerStore';
 
 /** Checking room validation */
@@ -42,7 +41,7 @@ const MultiplayerLobby: React.FC = () => {
     return <MultiplayerRoomJoinModal room={room} isOpen />;
   }
 
-  return <PreGameLobby players={players} />;
+  return <Outlet />;
 };
 
 export default MultiplayerLobby;

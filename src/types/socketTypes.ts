@@ -19,6 +19,8 @@ export interface ServerToClientEvents {
   'room:joined': (p: { room: string; nickname: string }) => void;
   'room:left': () => void;
   'room:update': (players: Player[]) => void;
+  'room:update-countdown': (countdown: number) => void;
+  'room:countdown-ended': () => void;
   'rooms:get': (rooms: Room[]) => void;
   'game:started': (text: string) => void;
 }

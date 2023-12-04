@@ -1,19 +1,32 @@
-import { Button, Center, HStack, VStack } from '@chakra-ui/react';
-import React from 'react';
+import { Button, Center, HStack, Text, VStack } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
-import { Player } from '../types/socketTypes';
 import { useSocket } from '../hooks/useSocket';
 import MultiplayerLobbyTable from '../features/multiplayer/components/lobby/lobby-table/MultiplayerLobbyTable';
 import MultiplayerLobbyPlayerSettings from '../features/multiplayer/components/lobby/MultiplayerLobbyPlayerSettings';
+import { useNavigate, useParams } from 'react-router-dom';
+import useMultiplayerStore from '../store/useMultiplayerStore';
 
-interface Props {
-  players: Player[];
-}
-
-const PreGameLobby: React.FC<Props> = ({ players }) => {
+const PreGameLobby: React.FC = () => {
+  const players = useMultiplayerStore((state) => state.players);
+  const { room } = useParams<{ room: string }>();
   const { socket } = useSocket();
+  const navigate = useNavigate();
+  const [countdown, setCountdown] = useState<number>();
   const me = players.find(({ id }) => id === socket.id);
+
+  useEffect(() => {
+    socket.on('room:update-countdown', (_count) => {
+      setCountdown(_count);
+    });
+    socket.on('room:countdown-ended', handleStart);
+
+    return () => {
+      socket.off('room:update-countdown');
+      socket.off('room:countdown-ended');
+    };
+  }, []);
 
   const handleClickReady = (): void => {
     // Toggle ready
@@ -23,7 +36,9 @@ const PreGameLobby: React.FC<Props> = ({ players }) => {
   };
 
   const handleStart = (): void => {
-    // socket.emit('game:start');
+    if (room) {
+      navigate(`/multiplayer/${room}/game`);
+    }
   };
 
   const isEveryPlayerReady = players.every((p) => p.isReady);
@@ -31,6 +46,8 @@ const PreGameLobby: React.FC<Props> = ({ players }) => {
   return (
     <Center>
       <VStack align="stretch" spacing="4" w="100%" maxW="xl">
+        {isEveryPlayerReady && <Text>Game starting in {countdown}</Text>}
+
         <MultiplayerLobbyTable players={players} />
         <HStack justify="space-between" align="center">
           {me && <MultiplayerLobbyPlayerSettings player={me} />}
