@@ -37,7 +37,7 @@ const App: React.FC = () => {
         {/*  <GameContext.Provider value={gameContextValues}> */}
         <MittProvider>
           <ChakraProvider theme={customThemeDark}>
-            <Leva collapsed />
+            <Leva collapsed hidden />
             <Grid
               templateRows={`${getSceneHeight()} auto`}
               bg="background"

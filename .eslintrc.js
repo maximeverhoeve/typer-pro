@@ -66,6 +66,7 @@ module.exports = {
     'arrow-spacing': 'warn',
     'no-empty-function': 'warn',
     'multiline-ternary': 'off',
+    curly: 'off',
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',

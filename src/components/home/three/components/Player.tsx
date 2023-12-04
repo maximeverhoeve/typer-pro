@@ -28,7 +28,7 @@ type RefMesh = Group;
 // 9D9D9D_4E4E4E_646464_6C6C6C
 // 555555_C8C8C8_8B8B8B_A4A4A4 -> very good
 
-const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
+const Player = forwardRef<RefMesh, Props & GroupProps>(
   ({ color = '#e70087', isGhost, animation = 'Standing', ...props }, ref) => {
     const [Texture] = useMatcapTexture('9D9D9D_4E4E4E_646464_6C6C6C', 256);
     const { enableCustomColor, debugColor } = useControls(
@@ -110,5 +110,5 @@ const PlayerTwo = forwardRef<RefMesh, Props & GroupProps>(
   },
 );
 
-export default PlayerTwo;
+export default Player;
 useGLTF.preload('/player-2.glb');

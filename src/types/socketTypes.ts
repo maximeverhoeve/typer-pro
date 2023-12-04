@@ -5,6 +5,7 @@ export interface Player {
   isReady: boolean;
   progress: number; // percentage
   id: string;
+  color: string;
 }
 
 export interface Message {
@@ -27,6 +28,7 @@ export interface ClientToServerEvents {
   'room:leave': () => void;
   'rooms:request': () => void;
   'room:request': (room: string) => void;
+  'player:update': (payload: Partial<Player>) => void;
   'player:update-ready': (isReady: boolean) => void;
   'player:progress': (progress: number) => void;
   'game:start': () => void;

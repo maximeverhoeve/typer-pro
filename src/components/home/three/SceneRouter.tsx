@@ -4,12 +4,17 @@ import MainScene from './MainScene';
 import ThreeSingelplayer from './Singleplayer/ThreeSingleplayer';
 import ThreeLeaderboard from './Leaderboard/ThreeLeaderboard';
 import { useDebounce } from 'usehooks-ts';
+import { Text } from '@react-three/drei';
+import ThreePreGameLobby from './multiplayer/ThreePreGameLobby';
 
 enum SCENE {
   SINGLEPLAYER = 'SINGLEPLAYER',
+  PREGAME_LOBBY = 'PREGAME_LOBBY',
+  MULTIPLAYER_FINISH = 'MULTIPLAYER_FINISH',
   MULTIPLAYER = 'MULTIPLAYER',
   LEADERBOARD = 'LEADERBOARD',
   MAIN = 'MAIN',
+  EMPTY = 'EMPTY',
 }
 
 const SceneRouter: React.FC = () => {
@@ -21,10 +26,15 @@ const SceneRouter: React.FC = () => {
     return pathname;
   };
   const debouncedPath = useDebounce<string>(getPathnameWithConvertion(), 500);
+  const pregameLobbyRegex = /^\/multiplayer\/[a-zA-Z0-9]+$/;
 
   const getScene = (): SCENE => {
     if (debouncedPath.includes('singleplayer')) return SCENE.SINGLEPLAYER;
-    if (debouncedPath.includes('multiplayer')) return SCENE.MULTIPLAYER;
+    if (pregameLobbyRegex.test(debouncedPath)) return SCENE.PREGAME_LOBBY;
+    if (debouncedPath.includes('/multiplayer/finish'))
+      return SCENE.MULTIPLAYER_FINISH;
+    if (debouncedPath === '/multiplayer') return SCENE.EMPTY;
+    if (debouncedPath.includes('/multiplayer')) return SCENE.MULTIPLAYER;
     if (debouncedPath === '/leaderboard') return SCENE.MAIN;
     if (debouncedPath.includes('leaderboard/')) return SCENE.LEADERBOARD;
     return SCENE.MAIN;
@@ -35,9 +45,12 @@ const SceneRouter: React.FC = () => {
       {
         {
           SINGLEPLAYER: <ThreeSingelplayer />,
-          MULTIPLAYER: <></>,
+          MULTIPLAYER_FINISH: <Text>Finish</Text>,
+          PREGAME_LOBBY: <ThreePreGameLobby />,
+          MULTIPLAYER: <Text>GAME</Text>,
           MAIN: <MainScene />,
           LEADERBOARD: <ThreeLeaderboard />,
+          EMPTY: <></>,
         }[getScene()]
       }
     </>

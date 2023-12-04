@@ -5,6 +5,7 @@ import { IoClose } from 'react-icons/io5';
 import { Player } from '../types/socketTypes';
 import { useSocket } from '../hooks/useSocket';
 import MultiplayerLobbyTable from '../features/multiplayer/components/lobby/lobby-table/MultiplayerLobbyTable';
+import MultiplayerLobbyPlayerSettings from '../features/multiplayer/components/lobby/MultiplayerLobbyPlayerSettings';
 
 interface Props {
   players: Player[];
@@ -29,9 +30,10 @@ const PreGameLobby: React.FC<Props> = ({ players }) => {
 
   return (
     <Center>
-      <VStack align="stretch" spacing="2" w="100%" maxW="xl">
+      <VStack align="stretch" spacing="4" w="100%" maxW="xl">
         <MultiplayerLobbyTable players={players} />
-        <HStack justify="flex-end">
+        <HStack justify="space-between" align="center">
+          {me && <MultiplayerLobbyPlayerSettings player={me} />}
           <Button
             isDisabled={players.length < 2}
             leftIcon={me?.isReady ? <IoClose size="20px" /> : <FaCheck />}

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Center, Text, VStack } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { Center } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
-import { Player } from '../../../../types/socketTypes';
 import MultiplayerRoomJoinModal from '../join-room-modal/MultiplayerRoomJoinModal';
 import PreGameLobby from '../../../../pages/PreGameLobby';
+import useMultiplayerStore from '../../../../store/useMultiplayerStore';
 
 /** Checking room validation */
 const MultiplayerLobby: React.FC = () => {
   const { socket } = useSocket();
   const { room } = useParams<{ room: string }>();
-  const [players, setPlayers] = useState<Player[]>([]);
+  const players = useMultiplayerStore((state) => state.players);
+  const setPlayers = useMultiplayerStore((state) => state.setPlayers);
   const isInList = players.some(({ id }) => id === socket.id);
   const isFull = !isInList && players.length >= 4;
 
