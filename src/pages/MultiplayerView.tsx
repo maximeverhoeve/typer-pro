@@ -9,7 +9,7 @@ const MultiplayerView: React.FC = () => {
   //   return <Game />;
   // }
 
-  return <PreGameLobby players={[]} />;
+  return <PreGameLobby />;
 };
 
 export default MultiplayerView;
