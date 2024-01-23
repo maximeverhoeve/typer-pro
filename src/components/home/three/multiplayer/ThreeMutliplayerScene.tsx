@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
-import MovingGhost from '../../../../features/singleplayer/components/MovingGhost';
 import SinglePlayerEnvironment from '../Singleplayer/SinglePlayerEnvironment';
 import useMultiplayerStore from '../../../../store/useMultiplayerStore';
 import { useSocket } from '../../../../hooks/useSocket';
@@ -82,7 +81,6 @@ const ThreeMutliplayerScene: React.FC = () => {
             playerOffset={-(index + 0.5)}
           />
         ))}
-      <MovingGhost />
     </>
   );
 };
