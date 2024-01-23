@@ -20,7 +20,7 @@ Welcome to the TyperPro Game! This web application combines the excitement of a 
   - Dynamic ThreeJS scene visualizing the player's progress.
 
 - **Multiplayer Mode:**
-  - Real-time multiplayer functionality with SocketIO. [See backend ->](#backend-repository)
+  - Real-time multiplayer functionality with SocketIO.
   - Create/join rooms with up to 4 players, race against each other, and see live progress.
 
 
