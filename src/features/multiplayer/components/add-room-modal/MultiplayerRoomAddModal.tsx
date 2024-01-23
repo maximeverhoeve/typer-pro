@@ -28,8 +28,8 @@ export interface RoomInputs {
 }
 
 const validationSchema = object({
-  nickname: string().required(),
-  room: string().required(),
+  nickname: string().max(10).required(),
+  room: string().max(10).required(),
   pass: string(),
 });
 
@@ -42,7 +42,11 @@ const MultiplayerRoomAddModal: React.FC<Props> = ({ onClose, isOpen }) => {
 
   const handleSubmit = methods.handleSubmit((values) => {
     // create room
-    socket.emit('room:join', { room: values.room, nickname: values.nickname });
+    const cleanedRoomName = values.room.replace(' ', '-');
+    socket.emit('room:join', {
+      room: cleanedRoomName,
+      nickname: values.nickname,
+    });
     // when done and success
     navigate(`/multiplayer/${values.room}`);
   });
