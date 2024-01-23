@@ -26,7 +26,7 @@ export interface RoomInputs {
 }
 
 const validationSchema = object({
-  nickname: string().required(),
+  nickname: string().max(15).required(),
 });
 
 const MultiplayerRoomJoinModal: React.FC<Props> = ({ room, isOpen }) => {

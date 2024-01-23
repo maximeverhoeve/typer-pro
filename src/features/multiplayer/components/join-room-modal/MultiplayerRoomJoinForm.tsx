@@ -16,13 +16,16 @@ const MultiplayerRoomJoinForm: React.FC = () => {
         <Input
           {...register('nickname')}
           maxLength={20}
-          borderColor={errors.nickname ? 'red' : 'border'}
+          borderColor={errors.nickname ? 'red.300' : 'border'}
           _focus={{
-            borderColor: errors.nickname ? 'red' : 'border',
+            borderColor: errors.nickname ? 'red.300' : 'border',
             outline: 'none',
             boxShadow: 'none',
           }}
         />
+        {!!errors.nickname && (
+          <Text color="red.300">{errors.nickname.message}</Text>
+        )}
       </VStack>
     </VStack>
   );
