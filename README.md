@@ -2,11 +2,6 @@
 
 Welcome to the TyperPro Game! This web application combines the excitement of a typing game with a ThreeJS-powered environment. Race against yourself, challenge friends in multiplayer mode, and try to beat the highest words per minute (WPM) and accuracy scores.
 
-## Table of Contents
-- [Demo](#demo)
-- [Features](#features)
-- [Backend Repository](#backend-repository)
-
 ## Demo
 
 TBD
