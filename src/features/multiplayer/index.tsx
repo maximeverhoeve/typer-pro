@@ -45,7 +45,11 @@ const Multiplayer: React.FC = () => {
       animate={{ translateY: 0, opacity: 1 }}
       exit={{ translateY: 0, opacity: 0 }}
     >
-      <MultiplayerRoomAddModal isOpen={isOpen} onClose={onClose} />
+      <MultiplayerRoomAddModal
+        isOpen={isOpen}
+        onClose={onClose}
+        rooms={rooms}
+      />
       <Center>
         <VStack spacing="4" align="stretch" maxW="2xl" w="100%">
           <MultiPlayerRoomHeader onAddRoom={onOpen} />

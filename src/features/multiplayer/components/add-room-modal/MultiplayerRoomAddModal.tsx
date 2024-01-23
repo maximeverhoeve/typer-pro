@@ -15,10 +15,12 @@ import { object, string } from 'yup';
 import MultiplayerRoomModalForm from './MultiplayerRoomForm';
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
+import { Room } from '../../types/RoomTypes';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  rooms: Room[];
 }
 
 export interface RoomInputs {
@@ -27,15 +29,28 @@ export interface RoomInputs {
   pass?: string;
 }
 
-const validationSchema = object({
-  nickname: string().max(15).required(),
-  room: string().max(15).required(),
-  pass: string(),
-});
-
-const MultiplayerRoomAddModal: React.FC<Props> = ({ onClose, isOpen }) => {
+const MultiplayerRoomAddModal: React.FC<Props> = ({
+  onClose,
+  isOpen,
+  rooms,
+}) => {
   const navigate = useNavigate();
   const { socket } = useSocket();
+  const roomNames = rooms.map(({ name }) => name);
+
+  const validationSchema = object({
+    nickname: string().max(15).required(),
+    room: string()
+      .max(15)
+      .required()
+      .test({
+        test: (value) => !roomNames.includes(value),
+        name: 'Room name already exists',
+        message: 'Room name already exists',
+      }),
+    pass: string(),
+  });
+
   const methods = useForm<RoomInputs>({
     resolver: yupResolver(validationSchema),
   });
