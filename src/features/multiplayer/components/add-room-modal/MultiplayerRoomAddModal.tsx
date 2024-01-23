@@ -28,8 +28,8 @@ export interface RoomInputs {
 }
 
 const validationSchema = object({
-  nickname: string().max(10).required(),
-  room: string().max(10).required(),
+  nickname: string().max(15).required(),
+  room: string().max(15).required(),
   pass: string(),
 });
 
