@@ -2,7 +2,7 @@
 import { a, useSpringValue } from '@react-spring/three';
 import React, { Suspense, useEffect, useLayoutEffect } from 'react';
 import useSinglePlayerStore from '../../../store/useSinglePlayerStore';
-import Player from '../../../components/home/three/components/Player';
+import Player from '../../../components/three/components/Player';
 import { useBoolean } from '@chakra-ui/react';
 
 const MovingGhost: React.FC = () => {

@@ -1,22 +1,21 @@
-/**
- * @deprecated
- */
-
 import { Flex, Input, VStack } from '@chakra-ui/react';
 import React from 'react';
-import PlayersProgressView from '../components/game/PlayersProgressView';
-import RoomLeaderboard from '../components/game/RoomLeaderboard';
-import ShowedText from '../components/ShowedText';
-import useGameContext from '../hooks/useGameContext';
-import useTyper from '../hooks/useTyper';
+import PlayersProgressView from '../components/legacy/game/PlayersProgressView';
+import RoomLeaderboard from '../components/legacy/game/RoomLeaderboard';
+import ShowedText from '../components/legacy/ShowedText';
+import useTyper from '../hooks/legacy/useTyper';
 
 export interface Stats {
   cpm: number;
   wpm: number;
 }
 
+/**
+ * @deprecated Old component that is not used anymore, removed once first finished version comes out
+ */
 const Game: React.FC = () => {
-  const { textToType: text } = useGameContext();
+  // const { textToType: text } = useGameContext();
+  const text = 'text';
 
   const {
     textToType,

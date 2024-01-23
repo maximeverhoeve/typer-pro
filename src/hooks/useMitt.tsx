@@ -16,4 +16,9 @@ export const MittProvider: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
+/**
+ * Used for communicating between the react components and the react three fiber components
+ * Using this instead of listing to state updates in a useEffect to prevent unneed rerenders or states that are behind
+ * Works like custom event listeners
+ */
 export const useMitt = (): MittContextType => useContext(MittContext);

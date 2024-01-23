@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Center, Spinner, Text, VStack } from '@chakra-ui/react';
 import useJoke from '../../hooks/useJoke';
-import TypingContainer from '../../components/TypingContainer';
+import TypingContainer from './components/TypingContainer';
 import { motion } from 'framer-motion';
 import usePostScore from './hooks/usePostScore';
 import { useNavigate, useParams } from 'react-router-dom';

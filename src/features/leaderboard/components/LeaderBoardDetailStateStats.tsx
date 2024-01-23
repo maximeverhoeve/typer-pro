@@ -7,7 +7,7 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react';
-import { Stats } from '../../../hooks/useTyper';
+import { Stats } from '../../../hooks/legacy/useTyper';
 import CountUp from 'react-countup';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';

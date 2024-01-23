@@ -10,7 +10,7 @@ import useSinglePlayerStore from '../../../store/useSinglePlayerStore';
 import { Group } from 'three';
 import Player, {
   PlayerAnimation,
-} from '../../../components/home/three/components/Player';
+} from '../../../components/three/components/Player';
 import { gsap } from 'gsap';
 import { useMitt } from '../../../hooks/useMitt';
 import { useNavigate } from 'react-router-dom';

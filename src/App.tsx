@@ -1,13 +1,11 @@
 import { Box, ChakraProvider, Grid, useBoolean } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
-// import useSocketInit, { SocketContext } from './hooks/useSocketInit';
-// import useGameInit, { GameContext } from './hooks/useGameInit';
 import { customThemeDark } from './theme';
 import Header from './components/Header';
 import Router from './Router';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ThreeEnvironment from './components/home/three/environment/ThreeEnvironment';
+import ThreeEnvironment from './components/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
 import { MittProvider } from './hooks/useMitt';
 import { useLocation } from 'react-router-dom';
@@ -17,9 +15,6 @@ import { SocketProvider } from './hooks/useSocket';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  // TEMP DISABLING WHILE CODING STYLING
-  // const socketContextValues = useSocketInit();
-  // const gameContextValues = useGameInit();
   const { pathname } = useLocation();
   const [transitionEnded, setTransitionEnded] = useBoolean();
   /** Debounced because of animations */
@@ -34,7 +29,6 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <SocketProvider>
-        {/*  <GameContext.Provider value={gameContextValues}> */}
         <MittProvider>
           <ChakraProvider theme={customThemeDark}>
             <Leva collapsed hidden />
@@ -54,7 +48,6 @@ const App: React.FC = () => {
               <ThreeEnvironment />
               <Header onTransitionEnd={setTransitionEnded.on} />
               <Box
-                // templateRows="30vh auto 30vh"
                 transition="0.2s"
                 w="100%"
                 position="relative"
@@ -76,7 +69,6 @@ const App: React.FC = () => {
           </ChakraProvider>
         </MittProvider>
       </SocketProvider>
-      {/* </GameContext.Provider> */}
     </QueryClientProvider>
   );
 };

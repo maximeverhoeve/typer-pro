@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import SinglePlayerLeaderboard from '../features/leaderboard/detail';
 import { motion } from 'framer-motion';
-import { Stats } from '../hooks/useTyper';
+import { Stats } from '../hooks/legacy/useTyper';
 import LeaderBoardDetailStateStats from '../features/leaderboard/components/LeaderBoardDetailStateStats';
 import LeaderBoardDetailActions from '../features/leaderboard/components/LeaderBoardDetailActions';
 

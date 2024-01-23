@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, VStack } from '@chakra-ui/react';
-import LinkBox from '../components/home/LinkBox';
+import LinkBox from '../components/LinkBox';
 import useCanvasStore from '../store/useCanvasStore';
 import usePlayerStore from '../store/usePlayerStore';
 

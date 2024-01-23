@@ -9,7 +9,7 @@ import React, {
 import { Group } from 'three';
 import Player, {
   PlayerAnimation,
-} from '../../../components/home/three/components/Player';
+} from '../../../components/three/components/Player';
 import { gsap } from 'gsap';
 
 interface Props {
