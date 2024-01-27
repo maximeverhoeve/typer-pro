@@ -27,6 +27,8 @@ const MultiplayerRoomModalForm: React.FC = () => {
             <>
               <Input
                 {...field}
+                /** Adding value manually to make sure it is a controlled input */
+                value={field.value as string}
                 onChange={(e) => handleRoomChange(e, field.onChange)}
                 borderColor={errors.room ? 'red.300' : 'border'}
                 _focus={{
