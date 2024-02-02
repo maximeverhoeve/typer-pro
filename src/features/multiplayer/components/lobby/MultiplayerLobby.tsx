@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import { useSocket } from '../../../../hooks/useSocket';
 import MultiplayerRoomJoinModal from '../join-room-modal/MultiplayerRoomJoinModal';
 import useMultiplayerStore from '../../../../store/useMultiplayerStore';
+import useRoomState from '../../../../store/useRoomState';
 
 /** Checking room validation */
 const MultiplayerLobby: React.FC = () => {
@@ -13,10 +14,18 @@ const MultiplayerLobby: React.FC = () => {
   const setPlayers = useMultiplayerStore((state) => state.setPlayers);
   const isInList = players.some(({ id }) => id === socket.id);
   const isFull = !isInList && players.length >= 4;
+  const roomStatus = useRoomState((state) => state.status);
+  const countdown = useRoomState((state) => state.countdown);
+  const resetRoomState = useRoomState((state) => state.reset);
 
   useEffect(() => {
     socket.on('room:update', (_players) => {
       setPlayers(_players);
+    });
+
+    /** Update roomState to be in sync with server */
+    socket.on('roomstate:update', (roomState) => {
+      useRoomState.setState(roomState);
     });
 
     if (room) {
@@ -25,7 +34,9 @@ const MultiplayerLobby: React.FC = () => {
 
     return () => {
       socket.off('room:update');
+      socket.off('roomstate:update');
       socket.emit('room:leave');
+      resetRoomState();
     };
   }, []);
 
@@ -41,7 +52,12 @@ const MultiplayerLobby: React.FC = () => {
     return <MultiplayerRoomJoinModal room={room} isOpen />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      {`${roomStatus} - ${countdown}`}
+    </>
+  );
 };
 
 export default MultiplayerLobby;

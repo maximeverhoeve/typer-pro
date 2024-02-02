@@ -8,12 +8,13 @@ const ThreeMultiplayerGame: React.FC = () => {
   const { socket } = useSocket();
 
   const handlePlayerLoaded = (): void => {
-    socket.emit('player:update', { isLoaded: true });
+    // !! this will not trigger when component was already loaded before
   };
 
   useEffect(() => {
     return () => {
       socket.emit('player:update', { isLoaded: false });
+      socket.emit('player:update-ready', false);
     };
   }, []);
 

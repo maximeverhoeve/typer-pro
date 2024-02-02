@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { DirectionalLight, Group } from 'three';
 import gsap from 'gsap';
@@ -14,6 +14,13 @@ const ThreeMutliplayerScene: React.FC = () => {
   const { socket } = useSocket();
   const players = useMultiplayerStore((state) => state.players);
   const me = players.find(({ id }) => id === socket.id);
+
+  useEffect(() => {
+    socket.emit('player:update', { isLoaded: true });
+    return () => {
+      socket.emit('player:update', { isLoaded: false });
+    };
+  }, []);
 
   useLayoutEffect(() => {
     gsap.set(camera.position, { x: -15, z: 0, y: 10 });
