@@ -30,6 +30,7 @@ export interface RoomState {
   name: string;
   status: RoomStatus;
   countdown: number;
+  text?: string;
 }
 
 export interface ServerToClientEvents {

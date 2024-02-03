@@ -1,14 +1,13 @@
-import { Center } from '@chakra-ui/react';
+import { Box, Center, Spinner } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { useSocket } from '../hooks/useSocket';
 import useTyping from 'react-typing-game-hook';
 import TypingInput from '../features/singleplayer/components/TypingInput';
+import useRoomState from '../store/useRoomState';
 
 const MultiplayerGame: React.FC = () => {
   const { socket } = useSocket();
-
-  const text =
-    'This is a test text to test out the typing container for multiplayer games. Please enjoy';
+  const text = useRoomState((state) => state.text);
   const typerProps = useTyping(text, {
     skipCurrentWordOnSpace: false,
     pauseOnError: true,
@@ -25,7 +24,13 @@ const MultiplayerGame: React.FC = () => {
 
   return (
     <Center>
-      <TypingInput {...typerProps} text={text} onRestart={() => null} />
+      {text ? (
+        <Box maxW="3xl">
+          <TypingInput {...typerProps} text={text} onRestart={() => null} />
+        </Box>
+      ) : (
+        <Spinner />
+      )}
     </Center>
   );
 };

@@ -5,6 +5,7 @@ interface RoomState {
   name?: string;
   status: RoomStatus;
   countdown: number;
+  text?: string;
 }
 
 interface Actions {
