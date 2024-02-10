@@ -7,6 +7,7 @@ import useMultiplayerStore from '../../../store/useMultiplayerStore';
 import { useSocket } from '../../../hooks/useSocket';
 import { Html } from '@react-three/drei';
 import { Box } from '@chakra-ui/react';
+import { Player as PlayerType } from '../../../types/socketTypes';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -33,6 +34,12 @@ const ThreePreGameLobby: React.FC = () => {
     return -(count / 2) * 1.5;
   };
 
+  const getBoxColor = (player: PlayerType): string => {
+    if (player.isLoaded) return '#DD6B20';
+    if (player.isReady) return '#276749';
+    return '#9B2C2C';
+  };
+
   return (
     <ThreeSuspense>
       <group>
@@ -57,7 +64,7 @@ const ThreePreGameLobby: React.FC = () => {
               <Html position={[-0.1, 0.75, 0]} center transform scale={0.2}>
                 <Box
                   p="3"
-                  bg={player.isReady ? '#276749' : '#9B2C2C'}
+                  bg={getBoxColor(player)}
                   color="white"
                   px="10"
                   position="relative"
@@ -74,7 +81,7 @@ const ThreePreGameLobby: React.FC = () => {
                     transform="rotate(45deg)  translate(-50%, 50%)"
                     left="50%"
                     bottom="-4px"
-                    bg={player.isReady ? '#276749' : '#9B2C2C'}
+                    bg={getBoxColor(player)}
                     transition="0.2s"
                   />
                 </Box>

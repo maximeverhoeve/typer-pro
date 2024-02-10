@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, HStack, Tbody, Td, Text, Tr, keyframes } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  Tbody,
+  Td,
+  Text,
+  Tooltip,
+  Tr,
+  keyframes,
+} from '@chakra-ui/react';
 import { Player } from '../../../../../types/socketTypes';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useSocket } from '../../../../../hooks/useSocket';
@@ -18,9 +27,22 @@ const MultiplayerLobbyTableBody: React.FC<Props> = ({ players }) => {
   const { socket } = useSocket();
   const spinAnimation = `${arrowAnimation} infinite 1.5s ease`;
 
+  const getBoxColor = (player: Player): string => {
+    if (player.isLoaded) return 'orange.500';
+    if (player.isReady) return 'green.700';
+    return 'red.700';
+  };
+
+  const getStatusLabel = (player: Player): string => {
+    if (player.isLoaded) return 'In game';
+    if (player.isReady) return 'Ready';
+    return 'Unready';
+  };
+
   return (
     <Tbody>
-      {players.map(({ id, nickname, isReady }) => {
+      {players.map((player) => {
+        const { id, nickname } = player;
         const isMe = socket.id === id;
         return (
           <Tr key={id}>
@@ -34,15 +56,21 @@ const MultiplayerLobbyTableBody: React.FC<Props> = ({ players }) => {
             </Td>
             <Td>
               <HStack justify="flex-end">
-                <Box
-                  borderRadius="full"
-                  borderColor="white"
-                  bg={isReady ? 'green.700' : 'red.700'}
-                  w="20px"
-                  h="20px"
-                  transition="0.2s"
-                  flexShrink={0}
-                />
+                <Tooltip
+                  hasArrow
+                  placement="right"
+                  label={getStatusLabel(player)}
+                >
+                  <Box
+                    borderRadius="full"
+                    borderColor="white"
+                    bg={getBoxColor(player)}
+                    w="20px"
+                    h="20px"
+                    transition="0.2s"
+                    flexShrink={0}
+                  />
+                </Tooltip>
               </HStack>
             </Td>
           </Tr>

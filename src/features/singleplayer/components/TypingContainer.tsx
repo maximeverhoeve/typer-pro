@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import TypingInput from './TypingInput';
 import useTyping, { PhaseType } from 'react-typing-game-hook';
 import useSinglePlayerStore from '../../../store/useSinglePlayerStore';
+import { getAcc, getWPM } from '../../../utils/stats';
 
 interface Props {
   joke?: Joke;
@@ -64,23 +65,14 @@ const TypingContainer: React.FC<Props> = ({
     typerProps.actions.resetTyping();
   }, [text]);
 
-  const getWPM = (): number => {
-    if (endTime && startTime) {
-      const duration = (endTime - startTime) / 1000;
-      const totalWords = text.split(' ').length;
-      return Math.round((totalWords / duration) * 60);
-    }
-    return 0;
-  };
-
   useEffect(() => {
     if (phase === PhaseType.Started) {
       setIsGameStarted.on();
     }
     if (phase === PhaseType.Ended) {
       onFinish({
-        wpm: getWPM(),
-        acc: ((correctChar - errorChar) / text.length) * 100,
+        wpm: getWPM({ endTime, startTime, text }),
+        acc: getAcc({ correctChar, errorChar, text }),
       });
     }
   }, [phase]);

@@ -7,6 +7,7 @@ import MultiplayerLobbyTable from '../features/multiplayer/components/lobby/lobb
 import MultiplayerLobbyPlayerSettings from '../features/multiplayer/components/lobby/MultiplayerLobbyPlayerSettings';
 import { useNavigate, useParams } from 'react-router-dom';
 import useMultiplayerStore from '../store/useMultiplayerStore';
+import useRoomState from '../store/useRoomState';
 
 const PreGameLobby: React.FC = () => {
   const players = useMultiplayerStore((state) => state.players);
@@ -14,6 +15,8 @@ const PreGameLobby: React.FC = () => {
   const { socket } = useSocket();
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState<number>();
+  const status = useRoomState((state) => state.status);
+  const isInProgress = status === 'IN-PROGRESS';
   const me = players.find(({ id }) => id === socket.id);
 
   useEffect(() => {
@@ -46,7 +49,13 @@ const PreGameLobby: React.FC = () => {
   return (
     <Center>
       <VStack align="stretch" spacing="4" w="100%" maxW="xl">
-        {isEveryPlayerReady && <Text>Game starting in {countdown}</Text>}
+        {isInProgress ? (
+          <Text align="center">Game is still progress</Text>
+        ) : (
+          isEveryPlayerReady && (
+            <Text align="center">Game starting in {countdown}</Text>
+          )
+        )}
 
         <MultiplayerLobbyTable players={players} />
         <HStack justify="space-between" align="center">

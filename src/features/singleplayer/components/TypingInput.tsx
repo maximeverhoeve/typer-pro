@@ -8,9 +8,10 @@ interface Props {
   actions: TypingActionType;
   text: string;
   onRestart: () => void;
+  isDisabled?: boolean;
 }
 
-const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
+const TypingInput: FC<Props> = ({ text, onRestart, isDisabled, ...props }) => {
   const letterElements = useRef<HTMLDivElement>(null);
   const nextCharRef = useRef<HTMLParagraphElement>(null);
 
@@ -37,7 +38,9 @@ const TypingInput: FC<Props> = ({ text, onRestart, ...props }) => {
       /** Disabling going back in the text */
       // deleteTyping(control);
     } else if (letter.length === 1) {
-      insertTyping(letter);
+      if (!isDisabled) {
+        insertTyping(letter);
+      }
     }
   };
 

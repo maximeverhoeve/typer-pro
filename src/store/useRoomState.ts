@@ -6,6 +6,13 @@ interface RoomState {
   status: RoomStatus;
   countdown: number;
   text?: string;
+  leaderboard?: {
+    [playerId: string]: {
+      name: string;
+      wpm: number;
+      acc: number;
+    };
+  };
 }
 
 interface Actions {

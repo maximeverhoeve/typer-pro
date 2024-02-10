@@ -14,8 +14,6 @@ const MultiplayerLobby: React.FC = () => {
   const setPlayers = useMultiplayerStore((state) => state.setPlayers);
   const isInList = players.some(({ id }) => id === socket.id);
   const isFull = !isInList && players.length >= 4;
-  const roomStatus = useRoomState((state) => state.status);
-  const countdown = useRoomState((state) => state.countdown);
   const resetRoomState = useRoomState((state) => state.reset);
 
   useEffect(() => {
@@ -55,7 +53,6 @@ const MultiplayerLobby: React.FC = () => {
   return (
     <>
       <Outlet />
-      {`${roomStatus} - ${countdown}`}
     </>
   );
 };

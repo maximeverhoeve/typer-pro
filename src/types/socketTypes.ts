@@ -31,6 +31,13 @@ export interface RoomState {
   status: RoomStatus;
   countdown: number;
   text?: string;
+  leaderboard?: {
+    [playerId: string]: {
+      name: string;
+      wpm: number;
+      acc: number;
+    };
+  };
 }
 
 export interface ServerToClientEvents {
@@ -53,5 +60,5 @@ export interface ClientToServerEvents {
   'player:update': (payload: Partial<Player>) => void;
   'player:update-ready': (isReady: boolean) => void;
   'player:progress': (progress: number) => void;
-  'game:start': () => void;
+  'room:finished': (stats: { wpm: number; acc: number }) => void;
 }

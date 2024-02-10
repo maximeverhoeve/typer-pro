@@ -11,6 +11,7 @@ import Multiplayer from './features/multiplayer';
 import MultiplayerLobby from './features/multiplayer/components/lobby/MultiplayerLobby';
 import MultiplayerGame from './pages/MultiplayerGame';
 import PreGameLobby from './pages/PreGameLobby';
+import MultiplayerFinish from './pages/MultiplayerFinish';
 
 const Router: React.FC = () => {
   const location = useLocation();
@@ -53,6 +54,7 @@ const Router: React.FC = () => {
         <Route path="/multiplayer/:room" element={<MultiplayerLobby />}>
           <Route path="" element={<PreGameLobby />} />
           <Route path="game" element={<MultiplayerGame />} />
+          <Route path="finish" element={<MultiplayerFinish />} />
         </Route>
       </Routes>
     </AnimatePresence>

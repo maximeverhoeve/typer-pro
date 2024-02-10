@@ -4,7 +4,7 @@ import { collection, orderBy, query } from 'firebase/firestore';
 import React from 'react';
 import { firestore } from '../../firebase';
 import usePlayerStore from '../../store/usePlayerStore';
-import CustomTable from './components/leaderboard-table/LeaderBoardTable';
+import LeaderBoardTable from './components/leaderboard-table/LeaderBoardTable';
 import { LeaderboardData } from './types/LeaderBoardTypes';
 
 interface Props {
@@ -31,7 +31,10 @@ const LeaderBoardDetail: React.FC<Props> = ({ id }) => {
     );
   }
   return (
-    <CustomTable data={firebaseData as LeaderboardData[]} playerId={playerId} />
+    <LeaderBoardTable
+      data={firebaseData as LeaderboardData[]}
+      playerId={playerId}
+    />
   );
 };
 
