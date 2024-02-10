@@ -1,7 +1,7 @@
 import React from 'react';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, OrthographicCamera } from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import SceneRouter from '../SceneRouter';
 import SceneLights from './SceneLights';
@@ -67,8 +67,15 @@ const ThreeEnvironment: React.FC = () => {
         {showPerf && <Perf position="bottom-left" />}
         <fog attach="fog" args={['#121212', 10, 20]} />
         <SceneLights />
+        <OrthographicCamera
+          makeDefault
+          position={[-4, 3, 3]}
+          near={0.1}
+          far={200}
+          zoom={100}
+        />
 
-        <OrbitControls enabled={showOrbit} />
+        {/* <OrbitControls enabled={true} /> */}
         <SceneRouter />
 
         <SceneShadows />
