@@ -75,7 +75,7 @@ const ThreeEnvironment: React.FC = () => {
           zoom={100}
         />
 
-        {/* <OrbitControls enabled={true} /> */}
+        <OrbitControls enabled={true} />
         <SceneRouter />
 
         <SceneShadows />
