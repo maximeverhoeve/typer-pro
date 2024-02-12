@@ -6,6 +6,7 @@ import ThreeSuspense from './components/ThreeSuspense';
 import Tree from './components/Tree';
 import Ground from './components/Ground';
 import InBoundsGroup from './components/InBoundsGroup';
+import GameEnvironment from './components/GameEnvironment';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 
@@ -44,15 +45,16 @@ const MainScene: React.FC = () => {
 
   return (
     <ThreeSuspense>
-      {/* <Tree position={[0, 0, -1.5]} /> */}
-      <group position={[0, 0, 0]} ref={movingScene}>
+      {/* <group position={[0, 0, 0]} ref={movingScene}>
         {Array.from({ length: 9 }).map((_, i) => (
-          <InBoundsGroup position={[1 * i, 0, -1.5]} key={i}>
-            <Tree hide={shouldTreeBeHidden(1 * i)} />
-          </InBoundsGroup>
+          <Tree
+            position={[1 * i, 0, -1.5]}
+            key={i}
+            hide={shouldTreeBeHidden(1 * i)}
+          />
         ))}
       </group>
-      <Ground position={[0, -0.1, 0]} />
+      <Ground position={[0, -0.1, 0]} /> */}
     </ThreeSuspense>
   );
 };

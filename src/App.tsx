@@ -31,7 +31,7 @@ const App: React.FC = () => {
       <SocketProvider>
         <MittProvider>
           <ChakraProvider theme={customThemeDark}>
-            <Leva collapsed hidden />
+            <Leva collapsed />
             <Grid
               templateRows={`${getSceneHeight()} auto`}
               bg="background"

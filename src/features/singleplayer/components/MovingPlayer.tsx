@@ -29,7 +29,7 @@ const MovingPlayer = forwardRef<Group>((_, ref) => {
     const refPos = (ref as MutableRefObject<Group | null>).current?.position;
     if (ref && refPos) {
       animation = gsap.to(refPos, {
-        z: progress * 100,
+        x: progress * 100,
         duration: 0.5,
         onStart: () => {
           if (!isFinishing && progress !== 0) setAnimation('Running');

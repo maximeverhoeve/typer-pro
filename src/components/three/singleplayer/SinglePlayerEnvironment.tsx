@@ -3,12 +3,15 @@ import React from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { useGraph } from '@react-three/fiber';
 import { SkinnedMesh } from 'three';
+import GameEnvironment from '../components/GameEnvironment';
 
 const SinglePlayerEnvironment: React.FC = () => {
   const { scene } = useGLTF('/singleplayer-scene.glb');
   const { nodes } = useGraph(scene);
   const bakedTexture = useTexture('/baked.jpg');
   bakedTexture.flipY = false;
+
+  return <GameEnvironment position={[0, -1.5, 0]} rotation={[0, 0, 0]} />;
 
   return (
     <>
