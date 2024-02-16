@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useLayoutEffect } from 'react';
 import useSinglePlayerStore from '../../../store/useSinglePlayerStore';
 import Player from '../../../components/three/components/Player';
 import { useBoolean } from '@chakra-ui/react';
+import Soldier from '../../../components/three/components/Soldier';
 
 const MovingGhost: React.FC = () => {
   const progress = useSinglePlayerStore((state) => state.progress);
@@ -11,7 +12,7 @@ const MovingGhost: React.FC = () => {
   const isGameStarted = useSinglePlayerStore((state) => state.isGameStarted);
   const [isMovingGhost, setIsMovingGhost] = useBoolean();
 
-  const previousZ = useSpringValue(0, {
+  const previousX = useSpringValue(0, {
     from: 0,
     onStart: setIsMovingGhost.on,
     onRest: setIsMovingGhost.off,
@@ -20,33 +21,34 @@ const MovingGhost: React.FC = () => {
 
   useEffect(() => {
     if (isGameStarted && progress > 0) {
-      previousZ.start({
+      previousX.start({
         to: 100,
         config: {
           duration: (previousTime || 0) * 1000,
         },
       });
     } else {
-      previousZ.stop();
-      previousZ.set(0);
+      previousX.stop();
+      previousX.set(0);
     }
   }, [isGameStarted, progress]);
 
   useLayoutEffect(() => {
-    previousZ.stop();
-    previousZ.set(0);
+    previousX.stop();
+    previousX.set(0);
   }, []);
 
   return (
     <a.group
-      position-z={previousZ}
-      visible={!!previousTime && previousZ.get() !== 100}
+      position-x={previousX}
+      visible={!!previousTime && previousX.get() !== 100}
     >
       <Suspense fallback={null}>
-        <Player
+        <Soldier
           isGhost
-          animation={isMovingGhost ? 'Running' : 'Standing'}
-          color="#008585"
+          rotation={[0, Math.PI / 2, 0]}
+          position={[0, -1.5, 0]}
+          animation={isMovingGhost ? 'sprint' : 'idle'}
         />
       </Suspense>
     </a.group>

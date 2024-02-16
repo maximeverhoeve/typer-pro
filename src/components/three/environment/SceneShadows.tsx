@@ -11,17 +11,6 @@ const SceneShadows: React.FC = () => {
         opacity={opacity}
         blur={blur}
       /> */}
-      <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -1.51, 55]}
-        scale-y={120}
-        scale-x={20}
-        receiveShadow
-      >
-        <planeGeometry />
-        {/* <meshBasicMaterial color="green" wireframe /> */}
-        <shadowMaterial color="black" opacity={0.8} />
-      </mesh>
     </>
   );
 };

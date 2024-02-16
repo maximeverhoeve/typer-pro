@@ -22,7 +22,7 @@ const Ground: React.FC<GroupProps> = (props) => {
     if (groundRef.current) {
       gsap.set(groundRef.current.scale, { y: 0 });
       gsap.to(groundRef.current.scale, {
-        y: 0.3,
+        y: 0.4,
         ease: Power2.easeOut,
         duration: 1,
       });
@@ -31,7 +31,13 @@ const Ground: React.FC<GroupProps> = (props) => {
 
   return (
     <group {...props}>
-      <Clone ref={groundRef} scale={[5, 1, 5]} object={nodes.block_1} />
+      <Clone
+        ref={groundRef}
+        position-x={0.5}
+        position-z={-0.5}
+        scale={[1, 1, 1]}
+        object={nodes.block_1}
+      />
     </group>
   );
 };

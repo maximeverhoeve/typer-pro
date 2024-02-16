@@ -16,7 +16,7 @@ const SceneLights: React.FC = () => {
 
   return (
     <>
-      <ambientLight intensity={1} />
+      <ambientLight intensity={0.8} />
       {/* <directionalLight position={position} intensity={intensity} /> */}
     </>
   );

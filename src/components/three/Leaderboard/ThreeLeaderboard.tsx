@@ -5,6 +5,7 @@ import { GroupProps, useFrame, useThree } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Float, Text } from '@react-three/drei';
+import LeaderboardEnvironment from './LeaderboardEnvironment';
 
 interface LocationType {
   state?: {
@@ -46,6 +47,24 @@ const ThreeLeaderboard: React.FC = () => {
       camera.lookAt(playerRef.current.position);
     }
   });
+
+  return (
+    <>
+      <directionalLight
+        position={[10, 10, 5]}
+        castShadow
+        intensity={0.7}
+        shadow-mapSize={2048 * 2}
+        shadow-bias={-0.001}
+      >
+        <orthographicCamera
+          attach="shadow-camera"
+          args={[-8.5, 15, 8.5, -8.5, 0.1, 20]}
+        />
+      </directionalLight>
+      <LeaderboardEnvironment />
+    </>
+  );
 
   return (
     <>

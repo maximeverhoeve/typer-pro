@@ -10,6 +10,9 @@ import gsap, { Power2 } from 'gsap';
 import React, { useEffect, useRef } from 'react';
 import { Group } from 'three';
 import { GLTF } from 'three-stdlib';
+import RunningLane from './RunningLane';
+import EnvironmentBorder from './EnvironmentBorder';
+import Ground from './Ground';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,10 +23,20 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GameEnvironment: React.FC<GroupProps> = (props) => {
-  const { nodes } = useGLTF('/objects/typer-pro-environment.glb') as GLTFResult;
+interface Props {
+  /** Amount of lanes for the players to run on */
+  lanes?: number;
+}
+
+/** Calculated lane depth (z-axis) */
+const LANE_DEPTH = 1.0285;
+
+const GameEnvironment: React.FC<GroupProps & Props> = ({
+  lanes = 3,
+  ...props
+}) => {
+  const { nodes } = useGLTF('/objects/game-environment.glb') as GLTFResult;
   const groundRef = useRef<Group>(null);
-  const { camera } = useThree();
 
   useEffect(() => {
     if (groundRef.current) {
@@ -31,32 +44,39 @@ const GameEnvironment: React.FC<GroupProps> = (props) => {
       gsap.to(groundRef.current.scale, {
         y: 1,
         ease: Power2.easeOut,
-        duration: 1,
+        duration: 0.6,
       });
     }
   }, []);
 
   return (
     <group {...props}>
-      <directionalLight
-        position={[10, 10, 1]}
-        castShadow
-        intensity={0.7}
-        shadow-mapSize={2048}
-        shadow-bias={-0.001}
+      <mesh
+        position={[30, 0, -4]}
+        scale={[100, 30, 1]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        receiveShadow
       >
-        <orthographicCamera
-          attach="shadow-camera"
-          args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]}
-        />
-      </directionalLight>
+        <planeGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial metalness={0} roughness={1} color="#000" />
+      </mesh>
       <Clone
+        position={[
+          nodes.environment.position.x,
+          nodes.environment.position.y,
+          -(lanes * LANE_DEPTH) - 0.6,
+        ]}
         ref={groundRef}
         object={nodes.environment}
         castShadow
         receiveShadow
       />
-      <SoftShadows samples={16} />
+
+      {Array.from({ length: lanes }).map((_, index) => (
+        <RunningLane position-z={-index} key={index} />
+      ))}
+      <EnvironmentBorder position-z={-LANE_DEPTH - 0.1} />
+      <SoftShadows samples={16} size={50} />
     </group>
   );
 };
