@@ -7,8 +7,8 @@ import {
   Text,
   Tooltip,
   Tr,
-  keyframes,
 } from '@chakra-ui/react';
+import { keyframes } from '@emotion/react';
 import { Player } from '../../../../../types/socketTypes';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useSocket } from '../../../../../hooks/useSocket';

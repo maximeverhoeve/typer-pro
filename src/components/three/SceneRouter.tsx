@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import MainScene from './MainScene';
 import ThreeSingelplayer from './singleplayer/ThreeSingleplayer';
 import ThreeLeaderboard from './Leaderboard/ThreeLeaderboard';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { Text } from '@react-three/drei';
 import ThreePreGameLobby from './multiplayer/ThreePreGameLobby';
 import ThreeMultiplayerGame from './multiplayer/ThreeMultiplayerGame';
@@ -26,7 +26,7 @@ const SceneRouter: React.FC = () => {
     }
     return pathname;
   };
-  const debouncedPath = useDebounce<string>(getPathnameWithConvertion(), 500);
+  const [debouncedPath] = useDebounceValue<string>(getPathnameWithConvertion(), 500);
   const pregameLobbyRegex = /^\/multiplayer\/[a-zA-Z0-9]+$/;
 
   const getScene = (): SCENE => {
