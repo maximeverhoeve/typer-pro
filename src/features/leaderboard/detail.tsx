@@ -1,6 +1,6 @@
 import { Center, Spinner } from '@chakra-ui/react';
-import { useFirestoreQueryData } from '@react-query-firebase/firestore';
-import { collection, orderBy, query } from 'firebase/firestore';
+import { useQuery } from '@tanstack/react-query';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import React from 'react';
 import { firestore } from '../../firebase';
 import usePlayerStore from '../../store/usePlayerStore';
@@ -13,15 +13,16 @@ interface Props {
 
 const LeaderBoardDetail: React.FC<Props> = ({ id }) => {
   const { id: playerId } = usePlayerStore((state) => state);
-  const collectionRef = collection(firestore, `leaderboard/${id}/players`);
-  const ref = query(collectionRef, orderBy('wpm', 'desc'));
 
-  const { isLoading, data: firebaseData } = useFirestoreQueryData(
-    ['leaderboard', id],
-    ref,
-    // Subscribing will make sure it updates instantly when the database changes
-    { subscribe: true },
-  );
+  const { isLoading, data: firebaseData } = useQuery({
+    queryKey: ['leaderboard', id],
+    queryFn: async () => {
+      const collectionRef = collection(firestore, `leaderboard/${id}/players`);
+      const ref = query(collectionRef, orderBy('wpm', 'desc'));
+      const snapshot = await getDocs(ref);
+      return snapshot.docs.map((doc) => doc.data() as LeaderboardData);
+    },
+  });
 
   if (isLoading || !firebaseData) {
     return (

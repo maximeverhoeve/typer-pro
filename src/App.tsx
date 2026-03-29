@@ -4,12 +4,12 @@ import './App.css';
 import { customThemeDark } from './theme';
 import Header from './components/Header';
 import Router from './Router';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ThreeEnvironment from './components/three/environment/ThreeEnvironment';
 import { Leva } from 'leva';
 import { MittProvider } from './hooks/useMitt';
 import { useLocation } from 'react-router-dom';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { SocketProvider } from './hooks/useSocket';
 
 const queryClient = new QueryClient();
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const { pathname } = useLocation();
   const [transitionEnded, setTransitionEnded] = useBoolean();
   /** Debounced because of animations */
-  const debouncedPath = useDebounce<string>(pathname, 500);
+  const [debouncedPath] = useDebounceValue<string>(pathname, 500);
 
   const getSceneHeight = (): string => {
     if (debouncedPath === '/multiplayer') return '20%';

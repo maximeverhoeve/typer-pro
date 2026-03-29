@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'standard-with-typescript'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'], // Your TypeScript files extension
@@ -13,7 +13,7 @@ module.exports = {
       // If you don't want to extend any rules, you don't need an `extends` attribute.
       extends: [
         'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/recommended-type-checked',
       ],
       parserOptions: {
         project: ['./tsconfig.json'], // Specify it only for TypeScript files
